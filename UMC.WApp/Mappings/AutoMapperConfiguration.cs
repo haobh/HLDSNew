@@ -20,6 +20,7 @@ namespace UMC.WApp.Mappings
                 cfg.CreateMap<Station,StationViewModel>();
                 cfg.CreateMap<Quantity, QuantitiesViewModel>();
                 cfg.CreateMap<TimeSetting, TimeSettingViewModel>();
+                cfg.CreateMap<TimeDaily, TimeDailyViewModel>();
             });
         }
     }

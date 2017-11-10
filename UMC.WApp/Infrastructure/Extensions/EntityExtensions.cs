@@ -23,11 +23,11 @@ namespace UMC.WApp.Infrastructure.Extensions
         {
             station.ID = stationVm.ID;
             station.Name = stationVm.Name;
+            station.NumberConfig = stationVm.NumberConfig;
         }
         public static void UpdateQuantities(this Quantity quantity, QuantitiesViewModel quantitiesVm)
         {
             quantity.ID = quantitiesVm.ID;
-            quantity.NumberConfig = quantitiesVm.NumberConfig;
             quantity.ShiftCode = quantitiesVm.ShiftCode;
             quantity.Type = quantitiesVm.Type;
             quantity.LineID = quantitiesVm.LineID;
@@ -62,6 +62,16 @@ namespace UMC.WApp.Infrastructure.Extensions
             timeSetting.T10 = timeSettingVm.T10;
             timeSetting.T11 = timeSettingVm.T11;
             timeSetting.T12 = timeSettingVm.T12;
+        }
+        public static void UpdateTimeDaily(this TimeDaily timeDaily, TimeDailyViewModel timeDailyVm)
+        {
+            timeDaily.ID = timeDailyVm.ID;
+            timeDaily.Time1 = timeDailyVm.Time1;
+            timeDaily.Time2 = timeDailyVm.Time2;
+            timeDaily.Time3 = timeDailyVm.Time3;
+            timeDaily.Time4 = timeDailyVm.Time4;
+            timeDaily.Time5 = timeDailyVm.Time5;
+            timeDaily.Time6 = timeDailyVm.Time6;
         }
     }
 }

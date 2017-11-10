@@ -54,6 +54,7 @@
     <Compile Include="Entity\Quantity.cs" />
     <Compile Include="Entity\Shift.cs" />
     <Compile Include="Entity\Station.cs" />
+    <Compile Include="Entity\TimeDaily.cs" />
     <Compile Include="Entity\TimeSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

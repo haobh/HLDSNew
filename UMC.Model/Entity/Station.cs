@@ -13,6 +13,8 @@ namespace UMC.Model.Entity
 
         public string Name { set; get; }
 
+        public float? NumberConfig { set; get; }
+
         public virtual IEnumerable<LineStation> LineStation { set; get; }
 
         public virtual IEnumerable<Quantity> Quantities { set; get; }

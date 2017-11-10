@@ -36,6 +36,7 @@ namespace UMC.WApp
                 {
                     StationViewModel stationVm = new StationViewModel();
                     stationVm.Name = txtName.Text;
+                    stationVm.NumberConfig = float.Parse(txtNumberConfig.Text);
                  
                     Station newStation = new Station();
                     newStation.UpdateStation(stationVm);
@@ -65,6 +66,7 @@ namespace UMC.WApp
         public void ClearData()
         {
             txtName.Text = "";
+            txtNumberConfig.Text = "";
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -75,6 +77,7 @@ namespace UMC.WApp
                 {
                     StationViewModel stationVm = new StationViewModel();
                     stationVm.Name = txtName.Text;
+                    stationVm.NumberConfig = float.Parse(txtNumberConfig.Text);
 
                     var id = Convert.ToInt32(dgvStation.Rows[dgvStation.CurrentRow.Index].Cells[0].Value);
                     stationVm.ID = id;
@@ -104,6 +107,7 @@ namespace UMC.WApp
         private void dgvStation_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             txtName.Text = dgvStation.Rows[e.RowIndex].Cells[1].Value.ToString();
+            txtNumberConfig.Text = dgvStation.Rows[e.RowIndex].Cells[2].Value.ToString();
             btnAddNew.Enabled = false;
         }
     }

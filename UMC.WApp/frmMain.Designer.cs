@@ -36,8 +36,8 @@
             this.mnsStation = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsTimeSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.reportDailyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnsMonthlyReport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsReportChart = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsMothlyChartReport = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -64,8 +64,8 @@
             this.mnsStation,
             this.mnsTimeSetting,
             this.reportDailyToolStripMenuItem,
-            this.mnsMonthlyReport,
-            this.mnsReportChart});
+            this.mnsReportChart,
+            this.mnsMothlyChartReport});
             this.mnsReportDaily.Name = "mnsReportDaily";
             this.mnsReportDaily.Size = new System.Drawing.Size(50, 20);
             this.mnsReportDaily.Text = "Menu";
@@ -73,51 +73,51 @@
             // mnsShift
             // 
             this.mnsShift.Name = "mnsShift";
-            this.mnsShift.Size = new System.Drawing.Size(157, 22);
+            this.mnsShift.Size = new System.Drawing.Size(189, 22);
             this.mnsShift.Text = "Shift";
             this.mnsShift.Click += new System.EventHandler(this.mnsShift_Click);
             // 
             // mnsLine
             // 
             this.mnsLine.Name = "mnsLine";
-            this.mnsLine.Size = new System.Drawing.Size(157, 22);
+            this.mnsLine.Size = new System.Drawing.Size(189, 22);
             this.mnsLine.Text = "Line";
             this.mnsLine.Click += new System.EventHandler(this.mnsLine_Click);
             // 
             // mnsStation
             // 
             this.mnsStation.Name = "mnsStation";
-            this.mnsStation.Size = new System.Drawing.Size(157, 22);
+            this.mnsStation.Size = new System.Drawing.Size(189, 22);
             this.mnsStation.Text = "Station";
             this.mnsStation.Click += new System.EventHandler(this.mnsStation_Click);
             // 
             // mnsTimeSetting
             // 
             this.mnsTimeSetting.Name = "mnsTimeSetting";
-            this.mnsTimeSetting.Size = new System.Drawing.Size(157, 22);
-            this.mnsTimeSetting.Text = "Time Setting";
+            this.mnsTimeSetting.Size = new System.Drawing.Size(189, 22);
+            this.mnsTimeSetting.Text = "Time T";
             this.mnsTimeSetting.Click += new System.EventHandler(this.mnsTimeSetting_Click);
             // 
             // reportDailyToolStripMenuItem
             // 
             this.reportDailyToolStripMenuItem.Name = "reportDailyToolStripMenuItem";
-            this.reportDailyToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.reportDailyToolStripMenuItem.Text = "Daily Report";
+            this.reportDailyToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.reportDailyToolStripMenuItem.Text = "Daily Input";
             this.reportDailyToolStripMenuItem.Click += new System.EventHandler(this.reportDailyToolStripMenuItem_Click);
-            // 
-            // mnsMonthlyReport
-            // 
-            this.mnsMonthlyReport.Name = "mnsMonthlyReport";
-            this.mnsMonthlyReport.Size = new System.Drawing.Size(157, 22);
-            this.mnsMonthlyReport.Text = "Monthly Report";
-            this.mnsMonthlyReport.Click += new System.EventHandler(this.mnsMonthlyReport_Click);
             // 
             // mnsReportChart
             // 
             this.mnsReportChart.Name = "mnsReportChart";
-            this.mnsReportChart.Size = new System.Drawing.Size(157, 22);
-            this.mnsReportChart.Text = "Report Chart";
+            this.mnsReportChart.Size = new System.Drawing.Size(189, 22);
+            this.mnsReportChart.Text = "Daily Chart Report";
             this.mnsReportChart.Click += new System.EventHandler(this.mnsReportChart_Click);
+            // 
+            // mnsMothlyChartReport
+            // 
+            this.mnsMothlyChartReport.Name = "mnsMothlyChartReport";
+            this.mnsMothlyChartReport.Size = new System.Drawing.Size(189, 22);
+            this.mnsMothlyChartReport.Text = "Monthly Chart Report";
+            this.mnsMothlyChartReport.Click += new System.EventHandler(this.mnsMothlyChartReport_Click);
             // 
             // pictureBox1
             // 
@@ -192,8 +192,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnsStation;
         private System.Windows.Forms.ToolStripMenuItem mnsTimeSetting;
         private System.Windows.Forms.ToolStripMenuItem reportDailyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mnsMonthlyReport;
         private System.Windows.Forms.ToolStripMenuItem mnsReportChart;
+        private System.Windows.Forms.ToolStripMenuItem mnsMothlyChartReport;
     }
 }
 

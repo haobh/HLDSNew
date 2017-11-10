@@ -18,6 +18,7 @@ namespace UMC.Data
         public DbSet<Quantity> Quantities { set; get; }
         public DbSet<LineStation> LineStations { set; get; }
         public DbSet<TimeSetting> TimeSettings { set; get; }
+        public DbSet<TimeDaily> TimeDailies { set; get; }
 
         public static HLDSDbContext Create()
         {

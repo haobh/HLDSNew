@@ -53,18 +53,18 @@ namespace UMC.WApp
             frmreport.Show();
         }
 
-        private void mnsMonthlyReport_Click(object sender, EventArgs e)
-        {
-            frmMonthlyReport frmmonthlyreport = new frmMonthlyReport();
-            frmmonthlyreport.MdiParent = this;
-            frmmonthlyreport.Show();
-        }
-
         private void mnsReportChart_Click(object sender, EventArgs e)
         {
             frmReportChart frmreportChart = new frmReportChart();
             frmreportChart.MdiParent = this;
             frmreportChart.Show();
+        }
+
+        private void mnsMothlyChartReport_Click(object sender, EventArgs e)
+        {
+            frmMonthlyReport frmmonthlyreport = new frmMonthlyReport();
+            frmmonthlyreport.MdiParent = this;
+            frmmonthlyreport.Show();
         }
     }
 }

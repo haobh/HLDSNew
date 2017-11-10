@@ -15,8 +15,6 @@ namespace UMC.Model.Entity
 
         public DateTime UpdatedDate { set; get; }
 
-        public float? NumberConfig { set; get; }
-
         public string Type { set; get; }
 
         public float? T1 { set; get; }

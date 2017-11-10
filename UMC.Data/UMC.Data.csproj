@@ -69,6 +69,18 @@
     <Compile Include="Migrations\201711010914102_addColumnShift.Designer.cs">
       <DependentUpon>201711010914102_addColumnShift.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711090826286_addTimeDaily.cs" />
+    <Compile Include="Migrations\201711090826286_addTimeDaily.Designer.cs">
+      <DependentUpon>201711090826286_addTimeDaily.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711100932470_addColumnNumberConfig.cs" />
+    <Compile Include="Migrations\201711100932470_addColumnNumberConfig.Designer.cs">
+      <DependentUpon>201711100932470_addColumnNumberConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711101038087_removeColumnNumber.cs" />
+    <Compile Include="Migrations\201711101038087_removeColumnNumber.Designer.cs">
+      <DependentUpon>201711101038087_removeColumnNumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UMCDbContext.cs" />
@@ -98,6 +110,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711010914102_addColumnShift.resx">
       <DependentUpon>201711010914102_addColumnShift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711090826286_addTimeDaily.resx">
+      <DependentUpon>201711090826286_addTimeDaily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711100932470_addColumnNumberConfig.resx">
+      <DependentUpon>201711100932470_addColumnNumberConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711101038087_removeColumnNumber.resx">
+      <DependentUpon>201711101038087_removeColumnNumber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

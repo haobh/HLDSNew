@@ -12,6 +12,6 @@ namespace UMC.WApp.ViewModel
 
         public string Name { set; get; }
 
-        public int LineID { set; get; }
+        public float? NumberConfig { set; get; }
     }
 }

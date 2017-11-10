@@ -14,8 +14,6 @@ namespace UMC.WApp.ViewModel
 
         public DateTime UpdatedDate { set; get; }
 
-        public float? NumberConfig { set; get; }
-
         public int LineID { set; get; }
 
         public int StationID { set; get; }

@@ -114,6 +114,12 @@
     <Compile Include="frmStation.Designer.cs">
       <DependentUpon>frmStation.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTimeDaily.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTimeDaily.Designer.cs">
+      <DependentUpon>frmTimeDaily.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTimeSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\GetSumLineViewModel.cs" />
     <Compile Include="ViewModel\GetSumQuantitiesViewModel.cs" />
     <Compile Include="ViewModel\LineStationViewModel.cs" />
     <Compile Include="ViewModel\LineViewModel.cs" />
@@ -143,6 +150,7 @@
     <Compile Include="ViewModel\ReportChartViewModel.cs" />
     <Compile Include="ViewModel\ShiftViewModel.cs" />
     <Compile Include="ViewModel\StationViewModel.cs" />
+    <Compile Include="ViewModel\TimeDailyViewModel.cs" />
     <Compile Include="ViewModel\TimeSettingViewModel.cs" />
     <EmbeddedResource Include="frmInputQuantities.resx">
       <DependentUpon>frmInputQuantities.cs</DependentUpon>
@@ -170,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmStation.resx">
       <DependentUpon>frmStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTimeDaily.resx">
+      <DependentUpon>frmTimeDaily.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTimeSetting.resx">
       <DependentUpon>frmTimeSetting.cs</DependentUpon>

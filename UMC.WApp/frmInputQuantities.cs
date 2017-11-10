@@ -69,7 +69,7 @@ namespace UMC.WApp
 
         public void LoadDefaultShiftCode()
         {
-            var timeNow = Convert.ToDateTime(DateTime.Now.ToShortTimeString());
+            /*var timeNow = Convert.ToDateTime(DateTime.Now.ToShortTimeString());
             string startTime = "08:00 AM";
             var time1 = Convert.ToDateTime(startTime);
             string endTime = "20:00 PM";
@@ -82,6 +82,8 @@ namespace UMC.WApp
             }
 
             var shiftCode = db.Shifts.Where(x => x.Name == nameShift).ToList();
+            */
+            var shiftCode = db.Shifts.ToList();
             cbbShiftCode.DataSource = shiftCode;
             cbbShiftCode.DisplayMember = "Name";
             cbbShiftCode.ValueMember = "ID";
@@ -97,7 +99,6 @@ namespace UMC.WApp
                 gbShift.Show();
                 var nameStation = db.Stations.Find(id);
                 lblStation.Text = "Add for: " + nameStation.Name;
-
                 lblShift.Text = "Choose: " + cbbShiftCode.Text;
                 LoadDataQuantity();
             }
@@ -228,8 +229,8 @@ namespace UMC.WApp
 
                 //Tính Phần trăm rate = NumberConfig /(s=timeSetting/Sản lượng PCS)
                 float? numberConfig = 0;
-                var getQuantities = model;
-                foreach (var item in getQuantities)
+                var getNumberConfigStation = db.Stations.ToList();
+                foreach (var item in getNumberConfigStation.Where(x => x.ID == idStation))
                 {
                     numberConfig = item.NumberConfig;
                 }
@@ -335,7 +336,7 @@ namespace UMC.WApp
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtNumber.Text) && !string.IsNullOrEmpty(cbbType.SelectedItem.ToString()))
+                if (!string.IsNullOrEmpty(cbbType.SelectedItem.ToString()))
                 {
                     var dateNow = DateTime.Now;
                     var id = Convert.ToInt32(dgvStation.Rows[dgvStation.CurrentRow.Index].Cells[0].Value);
@@ -344,7 +345,6 @@ namespace UMC.WApp
                     quantitiesVm.UpdatedDate = DateTime.Now;
                     quantitiesVm.LineID = _idLine;
                     quantitiesVm.StationID = id;
-                    quantitiesVm.NumberConfig = float.Parse(txtNumber.Text);
                     quantitiesVm.ShiftCode = cbbShiftCode.Text;
                     quantitiesVm.Type = cbbType.SelectedItem.ToString();
 
@@ -352,6 +352,7 @@ namespace UMC.WApp
                                                         x.CreatedDate.Month == dateNow.Month &&
                                                         x.CreatedDate.Year == dateNow.Year &&
                                                         x.Type == quantitiesVm.Type &&
+                                                        x.LineID == _idLine &&
                                                         x.StationID == id &&
                                                         x.ShiftCode == cbbShiftCode.Text).ToList();
 
@@ -495,31 +496,11 @@ namespace UMC.WApp
             }
         }
 
-        private void cbConfig_Click(object sender, EventArgs e)
-        {
-            CheckBox chk = (CheckBox)sender;
-            float param;
-            if (float.TryParse(txtNumber.Text, out param))
-            {
-                if (chk.Checked)
-                    txtNumber.Enabled = false;
-                else
-                    txtNumber.Enabled = true;
-            }
-            else
-            {
-                chk.CheckState = CheckState.Unchecked;
-                MessageBox.Show("Bạn phải nhập số", "Error",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNumber.Clear();
-            }
-        }
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtNumber.Text) && !string.IsNullOrEmpty(cbbType.SelectedItem.ToString()))
+                if (!string.IsNullOrEmpty(cbbType.SelectedItem.ToString()))
                 {
                     QuantitiesViewModel quantitiesVm = new QuantitiesViewModel();
                     if (txtT1.Text.Length > 0)
@@ -626,7 +607,6 @@ namespace UMC.WApp
                     quantitiesVm.StationID = quantities.StationID;
                     quantitiesVm.CreatedDate = quantities.CreatedDate;
                     quantitiesVm.UpdatedDate = quantities.UpdatedDate;
-                    quantitiesVm.NumberConfig = float.Parse(txtNumber.Text);
                     quantitiesVm.Type = cbbType.SelectedItem.ToString();
                     quantitiesVm.ShiftCode = cbbShiftCode.Text;
 
@@ -675,7 +655,6 @@ namespace UMC.WApp
                 txtT11.Text = quantities.T11.ToString();
                 txtT12.Text = quantities.T12.ToString();
                 cbbType.Text = quantities.Type.ToString();
-                txtNumber.Text = quantities.NumberConfig.ToString();
                 cbbShiftCode.Text = quantities.ShiftCode.ToString();
                 btnAddNew.Enabled = false;
             }

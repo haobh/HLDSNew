@@ -18,10 +18,14 @@ namespace UMC.WApp.ViewModel
 
         public string NameStation { set; get; }
 
+        public string ShiftCode { set; get; }
+
         public DateTime CreateDate { set; get; }
 
-        public float? TotalShiftA { set; get; }
+        public float? Second { set; get; }
 
-        public float? TotalShiftB { set; get; }
+        public float? TotalQuantities{ set; get; }
+
+        public float? TotalRate { set; get; }
     }
 }

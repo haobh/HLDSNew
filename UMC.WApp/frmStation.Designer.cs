@@ -32,16 +32,19 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvStation = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantities = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LineStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.txtNumberConfig = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumberConfig = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantities = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LineStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStation)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -76,6 +79,7 @@
             this.dgvStation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
             this.Name,
+            this.NumberConfig,
             this.Quantities,
             this.LineStation});
             this.dgvStation.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -84,33 +88,6 @@
             this.dgvStation.Size = new System.Drawing.Size(553, 270);
             this.dgvStation.TabIndex = 0;
             this.dgvStation.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvStation_RowHeaderMouseClick);
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            // 
-            // Name
-            // 
-            this.Name.DataPropertyName = "Name";
-            this.Name.HeaderText = "Name";
-            this.Name.Name = "Name";
-            // 
-            // Quantities
-            // 
-            this.Quantities.DataPropertyName = "Quantities";
-            this.Quantities.HeaderText = "Quantities";
-            this.Quantities.Name = "Quantities";
-            this.Quantities.Visible = false;
-            // 
-            // LineStation
-            // 
-            this.LineStation.DataPropertyName = "LineStation";
-            this.LineStation.HeaderText = "LineStation";
-            this.LineStation.Name = "LineStation";
-            this.LineStation.Visible = false;
             // 
             // btnAddNew
             // 
@@ -131,6 +108,8 @@
             this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Controls.Add(this.btnDelete);
             this.groupBox1.Controls.Add(this.btnAddNew);
+            this.groupBox1.Controls.Add(this.txtNumberConfig);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtName);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(36, 39);
@@ -162,9 +141,25 @@
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
+            // txtNumberConfig
+            // 
+            this.txtNumberConfig.Location = new System.Drawing.Point(140, 82);
+            this.txtNumberConfig.Name = "txtNumberConfig";
+            this.txtNumberConfig.Size = new System.Drawing.Size(217, 20);
+            this.txtNumberConfig.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(56, 89);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Number Config";
+            // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(133, 46);
+            this.txtName.Location = new System.Drawing.Point(140, 46);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(217, 20);
             this.txtName.TabIndex = 1;
@@ -172,11 +167,44 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 53);
+            this.label1.Location = new System.Drawing.Point(96, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
+            // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // Name
+            // 
+            this.Name.DataPropertyName = "Name";
+            this.Name.HeaderText = "Name";
+            this.Name.Name = "Name";
+            // 
+            // NumberConfig
+            // 
+            this.NumberConfig.DataPropertyName = "NumberConfig";
+            this.NumberConfig.HeaderText = "Number Config";
+            this.NumberConfig.Name = "NumberConfig";
+            // 
+            // Quantities
+            // 
+            this.Quantities.DataPropertyName = "Quantities";
+            this.Quantities.HeaderText = "Quantities";
+            this.Quantities.Name = "Quantities";
+            this.Quantities.Visible = false;
+            // 
+            // LineStation
+            // 
+            this.LineStation.DataPropertyName = "LineStation";
+            this.LineStation.HeaderText = "LineStation";
+            this.LineStation.Name = "LineStation";
+            this.LineStation.Visible = false;
             // 
             // frmStation
             // 
@@ -206,8 +234,11 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtNumberConfig;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumberConfig;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantities;
         private System.Windows.Forms.DataGridViewTextBoxColumn LineStation;
     }
