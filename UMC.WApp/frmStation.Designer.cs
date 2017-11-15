@@ -41,7 +41,7 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StationName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumberConfig = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantities = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LineStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,7 +78,7 @@
             this.dgvStation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
-            this.Name,
+            this.StationName,
             this.NumberConfig,
             this.Quantities,
             this.LineStation});
@@ -180,11 +180,11 @@
             this.ID.Name = "ID";
             this.ID.Visible = false;
             // 
-            // Name
+            // StationName
             // 
-            this.Name.DataPropertyName = "Name";
-            this.Name.HeaderText = "Name";
-            this.Name.Name = "Name";
+            this.StationName.DataPropertyName = "StationName";
+            this.StationName.HeaderText = "Station Name";
+            this.StationName.Name = "StationName";
             // 
             // NumberConfig
             // 
@@ -213,6 +213,7 @@
             this.ClientSize = new System.Drawing.Size(615, 549);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Name = "frmStation";
             this.Text = "Stations";
             this.Load += new System.EventHandler(this.frmStation_Load);
             this.groupBox2.ResumeLayout(false);
@@ -237,7 +238,7 @@
         private System.Windows.Forms.TextBox txtNumberConfig;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StationName;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberConfig;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantities;
         private System.Windows.Forms.DataGridViewTextBoxColumn LineStation;

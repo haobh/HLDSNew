@@ -41,6 +41,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.mnsTimeT = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsTimeLine = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -93,9 +95,12 @@
             // 
             // mnsTimeSetting
             // 
+            this.mnsTimeSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnsTimeT,
+            this.mnsTimeLine});
             this.mnsTimeSetting.Name = "mnsTimeSetting";
             this.mnsTimeSetting.Size = new System.Drawing.Size(189, 22);
-            this.mnsTimeSetting.Text = "Time T";
+            this.mnsTimeSetting.Text = "Time Config";
             this.mnsTimeSetting.Click += new System.EventHandler(this.mnsTimeSetting_Click);
             // 
             // reportDailyToolStripMenuItem
@@ -155,6 +160,20 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "© 2017 UMCVN PD-IT. All rights reserved | Design by Haobh ";
             // 
+            // mnsTimeT
+            // 
+            this.mnsTimeT.Name = "mnsTimeT";
+            this.mnsTimeT.Size = new System.Drawing.Size(152, 22);
+            this.mnsTimeT.Text = "Time T";
+            this.mnsTimeT.Click += new System.EventHandler(this.mnsTimeT_Click);
+            // 
+            // mnsTimeLine
+            // 
+            this.mnsTimeLine.Name = "mnsTimeLine";
+            this.mnsTimeLine.Size = new System.Drawing.Size(152, 22);
+            this.mnsTimeLine.Text = "Time Line";
+            this.mnsTimeLine.Click += new System.EventHandler(this.mnsTimeLine_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,6 +213,8 @@
         private System.Windows.Forms.ToolStripMenuItem reportDailyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnsReportChart;
         private System.Windows.Forms.ToolStripMenuItem mnsMothlyChartReport;
+        private System.Windows.Forms.ToolStripMenuItem mnsTimeT;
+        private System.Windows.Forms.ToolStripMenuItem mnsTimeLine;
     }
 }
 

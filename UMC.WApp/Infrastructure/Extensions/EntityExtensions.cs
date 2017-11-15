@@ -22,7 +22,7 @@ namespace UMC.WApp.Infrastructure.Extensions
         public static void UpdateStation(this Station station, StationViewModel stationVm)
         {
             station.ID = stationVm.ID;
-            station.Name = stationVm.Name;
+            station.StationName = stationVm.StationName;
             station.NumberConfig = stationVm.NumberConfig;
         }
         public static void UpdateQuantities(this Quantity quantity, QuantitiesViewModel quantitiesVm)

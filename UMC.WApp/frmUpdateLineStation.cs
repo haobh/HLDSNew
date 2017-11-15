@@ -33,7 +33,7 @@ namespace UMC.WApp
         {
             var model = db.Stations.ToList();
             ((ListBox)clbStationUpdate).DataSource = model;
-            ((ListBox)clbStationUpdate).DisplayMember = "Name";
+            ((ListBox)clbStationUpdate).DisplayMember = "StationName";
             ((ListBox)clbStationUpdate).ValueMember = "ID";
         }
         private void btnSelect_Click(object sender, EventArgs e)

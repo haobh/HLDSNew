@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 using UMC.Data;
 using UMC.WApp.ViewModel;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace UMC.WApp
 {
@@ -18,482 +14,687 @@ namespace UMC.WApp
         HLDSDbContext db = null;
         public frmReportChart()
         {
-            InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+            InitializeComponent();            
             db = new HLDSDbContext();
         }
 
-        public void LoadData()
+        public void LoadChartWireSass()
         {
-            var dateNow = DateTime.Now;
             var timeDaily = db.TimeDailies.ToList();
-            var query = from station in db.Stations
-                        join quantities in db.Quantities
-                        on station.ID equals quantities.StationID
-
-                        join line in db.Lines
-                        on quantities.LineID equals line.ID
-
-                        where quantities.CreatedDate.Day == dateNow.Day &&
-                                  quantities.CreatedDate.Month == dateNow.Month &&
-                                  quantities.CreatedDate.Year == dateNow.Year
-                        group quantities by new { quantities.LineID, line.Name, quantities.ShiftCode } into fGroup
-                        select new ReportChartViewModel
-                        {
-                            LineId = fGroup.Key.LineID,
-                            NameLine = fGroup.Key.Name,
-                            ShiftCode = fGroup.Key.ShiftCode,
-                            TotalQuantities = fGroup.Sum(g => g.T1) +
-                                          fGroup.Sum(g => g.T2) +
-                                          fGroup.Sum(g => g.T3) +
-                                          fGroup.Sum(g => g.T4) +
-                                          fGroup.Sum(g => g.T5) +
-                                          fGroup.Sum(g => g.T6) +
-                                          fGroup.Sum(g => g.T7) +
-                                          fGroup.Sum(g => g.T8) +
-                                          fGroup.Sum(g => g.T9) +
-                                          fGroup.Sum(g => g.T10) +
-                                          fGroup.Sum(g => g.T11) +
-                                          fGroup.Sum(g => g.T12)
-                        };
-
-            DataTable dt = new DataTable("WIRE");
-            dt.Columns.AddRange(new DataColumn[4] { new DataColumn("Id", typeof(int)),
-                                new DataColumn("NameLine", typeof(string)),
-                                new DataColumn("ShiftCode", typeof(string)),
-                                new DataColumn("Total", typeof(string))});
-
-            foreach (var item in query.OrderBy(x => x.NameLine))
-            {
-                dt.Rows.Add(item.LineId, item.NameLine, item.ShiftCode, item.TotalQuantities);
-            }
-
-            chartWire.DataSource = dt;
-            chartWire.Titles.Add("WIRE-SASS");
-            chartWire.Series.Add("WIRE");
-            chartWire.Series["WIRE"].XValueMember = "ShiftCode";
-            chartWire.Series["WIRE"].YValueMembers = "Total";
-            chartWire.Series["WIRE"].ChartType = SeriesChartType.Column;
-            chartWire.Series["WIRE"].IsValueShownAsLabel = true;
-            chartWire.Series[0].IsVisibleInLegend = true;
-            chartWire.ChartAreas[0].AxisX.Title = "Line";
-            chartWire.ChartAreas[0].AxisY.Title = "Quantities";
-            chartWire.Series[0].Color = Color.Green;
-
-            chartWire.DataBind();
-        }
-        /*public void LoadData2()
-        {
-            var dateNow = DateTime.Now;
-            var model = db.Quantities.ToList();
-            //DataTable dt = new DataTable();
-            //dt.Columns.AddRange(new DataColumn[16] { new DataColumn("Id", typeof(string)),
-            //                    new DataColumn("NameLine", typeof(string)),
-            //                    new DataColumn("ShiftCode", typeof(string)),
-            //                    new DataColumn("TotalShift1A", typeof(string)),
-            //                    new DataColumn("TotalShift1A", typeof(string)),
-            //                    new DataColumn("TotalShift1B", typeof(string)),
-            //                    new DataColumn("TotalShift2A", typeof(string)),
-            //                    new DataColumn("TotalShift2B", typeof(string)),
-            //                    new DataColumn("TotalShift3A", typeof(string)),
-            //                    new DataColumn("TotalShift3B", typeof(string)),
-            //                    new DataColumn("TotalShift4A", typeof(string)),
-            //                    new DataColumn("TotalShift4B", typeof(string)),
-            //                    new DataColumn("TotalShift5A", typeof(string)),
-            //                    new DataColumn("TotalShift5B", typeof(string)),
-            //                    new DataColumn("TotalShift6A",typeof(string)),
-            //                    new DataColumn("TotalShift6B",typeof(string))});
-            var timeDailies = db.TimeDailies.ToList();
-            //Hiển thị SumT
-            var query = from station in db.Stations
-                        join quantities in db.Quantities
-                        on station.ID equals quantities.StationID
-
-                        join line in db.Lines
-                        on quantities.LineID equals line.ID
-
-                        where quantities.CreatedDate.Day == dateNow.Day &&
-                                  quantities.CreatedDate.Month == dateNow.Month &&
-                                  quantities.CreatedDate.Year == dateNow.Year
-                        group quantities by new { quantities.LineID, line.Name, quantities.ShiftCode } into q
-                        select new GetSumLineViewModel
-                        {
-                            Id = q.Key.LineID,
-                            NameLine = q.Key.Name,
-                            ShiftCode = q.Key.ShiftCode,
-                            TotalShift1A = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift A").Sum(x => x.T1) +
-                                        q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift1B = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift B").Sum(x => x.T1) +
-                                        q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift2A = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift A").Sum(x => x.T1) +
-                                         q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift2B = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift B").Sum(x => x.T1) +
-                                         q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-
-                            TotalShift3A = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift A").Sum(x => x.T1) +
-                                         q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift3B = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift B").Sum(x => x.T1) +
-                                         q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift4A = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift A").Sum(x => x.T1) +
-                                         q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift4B = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift B").Sum(x => x.T1) +
-                                        q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift5A = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift A").Sum(x => x.T1) +
-                                        q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift5B = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift B").Sum(x => x.T1) +
-                                        q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift6A = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift A").Sum(x => x.T1) +
-                                       q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                            TotalShift6B = q.Where(x => x.LineID == q.Key.LineID && x.ShiftCode == "Shift B").Sum(x => x.T1) +
-                                       q.Sum(x => x.T2) +
-                                        q.Sum(x => x.T3) +
-                                        q.Sum(x => x.T4) +
-                                        q.Sum(x => x.T5) +
-                                        q.Sum(x => x.T6) +
-                                        q.Sum(x => x.T7) +
-                                        q.Sum(x => x.T8) +
-                                        q.Sum(x => x.T9) +
-                                        q.Sum(x => x.T10) +
-                                        q.Sum(x => x.T11) +
-                                        q.Sum(x => x.T12),
-                        };
-            //dgvReportChart.DataSource = query.ToList();
-        }*/
-       /* public void LoadChartWireSass()
-        {
-            string rateLine1A = "";
-            string rateLine1B = "";
-            string rateLine2A = "";
-            string rateLine2B = "";
-            string rateLine3A = "";
-            string rateLine3B = "";
-            string rateLine4A = "";
-            string rateLine4B = "";
-            string rateLine5A = "";
-            string rateLine5B = "";
-            string rateLine6A = "";
-            string rateLine6B = "";
-            var dateNow = DateTime.Now;
-            var query = from station in db.Stations
-                        join quantities in db.Quantities
-                        on station.ID equals quantities.StationID
-
-                        join line in db.Lines
-                        on quantities.LineID equals line.ID
-
-                        where quantities.CreatedDate.Day == dateNow.Day &&
-                                  quantities.CreatedDate.Month == dateNow.Month &&
-                                  quantities.CreatedDate.Year == dateNow.Year
-                        group quantities by new { quantities.LineID, line.Name, quantities.ShiftCode } into fGroup
-                        select new ReportChartViewModel
-                        {
-                            LineId = fGroup.Key.LineID,
-                            NameLine = fGroup.Key.Name,
-                            ShiftCode = fGroup.Key.ShiftCode,
-                            TotalQuantities = fGroup.Sum(g => g.T1) +
-                                          fGroup.Sum(g => g.T2) +
-                                          fGroup.Sum(g => g.T3) +
-                                          fGroup.Sum(g => g.T4) +
-                                          fGroup.Sum(g => g.T5) +
-                                          fGroup.Sum(g => g.T6) +
-                                          fGroup.Sum(g => g.T7) +
-                                          fGroup.Sum(g => g.T8) +
-                                          fGroup.Sum(g => g.T9) +
-                                          fGroup.Sum(g => g.T10) +
-                                          fGroup.Sum(g => g.T11) +
-                                          fGroup.Sum(g => g.T12)
-                        };
-
-            DataTable dt = new DataTable("WIRE");
-            dt.Columns.AddRange(new DataColumn[4] { new DataColumn("Id", typeof(int)),
-                                new DataColumn("NameLine", typeof(string)),
-                                new DataColumn("ShiftCode", typeof(string)),
-                                new DataColumn("TotalQuantities", typeof(string))});
-
-            foreach (var item in query.OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
-            {
-                dt.Rows.Add(item.LineId, item.NameLine, item.ShiftCode, item.TotalQuantities);
-            }
-            chartWire.DataSource = dt;
-            chartWire.Titles.Add("WIRE-SASS");
-            chartWire.Series.Add("WIRE");
-            chartWire.Series["WIRE"].XValueMember = "ShiftCode";
-            chartWire.Series["WIRE"].YValueMembers = "TotalQuantities";
-            chartWire.Series["WIRE"].ChartType = SeriesChartType.Column;
-            chartWire.Series["WIRE"].IsValueShownAsLabel = true;
-            chartWire.Series[0].IsVisibleInLegend = true;
-            chartWire.ChartAreas[0].AxisX.Title = "Line";
-            chartWire.ChartAreas[0].AxisY.Title = "Quantities";
-            chartWire.Series["WIRE"]["PixelPointWidth"] = "15";
-            chartWire.Series[0].Color = Color.Green;
-            chartWire.DataBind();
-
-            //Biểu đồ Line Rate  
-            var queryTotalLineShift = from station in db.Stations
-                                      join quantities in db.Quantities
-                                      on station.ID equals quantities.StationID
-
-                                      join line in db.Lines
-                                      on quantities.LineID equals line.ID
-
-                                      where quantities.CreatedDate.Day == dateNow.Day &&
-                                                quantities.CreatedDate.Month == dateNow.Month &&
-                                                quantities.CreatedDate.Year == dateNow.Year
-                                      group quantities by new { quantities.LineID, line.Name, quantities.ShiftCode } into q
-                                      select new GetSumLineViewModel
-                                      {
-                                          Id = q.Key.LineID,
-                                          ShiftCode = q.Key.ShiftCode,
-                                          TotalShift1A = q.Where(x =>x.LineID==33 && x.ShiftCode == "Shift A").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift1B = q.Where(x =>x.LineID == 33 && x.ShiftCode == "Shift B").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift2A = q.Where(x => x.LineID == 26 && x.ShiftCode == "Shift A").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift2B = q.Where(x => x.LineID == 26 && x.ShiftCode == "Shift B").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift3A = q.Where(x => x.LineID == 30 && x.ShiftCode == "Shift A").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift3B = q.Where(x => x.LineID == 30 && x.ShiftCode == "Shift B").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift4A = q.Where(x => x.LineID == 31 && x.ShiftCode == "Shift A").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift4B = q.Where(x => x.LineID == 31 && x.ShiftCode == "Shift B").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift5A = q.Where(x => x.LineID == 34 && x.ShiftCode == "Shift A").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift5B = q.Where(x => x.LineID == 34 && x.ShiftCode == "Shift B").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift6A = q.Where(x => x.LineID == 36 && x.ShiftCode == "Shift A").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                          TotalShift6B = q.Where(x => x.LineID == 36 && x.ShiftCode == "Shift B").Sum(x => x.T1 + x.T2 + x.T3 + x.T4 + x.T5 + x.T6 + x.T7 + x.T8 + x.T9 + x.T10 + x.T11 + x.T12),
-                                      };
-
-            DataTable dtRate = new DataTable();
-            dtRate.Columns.AddRange(new DataColumn[14] { new DataColumn("Id", typeof(int)),
-                                new DataColumn("NameLine", typeof(string)),
-                                new DataColumn("TotalShift1A", typeof(string)),
-                                new DataColumn("TotalShift1B", typeof(string)),
-                                new DataColumn("TotalShift2A", typeof(string)),
-                                new DataColumn("TotalShift2B", typeof(string)),
-                                new DataColumn("TotalShift3A", typeof(string)),
-                                new DataColumn("TotalShift3B", typeof(string)),
-                                new DataColumn("TotalShift4A", typeof(string)),
-                                new DataColumn("TotalShift4B", typeof(string)),
-                                new DataColumn("TotalShift5A", typeof(string)),
-                                new DataColumn("TotalShift5B", typeof(string)),
-                                new DataColumn("TotalShift6A", typeof(string)),
-                                new DataColumn("TotalShift6B", typeof(string))});
-            var timeDaily = db.TimeDailies.ToList();
+            var numberConfig = db.Stations.ToList();
             float? numberConfigWire = 0;
-            float? numberConfigOPT1 = 0;
-            float? numberConfigOPT2 = 0;
-            float? numberConfigPU1 = 0;
-            float? numberConfigPU2 = 0;
-            float? numberConfigYoke = 0;
-            float? numberConfigLD = 0;
-            var getNumberConfig = db.Stations.ToList();
-            foreach (var item in getNumberConfig)
+
+            foreach (var item in numberConfig.Where(x => x.StationName == "Ngoại Quan WIRE"))
             {
-                numberConfig = item.;
+                numberConfigWire = item.NumberConfig;
             }
-            foreach (var queryTotal in queryTotalLineShift)
+
+            var dateNow = DateTime.Now;
+            var query = from station in db.Stations
+                        join quantities in db.Quantities
+                        on station.ID equals quantities.StationID
+
+                        join line in db.Lines
+                        on quantities.LineID equals line.ID
+
+                        where quantities.CreatedDate.Day == dateNow.Day &&
+                                  quantities.CreatedDate.Month == dateNow.Month &&
+                                  quantities.CreatedDate.Year == dateNow.Year
+                        group quantities by new { quantities.LineID, line.Name, station.StationName,station.ID,quantities.ShiftCode } into fGroup
+                        select new ReportChartViewModel
+                        {
+                            LineId = fGroup.Key.LineID,
+                            NameLine = fGroup.Key.Name,
+                            NameStation = fGroup.Key.StationName,
+                            ShiftCode = fGroup.Key.ShiftCode,
+                            TotalQuantities = fGroup.Sum(g => g.T1) +
+                                          fGroup.Sum(g => g.T2) +
+                                          fGroup.Sum(g => g.T3) +
+                                          fGroup.Sum(g => g.T4) +
+                                          fGroup.Sum(g => g.T5) +
+                                          fGroup.Sum(g => g.T6) +
+                                          fGroup.Sum(g => g.T7) +
+                                          fGroup.Sum(g => g.T8) +
+                                          fGroup.Sum(g => g.T9) +
+                                          fGroup.Sum(g => g.T10) +
+                                          fGroup.Sum(g => g.T11) +
+                                          fGroup.Sum(g => g.T12)
+                        };
+
+            DataTable dt = new DataTable("WIRE");
+            dt.Columns.AddRange(new DataColumn[5] { new DataColumn("Id", typeof(int)),
+                                new DataColumn("NameLine", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("TotalQuantities", typeof(float)),
+                                new DataColumn("Rate", typeof(string))});
+
+            foreach (var item in query.Where(x=>x.NameStation== "Ngoại Quan WIRE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
             {
                 foreach (var time in timeDaily)
                 {
-                    if (queryTotal.TotalShift1A != null)
+                    if (item.NameLine == "Line 1")
                     {
-                        var t1A = numberConfig / (time.Time1 / queryTotal.TotalShift1A) * 100;
-                        rateLine1A = Convert.ToString(string.Format("{0:#,###.##}%", t1A));
+                        var rate = (numberConfigWire / (time.Time1 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
                     }
-
-                    if (queryTotal.TotalShift1B != null)
+                    if (item.NameLine == "Line 2")
                     {
-                        var t1B = numberConfig / (time.Time1 / queryTotal.TotalShift1B) * 100;
-                        rateLine1A = Convert.ToString(string.Format("{0:#,###.##} %", t1B));
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
                     }
-
-                    if (queryTotal.TotalShift2A != null)
+                    if (item.NameLine == "Line 3")
                     {
-                        var t2A = numberConfig / (time.Time2 / queryTotal.TotalShift2A) * 100;
-                        rateLine2A = Convert.ToString(string.Format("{0:#,###.##} %", t2A));
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
                     }
-
-                    if (queryTotal.TotalShift2B != null)
+                    if (item.NameLine == "Line 4")
                     {
-                        var t2B = numberConfig / (time.Time2 / queryTotal.TotalShift2B) * 100;
-                        rateLine2B = Convert.ToString(string.Format("{0:#,###.##} %", t2B));
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
                     }
-
-                    if (queryTotal.TotalShift3A != null)
+                    if (item.NameLine == "Line 5")
                     {
-                        var t3A = numberConfig / (time.Time3 / queryTotal.TotalShift3A) * 100;
-                        rateLine3A = Convert.ToString(string.Format("{0:#,###.##} %", t3A));
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
                     }
-
-                    if (queryTotal.TotalShift3B != null)
+                    if (item.NameLine == "Line 6")
                     {
-                        var t3B = numberConfig / (time.Time3 / queryTotal.TotalShift3B) * 100;
-                        rateLine3B = Convert.ToString(string.Format("{0:#,###.##} %", t3B));
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
                     }
-
-                    if (queryTotal.TotalShift4A != null)
-                    {
-                        var t4A = numberConfig / (time.Time4 / queryTotal.TotalShift4A) * 100;
-                        rateLine4A = Convert.ToString(string.Format("{0:#,###.##} %", t4A));
-                    }
-
-                    if (queryTotal.TotalShift4B != null)
-                    {
-                        var t4B = numberConfig / (time.Time4 / queryTotal.TotalShift4B) * 100;
-                        rateLine4B = Convert.ToString(string.Format("{0:#,###.##} %", t4B));
-                    }
-
-                    if (queryTotal.TotalShift5A != null)
-                    {
-                        var t5A = numberConfig / (time.Time5 / queryTotal.TotalShift5A) * 100;
-                        rateLine5A = Convert.ToString(string.Format("{0:#,###.##} %", t5A));
-                    }
-
-                    if (queryTotal.TotalShift5B != null)
-                    {
-                        var t5B = numberConfig / (time.Time5 / queryTotal.TotalShift5B) * 100;
-                        rateLine3A = Convert.ToString(string.Format("{0:#,###.##} %", t5B));
-                    }
-
-                    if (queryTotal.TotalShift6A != null)
-                    {
-                        var t6A = numberConfig / (time.Time6 / queryTotal.TotalShift6A) * 100;
-                        rateLine6A = Convert.ToString(string.Format("{0:#,###.##} %", t6A));
-                    }
-
-                    if (queryTotal.TotalShift6B != null)
-                    {
-                        var t6B = numberConfig / (time.Time6 / queryTotal.TotalShift6B) * 100;
-                        rateLine3A = Convert.ToString(string.Format("{0:#,###.##} %", t6B));
-                    }
-                    dtRate.Rows.Add(
-                      queryTotal.Id,
-                      queryTotal.NameLine,
-                      rateLine1A.ToString(),
-                      rateLine1B.ToString(),
-                      rateLine2A.ToString(),
-                      rateLine2B.ToString(),
-                      rateLine3A.ToString(),
-                      rateLine3B.ToString(),
-                      rateLine4A.ToString(),
-                      rateLine4B.ToString(),
-                      rateLine5A.ToString(),
-                      rateLine5B.ToString(),
-                      rateLine6A.ToString(),
-                      rateLine6B.ToString()
-                  );
                 }
+                dt.Rows.Add(item.LineId,item.NameLine,item.ShiftCode,item.TotalQuantities,item.TotalRate );
             }
-            dgvTest.DataSource = dtRate;
-        }*/
+
+            DataTable dtShow = new DataTable();
+            dtShow.Columns.AddRange(new DataColumn[4] { new DataColumn("NameLine", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("TotalQuantities", typeof(float)),
+                                new DataColumn("Rate", typeof(string))});
+
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan WIRE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                foreach (var time in timeDaily)
+                {
+                    if (item.NameLine == "Line 1")
+                    {
+                        var rate = (numberConfigWire / (time.Time1 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 2")
+                    {
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 3")
+                    {
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 4")
+                    {
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 5")
+                    {
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 6")
+                    {
+                        var rate = (numberConfigWire / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                }
+                dtShow.Rows.Add(item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRateDisplay);
+            }
+
+            chartWire.Series.Clear();
+            chartWire.DataSource = dt;
+            chartWire.Titles.Add("WIRE-SASS");
+            chartWire.ChartAreas[0].AxisX.Title = "Line";
+            chartWire.ChartAreas[0].AxisY.Title = "Quantities";
+
+            chartWire.Series.Add("Total");
+            chartWire.Series[0].XValueMember = "ShiftCode";
+            chartWire.Series[0].YValueMembers = "TotalQuantities";
+            chartWire.Series[0].ChartType = SeriesChartType.Column;
+            chartWire.Series[0].IsValueShownAsLabel = true;
+            chartWire.Series[0].IsVisibleInLegend = true;
+            chartWire.Series[0]["PixelPointWidth"] = "30";
+            chartWire.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+
+
+            chartWire.Series.Add("Rate");
+            chartWire.Series[1].XValueMember = "ShiftCode";
+            chartWire.Series[1].YValueMembers = "TotalQuantities";
+            chartWire.Series[1].ChartType = SeriesChartType.Line;
+            chartWire.Series[1].BorderWidth = 3;
+            chartWire.Series[1].IsValueShownAsLabel = false;
+            chartWire.Series[1].IsVisibleInLegend = true;
+            chartWire.DataBind();
+
+            dgvWire.DataSource = dtShow;
+
+        }
+        public void LoadChartOPT1()
+        {
+            var timeDaily = db.TimeDailies.ToList();
+            var numberConfig = db.Stations.ToList();
+            float? numberConfigOPT1 = 0;
+
+            foreach (var item in numberConfig.Where(x => x.StationName == "Ngoại Quan OPT1"))
+            {
+                numberConfigOPT1 = item.NumberConfig;
+            }
+
+
+            var dateNow = DateTime.Now;
+            var query = from station in db.Stations
+                        join quantities in db.Quantities
+                        on station.ID equals quantities.StationID
+
+                        join line in db.Lines
+                        on quantities.LineID equals line.ID
+
+                        where quantities.CreatedDate.Day == dateNow.Day &&
+                                  quantities.CreatedDate.Month == dateNow.Month &&
+                                  quantities.CreatedDate.Year == dateNow.Year
+                        group quantities by new { quantities.LineID, line.Name, station.StationName, station.ID, quantities.ShiftCode } into fGroup
+                        select new ReportChartViewModel
+                        {
+                            LineId = fGroup.Key.LineID,
+                            NameLine = fGroup.Key.Name,
+                            NameStation = fGroup.Key.StationName,
+                            ShiftCode = fGroup.Key.ShiftCode,
+                            TotalQuantities = fGroup.Sum(g => g.T1) +
+                                          fGroup.Sum(g => g.T2) +
+                                          fGroup.Sum(g => g.T3) +
+                                          fGroup.Sum(g => g.T4) +
+                                          fGroup.Sum(g => g.T5) +
+                                          fGroup.Sum(g => g.T6) +
+                                          fGroup.Sum(g => g.T7) +
+                                          fGroup.Sum(g => g.T8) +
+                                          fGroup.Sum(g => g.T9) +
+                                          fGroup.Sum(g => g.T10) +
+                                          fGroup.Sum(g => g.T11) +
+                                          fGroup.Sum(g => g.T12)
+                        };
+
+            DataTable dt = new DataTable("OPT1");
+            dt.Columns.AddRange(new DataColumn[5] { new DataColumn("Id", typeof(int)),
+                                new DataColumn("NameLine", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("TotalQuantities", typeof(float)),
+                                new DataColumn("Rate", typeof(string))});
+
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan OPT1").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                foreach (var time in timeDaily)
+                {
+                    if (item.NameLine == "Line 1")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time1 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 2")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 3")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 4")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 5")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 6")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                }
+                dt.Rows.Add(item.LineId, item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRate);
+            }
+
+            DataTable dtShow = new DataTable();
+            dtShow.Columns.AddRange(new DataColumn[4] { new DataColumn("NameLine", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("TotalQuantities", typeof(float)),
+                                new DataColumn("Rate", typeof(string))});
+
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan OPT1").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                foreach (var time in timeDaily)
+                {
+                    if (item.NameLine == "Line 1")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time1 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 2")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 3")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 4")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 5")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 6")
+                    {
+                        var rate = (numberConfigOPT1 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                }
+                dtShow.Rows.Add(item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRateDisplay);
+            }
+
+            chartOPT1.Series.Clear();
+            chartOPT1.DataSource = dt;
+            chartOPT1.Titles.Add("OPT1");
+            chartOPT1.ChartAreas[0].AxisX.Title = "Line";
+            chartOPT1.ChartAreas[0].AxisY.Title = "Quantities";
+
+            chartOPT1.Series.Add("Total");
+            chartOPT1.Series[0].XValueMember = "ShiftCode";
+            chartOPT1.Series[0].YValueMembers = "TotalQuantities";
+            chartOPT1.Series[0].ChartType = SeriesChartType.Column;
+            chartOPT1.Series[0].IsValueShownAsLabel = true;
+            chartOPT1.Series[0].IsVisibleInLegend = true;
+            chartOPT1.Series[0]["PixelPointWidth"] = "30";
+            chartOPT1.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+
+
+            chartOPT1.Series.Add("Rate");
+            chartOPT1.Series[1].XValueMember = "ShiftCode";
+            chartOPT1.Series[1].YValueMembers = "TotalQuantities";
+            chartOPT1.Series[1].ChartType = SeriesChartType.Line;
+            chartOPT1.Series[1].BorderWidth = 3;
+            chartOPT1.Series[1].IsValueShownAsLabel = false;
+            chartOPT1.Series[1].IsVisibleInLegend = true;
+            chartOPT1.DataBind();
+
+            dgvOPT1.DataSource = dtShow;
+        }
+        
+        public void LoadChartOPT2()
+        {
+            var timeDaily = db.TimeDailies.ToList();
+            var numberConfig = db.Stations.ToList();
+            float? numberConfigOPT2 = 0;
+
+            foreach (var item in numberConfig.Where(x => x.StationName == "Ngoại Quan OPT2"))
+            {
+                numberConfigOPT2 = item.NumberConfig;
+            }
+
+            var dateNow = DateTime.Now;
+            var query = from station in db.Stations
+                        join quantities in db.Quantities
+                        on station.ID equals quantities.StationID
+
+                        join line in db.Lines
+                        on quantities.LineID equals line.ID
+
+                        where quantities.CreatedDate.Day == dateNow.Day &&
+                                  quantities.CreatedDate.Month == dateNow.Month &&
+                                  quantities.CreatedDate.Year == dateNow.Year
+                        group quantities by new { quantities.LineID, line.Name, station.StationName, station.ID, quantities.ShiftCode } into fGroup
+                        select new ReportChartViewModel
+                        {
+                            LineId = fGroup.Key.LineID,
+                            NameLine = fGroup.Key.Name,
+                            NameStation = fGroup.Key.StationName,
+                            ShiftCode = fGroup.Key.ShiftCode,
+                            TotalQuantities = fGroup.Sum(g => g.T1) +
+                                          fGroup.Sum(g => g.T2) +
+                                          fGroup.Sum(g => g.T3) +
+                                          fGroup.Sum(g => g.T4) +
+                                          fGroup.Sum(g => g.T5) +
+                                          fGroup.Sum(g => g.T6) +
+                                          fGroup.Sum(g => g.T7) +
+                                          fGroup.Sum(g => g.T8) +
+                                          fGroup.Sum(g => g.T9) +
+                                          fGroup.Sum(g => g.T10) +
+                                          fGroup.Sum(g => g.T11) +
+                                          fGroup.Sum(g => g.T12)
+                        };
+
+            DataTable dt = new DataTable("OPT2");
+            dt.Columns.AddRange(new DataColumn[5] { new DataColumn("Id", typeof(int)),
+                                new DataColumn("NameLine", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("TotalQuantities", typeof(float)),
+                                new DataColumn("Rate", typeof(string))});
+
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan OPT2").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                foreach (var time in timeDaily)
+                {
+                    if (item.NameLine == "Line 1")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time1 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 2")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 3")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 4")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 5")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 6")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                }
+                dt.Rows.Add(item.LineId, item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRate);
+            }
+
+            DataTable dtShow = new DataTable();
+            dtShow.Columns.AddRange(new DataColumn[4] { new DataColumn("NameLine", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("TotalQuantities", typeof(float)),
+                                new DataColumn("Rate", typeof(string))});
+
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan OPT2").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                foreach (var time in timeDaily)
+                {
+                    if (item.NameLine == "Line 1")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time1 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 2")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 3")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 4")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 5")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 6")
+                    {
+                        var rate = (numberConfigOPT2 / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                }
+                dtShow.Rows.Add(item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRateDisplay);
+            }
+
+            chartOPT2.Series.Clear();
+            chartOPT2.DataSource = dt;
+            chartOPT2.Titles.Add("OPT2");
+            chartOPT2.ChartAreas[0].AxisX.Title = "Line";
+            chartOPT2.ChartAreas[0].AxisY.Title = "Quantities";
+
+            chartOPT2.Series.Add("Total");
+            chartOPT2.Series[0].XValueMember = "ShiftCode";
+            chartOPT2.Series[0].YValueMembers = "TotalQuantities";
+            chartOPT2.Series[0].ChartType = SeriesChartType.Column;
+            chartOPT2.Series[0].IsValueShownAsLabel = true;
+            chartOPT2.Series[0].IsVisibleInLegend = true;
+            chartOPT2.Series[0]["PixelPointWidth"] = "30";
+            chartOPT2.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+
+            chartOPT2.Series.Add("Rate");
+            chartOPT2.Series[1].XValueMember = "ShiftCode";
+            chartOPT2.Series[1].YValueMembers = "TotalQuantities";
+            chartOPT2.Series[1].ChartType = SeriesChartType.Line;
+            chartOPT2.Series[1].BorderWidth = 3;
+            chartOPT2.Series[1].IsValueShownAsLabel = false;
+            chartOPT2.Series[1].IsVisibleInLegend = true;
+            chartOPT2.DataBind();
+
+            dgvOPT2.DataSource = dtShow;
+        }
+        public void LoadChartYOKE()
+        {
+            var timeDaily = db.TimeDailies.ToList();
+            var numberConfig = db.Stations.ToList();
+            float? numberConfigYOKE = 0;
+
+            foreach (var item in numberConfig.Where(x => x.StationName == "Ngoại Quan YOKE"))
+            {
+                numberConfigYOKE = item.NumberConfig;
+            }
+
+
+            var dateNow = DateTime.Now;
+            var query = from station in db.Stations
+                        join quantities in db.Quantities
+                        on station.ID equals quantities.StationID
+
+                        join line in db.Lines
+                        on quantities.LineID equals line.ID
+
+                        where quantities.CreatedDate.Day == dateNow.Day &&
+                                  quantities.CreatedDate.Month == dateNow.Month &&
+                                  quantities.CreatedDate.Year == dateNow.Year
+                        group quantities by new { quantities.LineID, line.Name, station.StationName, station.ID, quantities.ShiftCode } into fGroup
+                        select new ReportChartViewModel
+                        {
+                            LineId = fGroup.Key.LineID,
+                            NameLine = fGroup.Key.Name,
+                            NameStation = fGroup.Key.StationName,
+                            ShiftCode = fGroup.Key.ShiftCode,
+                            TotalQuantities = fGroup.Sum(g => g.T1) +
+                                          fGroup.Sum(g => g.T2) +
+                                          fGroup.Sum(g => g.T3) +
+                                          fGroup.Sum(g => g.T4) +
+                                          fGroup.Sum(g => g.T5) +
+                                          fGroup.Sum(g => g.T6) +
+                                          fGroup.Sum(g => g.T7) +
+                                          fGroup.Sum(g => g.T8) +
+                                          fGroup.Sum(g => g.T9) +
+                                          fGroup.Sum(g => g.T10) +
+                                          fGroup.Sum(g => g.T11) +
+                                          fGroup.Sum(g => g.T12)
+                        };
+
+            DataTable dt = new DataTable("YOKE");
+            dt.Columns.AddRange(new DataColumn[5] { new DataColumn("Id", typeof(int)),
+                                new DataColumn("NameLine", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("TotalQuantities", typeof(float)),
+                                new DataColumn("Rate", typeof(string))});
+
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan YOKE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                foreach (var time in timeDaily)
+                {
+                    if (item.NameLine == "Line 1")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time1 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 2")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 3")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 4")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 5")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                    if (item.NameLine == "Line 6")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRate = rate;
+                    }
+                }
+                dt.Rows.Add(item.LineId, item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRate);
+            }
+
+            DataTable dtShow = new DataTable();
+            dtShow.Columns.AddRange(new DataColumn[4] { new DataColumn("NameLine", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("TotalQuantities", typeof(float)),
+                                new DataColumn("Rate", typeof(string))});
+
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan YOKE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                foreach (var time in timeDaily)
+                {
+                    if (item.NameLine == "Line 1")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time1 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 2")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 3")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 4")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 5")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                    if (item.NameLine == "Line 6")
+                    {
+                        var rate = (numberConfigYOKE / (time.Time2 / item.TotalQuantities) * 100);
+                        item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
+                    }
+                }
+                dtShow.Rows.Add(item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRateDisplay);
+            }
+
+            chartYOKE.Series.Clear();
+            chartYOKE.DataSource = dt;
+            chartYOKE.Titles.Add("YOKE");
+            chartYOKE.ChartAreas[0].AxisX.Title = "Line";
+            chartYOKE.ChartAreas[0].AxisY.Title = "Quantities";
+
+            chartYOKE.Series.Add("Total");
+            chartYOKE.Series[0].XValueMember = "ShiftCode";
+            chartYOKE.Series[0].YValueMembers = "TotalQuantities";
+            chartYOKE.Series[0].ChartType = SeriesChartType.Column;
+            chartYOKE.Series[0].IsValueShownAsLabel = true;
+            chartYOKE.Series[0].IsVisibleInLegend = true;
+            chartYOKE.Series[0]["PixelPointWidth"] = "30";
+            chartYOKE.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+
+
+            chartYOKE.Series.Add("Rate");
+            chartYOKE.Series[1].XValueMember = "ShiftCode";
+            chartYOKE.Series[1].YValueMembers = "TotalQuantities";
+            chartYOKE.Series[1].ChartType = SeriesChartType.Line;
+            chartYOKE.Series[1].BorderWidth = 3;
+            chartYOKE.Series[1].IsValueShownAsLabel = false;
+            chartYOKE.Series[1].IsVisibleInLegend = true;
+            chartYOKE.DataBind();
+
+            dgvYOKE.DataSource = dtShow;
+        }
+
+        private Timer tm;
         private void frmReportChart_Load(object sender, EventArgs e)
         {
-            //LoadChartWireSass();
+            this.WindowState = FormWindowState.Maximized;
+            LoadChartWireSass();
+            LoadChartOPT1();
+            LoadChartOPT2();
+            LoadChartYOKE();
+
+            tm = new Timer();
+            tm.Interval = 5 * 1000; // 10 seconds
+            tm.Tick += new EventHandler(tm_Tick);
+            tm.Start();
         }
+
+        private void tm_Tick(object sender, EventArgs e)
+        {
+            tm.Stop();
+            frmReportChart2 frm = new frmReportChart2();
+            frm.MdiParent = frmMain.ActiveForm;
+            frm.Show();
+            this.Hide();
+        }
+
+        //public new void AutoSize()
+        //{
+        //    //this.WindowState = FormWindowState.Maximized;
+        //    float widthRatio = Screen.PrimaryScreen.Bounds.Width / 800;
+        //    float heightRatio = Screen.PrimaryScreen.Bounds.Height / 900f;
+        //    SizeF scale = new SizeF(widthRatio, heightRatio);
+        //    this.Scale(scale);
+        //    foreach (Control control in this.Controls)
+        //    {
+        //        control.Font = new Font("Verdana", control.Font.SizeInPoints * heightRatio * widthRatio);
+        //    }
+        //    FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+        //    WindowState = FormWindowState.Maximized;
+        //}
     }
 }

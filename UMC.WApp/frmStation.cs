@@ -25,7 +25,7 @@ namespace UMC.WApp
         }
         public void LoadData()
         {
-            dgvStation.DataSource = db.Stations.OrderBy(x => x.Name).ToList();
+            dgvStation.DataSource = db.Stations.OrderBy(x => x.StationName).ToList();
            
         }
         private void btnAddNew_Click(object sender, EventArgs e)
@@ -35,7 +35,7 @@ namespace UMC.WApp
                 if (!string.IsNullOrEmpty(txtName.Text))
                 {
                     StationViewModel stationVm = new StationViewModel();
-                    stationVm.Name = txtName.Text;
+                    stationVm.StationName = txtName.Text;
                     stationVm.NumberConfig = float.Parse(txtNumberConfig.Text);
                  
                     Station newStation = new Station();
@@ -76,7 +76,7 @@ namespace UMC.WApp
                 if (txtName.Text != "")
                 {
                     StationViewModel stationVm = new StationViewModel();
-                    stationVm.Name = txtName.Text;
+                    stationVm.StationName = txtName.Text;
                     stationVm.NumberConfig = float.Parse(txtNumberConfig.Text);
 
                     var id = Convert.ToInt32(dgvStation.Rows[dgvStation.CurrentRow.Index].Cells[0].Value);

@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201711101038087_removeColumnNumber.Designer.cs">
       <DependentUpon>201711101038087_removeColumnNumber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711110547048_removeIdentites.cs" />
+    <Compile Include="Migrations\201711110547048_removeIdentites.Designer.cs">
+      <DependentUpon>201711110547048_removeIdentites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UMCDbContext.cs" />
@@ -119,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711101038087_removeColumnNumber.resx">
       <DependentUpon>201711101038087_removeColumnNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711110547048_removeIdentites.resx">
+      <DependentUpon>201711110547048_removeIdentites.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

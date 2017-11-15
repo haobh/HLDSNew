@@ -85,7 +85,7 @@ namespace UMC.WApp
         {
             var model = db.Stations.ToList();
             (clbStation as ListBox).DataSource = model;
-            (clbStation as ListBox).DisplayMember = "Name";
+            (clbStation as ListBox).DisplayMember = "StationName";
             (clbStation as ListBox).ValueMember = "ID";
         }
 
@@ -154,7 +154,7 @@ namespace UMC.WApp
                          where line.ID == id
                          select new LineStationViewModel
                          {
-                             NameStation = station.Name,
+                             NameStation = station.StationName,
                              NameLine = line.Name,
                              LineId = lineStation.LineId,
                              StationId = lineStation.StationId,

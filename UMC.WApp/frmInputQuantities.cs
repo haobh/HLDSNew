@@ -44,7 +44,7 @@ namespace UMC.WApp
                          where line.ID == id
                          select new LineStationViewModel
                          {
-                             NameStation = station.Name,
+                             NameStation = station.StationName,
                              NameLine = line.Name,
                              LineId = lineStation.LineId,
                              StationId = lineStation.StationId,
@@ -98,7 +98,7 @@ namespace UMC.WApp
                 gbAddNew.Show();
                 gbShift.Show();
                 var nameStation = db.Stations.Find(id);
-                lblStation.Text = "Add for: " + nameStation.Name;
+                lblStation.Text = "Add for: " + nameStation.StationName;
                 lblShift.Text = "Choose: " + cbbShiftCode.Text;
                 LoadDataQuantity();
             }
@@ -369,7 +369,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T1 = null;
+                            quantitiesVm.T1 = 0;
                         }
 
                         if (txtT2.Text.Length > 0)
@@ -378,7 +378,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T2 = null;
+                            quantitiesVm.T2 = 0;
                         }
 
                         if (txtT3.Text.Length > 0)
@@ -387,7 +387,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T3 = null;
+                            quantitiesVm.T3 = 0;
                         }
 
                         if (txtT4.Text.Length > 0)
@@ -396,7 +396,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T4 = null;
+                            quantitiesVm.T4 = 0;
                         }
 
                         if (txtT5.Text.Length > 0)
@@ -405,7 +405,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T5 = null;
+                            quantitiesVm.T5 = 0;
                         }
 
                         if (txtT6.Text.Length > 0)
@@ -414,7 +414,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T6 = null;
+                            quantitiesVm.T6 = 0;
                         }
 
                         if (txtT7.Text.Length > 0)
@@ -423,7 +423,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T7 = null;
+                            quantitiesVm.T7 = 0;
                         }
 
                         if (txtT8.Text.Length > 0)
@@ -432,7 +432,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T8 = null;
+                            quantitiesVm.T8 = 0;
                         }
 
                         if (txtT9.Text.Length > 0)
@@ -441,7 +441,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T9 = null;
+                            quantitiesVm.T9 = 0;
                         }
 
                         if (txtT10.Text.Length > 0)
@@ -450,7 +450,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T10 = null;
+                            quantitiesVm.T10 = 0;
                         }
 
                         if (txtT11.Text.Length > 0)
@@ -459,7 +459,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T11 = null;
+                            quantitiesVm.T11 = 0;
                         }
 
                         if (txtT12.Text.Length > 0)
@@ -468,7 +468,7 @@ namespace UMC.WApp
                         }
                         else
                         {
-                            quantitiesVm.T12 = null;
+                            quantitiesVm.T12 = 0;
                         }
 
                         Quantity newQuantity = new Quantity();
@@ -509,7 +509,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T1 = null;
+                        quantitiesVm.T1 = 0;
                     }
                     if (txtT2.Text.Length > 0)
                     {
@@ -517,7 +517,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T2 = null;
+                        quantitiesVm.T2 = 0;
                     }
                     if (txtT3.Text.Length > 0)
                     {
@@ -525,7 +525,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T3 = null;
+                        quantitiesVm.T3 = 0;
                     }
                     if (txtT4.Text.Length > 0)
                     {
@@ -533,7 +533,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T4 = null;
+                        quantitiesVm.T4 = 0;
                     }
                     if (txtT5.Text.Length > 0)
                     {
@@ -541,7 +541,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T5 = null;
+                        quantitiesVm.T5 = 0;
                     }
                     if (txtT6.Text.Length > 0)
                     {
@@ -549,7 +549,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T6 = null;
+                        quantitiesVm.T6 = 0;
                     }
                     if (txtT7.Text.Length > 0)
                     {
@@ -557,7 +557,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T7 = null;
+                        quantitiesVm.T7 = 0;
                     }
                     if (txtT8.Text.Length > 0)
                     {
@@ -565,7 +565,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T8 = null;
+                        quantitiesVm.T8 = 0;
                     }
                     if (txtT9.Text.Length > 0)
                     {
@@ -573,7 +573,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T9 = null;
+                        quantitiesVm.T9 = 0;
                     }
                     if (txtT10.Text.Length > 0)
                     {
@@ -581,7 +581,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T10 = null;
+                        quantitiesVm.T10 = 0;
                     }
                     if (txtT11.Text.Length > 0)
                     {
@@ -589,7 +589,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T11 = null;
+                        quantitiesVm.T11 = 0;
                     }
                     if (txtT12.Text.Length > 0)
                     {
@@ -597,7 +597,7 @@ namespace UMC.WApp
                     }
                     else
                     {
-                        quantitiesVm.T12 = null;
+                        quantitiesVm.T12 = 0;
                     }
 
                     var id = Convert.ToInt32(dgvQuantity.Rows[dgvQuantity.CurrentRow.Index].Cells["QuantitiesId"].Value);

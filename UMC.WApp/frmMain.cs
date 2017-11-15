@@ -41,9 +41,7 @@ namespace UMC.WApp
 
         private void mnsTimeSetting_Click(object sender, EventArgs e)
         {
-            frmTimeSetting frmtime= new frmTimeSetting();
-            frmtime.MdiParent = this;
-            frmtime.Show();
+            
         }
 
         private void reportDailyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -57,6 +55,7 @@ namespace UMC.WApp
         {
             frmReportChart frmreportChart = new frmReportChart();
             frmreportChart.MdiParent = this;
+            frmreportChart.Dock = DockStyle.Fill;
             frmreportChart.Show();
         }
 
@@ -65,6 +64,20 @@ namespace UMC.WApp
             frmMonthlyReport frmmonthlyreport = new frmMonthlyReport();
             frmmonthlyreport.MdiParent = this;
             frmmonthlyreport.Show();
+        }
+
+        private void mnsTimeT_Click(object sender, EventArgs e)
+        {
+            frmTimeSetting frmtime = new frmTimeSetting();
+            frmtime.MdiParent = this;
+            frmtime.Show();
+        }
+
+        private void mnsTimeLine_Click(object sender, EventArgs e)
+        {
+            frmTimeDaily frmTime = new frmTimeDaily();
+            frmTime.MdiParent = this;
+            frmTime.Show();
         }
     }
 }

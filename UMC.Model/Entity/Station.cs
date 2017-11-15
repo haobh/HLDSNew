@@ -8,10 +8,9 @@ namespace UMC.Model.Entity
     public class Station
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { set; get; }
 
-        public string Name { set; get; }
+        public string StationName { set; get; }
 
         public float? NumberConfig { set; get; }
 

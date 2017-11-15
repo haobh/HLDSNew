@@ -12,7 +12,6 @@ namespace UMC.Model.Entity
     public class Line
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { set; get; }
 
         public string Name { set; get; }

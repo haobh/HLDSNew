@@ -104,6 +104,9 @@ namespace UMC.WApp
                     timeSettingVm.T11 = int.Parse(txtT11.Text);
                     timeSettingVm.T12 = int.Parse(txtT12.Text);
 
+                    var id = Convert.ToInt32(dgvTimeSetting.Rows[dgvTimeSetting.CurrentRow.Index].Cells[0].Value);
+                    timeSettingVm.ID = id;
+
                     TimeSetting newTimeSetting = new TimeSetting();
                     newTimeSetting.UpdateTimeSetting(timeSettingVm);
 

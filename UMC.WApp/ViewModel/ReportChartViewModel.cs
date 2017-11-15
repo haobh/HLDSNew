@@ -27,5 +27,7 @@ namespace UMC.WApp.ViewModel
         public float? TotalQuantities{ set; get; }
 
         public float? TotalRate { set; get; }
+
+        public string TotalRateDisplay { set; get; }
     }
 }
