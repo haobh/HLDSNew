@@ -79,7 +79,7 @@ namespace UMC.WApp
                                 new DataColumn("Total T10",typeof(int)),
                                 new DataColumn("Total T11",typeof(int)),
                                 new DataColumn("Total T12",typeof(int))});
-            foreach (var item in query)
+            foreach (var item in query.OrderBy(x=>x.CreateDate).ThenBy(x=>x.NameLine))
             {
                 dt.Rows.Add(item.LineId, item.CreateDate.ToString("dd/MM/yyyy"), item.NameLine,
                     item.SumT1, item.SumT2, item.SumT3,

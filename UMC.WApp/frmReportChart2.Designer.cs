@@ -180,7 +180,7 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Infor PU2";
             // 
-            // ReportChart2
+            // frmReportChart2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -192,8 +192,9 @@
             this.Controls.Add(this.chartPU1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
-            this.Name = "ReportChart2";
-            this.Text = "ReportChart2";
+            this.Name = "frmReportChart2";
+            this.Text = "Daily Report";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmReportChart2_FormClosing);
             this.Load += new System.EventHandler(this.ReportChart2_Load);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLD)).EndInit();

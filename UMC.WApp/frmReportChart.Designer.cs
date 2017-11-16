@@ -237,8 +237,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1151, 744);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -249,7 +247,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Name = "frmReportChart";
-            this.Text = "Report Chart";
+            this.Text = "Daily Report";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmReportChart_FormClosing);
             this.Load += new System.EventHandler(this.frmReportChart_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chartWire)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWire)).EndInit();

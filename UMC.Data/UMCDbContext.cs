@@ -8,6 +8,7 @@ namespace UMC.Data
         public HLDSDbContext() : base("HLDS")
         {
             this.Configuration.LazyLoadingEnabled = true;
+            this.Configuration.ProxyCreationEnabled = true;
             Database.SetInitializer<HLDSDbContext>(null);
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<UMCDbContext, Configuration>());
         }

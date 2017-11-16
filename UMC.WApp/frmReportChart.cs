@@ -682,19 +682,9 @@ namespace UMC.WApp
             this.Hide();
         }
 
-        //public new void AutoSize()
-        //{
-        //    //this.WindowState = FormWindowState.Maximized;
-        //    float widthRatio = Screen.PrimaryScreen.Bounds.Width / 800;
-        //    float heightRatio = Screen.PrimaryScreen.Bounds.Height / 900f;
-        //    SizeF scale = new SizeF(widthRatio, heightRatio);
-        //    this.Scale(scale);
-        //    foreach (Control control in this.Controls)
-        //    {
-        //        control.Font = new Font("Verdana", control.Font.SizeInPoints * heightRatio * widthRatio);
-        //    }
-        //    FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-        //    WindowState = FormWindowState.Maximized;
-        //}
+        private void frmReportChart_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            tm.Stop();
+        }
     }
 }

@@ -11,73 +11,68 @@ using UMC.Data;
 
 namespace UMC.WApp
 {
-    public partial class frmMain : Form
+    public partial class frmMain : DevExpress.XtraBars.Ribbon.RibbonForm
     {
         public frmMain()
         {
             InitializeComponent();
         }
 
-        private void mnsShift_Click(object sender, EventArgs e)
+        private void bbtnShift_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             frmShift frmshift = new frmShift();
             frmshift.MdiParent = this;
+            //frmshift.Dock = DockStyle.Fill;
             frmshift.Show();
         }
 
-        private void mnsLine_Click(object sender, EventArgs e)
+        private void bbtnLine_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             frmLine frmline = new frmLine();
             frmline.MdiParent = this;
             frmline.Show();
         }
 
-        private void mnsStation_Click(object sender, EventArgs e)
+        private void bbtnTimeT_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            frmStation frmstation = new frmStation();
-            frmstation.MdiParent = this;
-            frmstation.Show();
+            frmTimeSetting frmT = new frmTimeSetting();
+            frmT.MdiParent = this;
+            frmT.Show();
         }
 
-        private void mnsTimeSetting_Click(object sender, EventArgs e)
+        private void bbtnTimeLine_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            
+            frmTimeDaily frmT = new frmTimeDaily();
+            frmT.MdiParent = this;
+            frmT.Show();
         }
 
-        private void reportDailyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void bbtnStation_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            frmReport frmreport = new frmReport();
-            frmreport.MdiParent = this;
-            frmreport.Show();
+            frmStation frmS = new frmStation();
+            frmS.MdiParent = this;
+            frmS.Show();
         }
 
-        private void mnsReportChart_Click(object sender, EventArgs e)
+        private void bbtnDailyInput_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            frmReportChart frmreportChart = new frmReportChart();
-            frmreportChart.MdiParent = this;
-            frmreportChart.Dock = DockStyle.Fill;
-            frmreportChart.Show();
+            frmReport frmI = new frmReport();
+            frmI.MdiParent = this;
+            frmI.Show();
         }
 
-        private void mnsMothlyChartReport_Click(object sender, EventArgs e)
+        private void bbtnDailyReport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            frmMonthlyReport frmmonthlyreport = new frmMonthlyReport();
-            frmmonthlyreport.MdiParent = this;
-            frmmonthlyreport.Show();
+            frmReportChart frmR = new frmReportChart();
+            frmR.MdiParent = this;
+            frmR.Show();
         }
 
-        private void mnsTimeT_Click(object sender, EventArgs e)
+        private void bbtnMonthlyReport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            frmTimeSetting frmtime = new frmTimeSetting();
-            frmtime.MdiParent = this;
-            frmtime.Show();
-        }
-
-        private void mnsTimeLine_Click(object sender, EventArgs e)
-        {
-            frmTimeDaily frmTime = new frmTimeDaily();
-            frmTime.MdiParent = this;
-            frmTime.Show();
+            frmMonthlyReport frmM = new frmMonthlyReport();
+            frmM.MdiParent = this;
+            frmM.Show();
         }
     }
 }

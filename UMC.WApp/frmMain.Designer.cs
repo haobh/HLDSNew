@@ -29,192 +29,294 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.mnsReportDaily = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsShift = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsLine = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsStation = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsTimeSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsTimeT = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsTimeLine = new System.Windows.Forms.ToolStripMenuItem();
             this.reportDailyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsReportChart = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsMothlyChartReport = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.mnsTimeT = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnsTimeLine = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.bbtnShift = new DevExpress.XtraBars.BarButtonItem();
+            this.bbtnLine = new DevExpress.XtraBars.BarButtonItem();
+            this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
+            this.bbtnTimeT = new DevExpress.XtraBars.BarButtonItem();
+            this.bbtnTimeLine = new DevExpress.XtraBars.BarButtonItem();
+            this.bbtnDailyReport = new DevExpress.XtraBars.BarButtonItem();
+            this.bbtnMonthlyReport = new DevExpress.XtraBars.BarButtonItem();
+            this.bbtnStation = new DevExpress.XtraBars.BarButtonItem();
+            this.bbtnDailyInput = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup5 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
+            this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Green;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnsReportDaily});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(837, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // mnsReportDaily
-            // 
-            this.mnsReportDaily.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnsShift,
-            this.mnsLine,
-            this.mnsStation,
-            this.mnsTimeSetting,
-            this.reportDailyToolStripMenuItem,
-            this.mnsReportChart,
-            this.mnsMothlyChartReport});
-            this.mnsReportDaily.Name = "mnsReportDaily";
-            this.mnsReportDaily.Size = new System.Drawing.Size(50, 20);
-            this.mnsReportDaily.Text = "Menu";
             // 
             // mnsShift
             // 
             this.mnsShift.Name = "mnsShift";
-            this.mnsShift.Size = new System.Drawing.Size(189, 22);
-            this.mnsShift.Text = "Shift";
-            this.mnsShift.Click += new System.EventHandler(this.mnsShift_Click);
+            this.mnsShift.Size = new System.Drawing.Size(32, 19);
             // 
             // mnsLine
             // 
             this.mnsLine.Name = "mnsLine";
-            this.mnsLine.Size = new System.Drawing.Size(189, 22);
-            this.mnsLine.Text = "Line";
-            this.mnsLine.Click += new System.EventHandler(this.mnsLine_Click);
+            this.mnsLine.Size = new System.Drawing.Size(32, 19);
             // 
             // mnsStation
             // 
             this.mnsStation.Name = "mnsStation";
-            this.mnsStation.Size = new System.Drawing.Size(189, 22);
-            this.mnsStation.Text = "Station";
-            this.mnsStation.Click += new System.EventHandler(this.mnsStation_Click);
+            this.mnsStation.Size = new System.Drawing.Size(32, 19);
             // 
             // mnsTimeSetting
             // 
-            this.mnsTimeSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnsTimeT,
-            this.mnsTimeLine});
             this.mnsTimeSetting.Name = "mnsTimeSetting";
-            this.mnsTimeSetting.Size = new System.Drawing.Size(189, 22);
-            this.mnsTimeSetting.Text = "Time Config";
-            this.mnsTimeSetting.Click += new System.EventHandler(this.mnsTimeSetting_Click);
-            // 
-            // reportDailyToolStripMenuItem
-            // 
-            this.reportDailyToolStripMenuItem.Name = "reportDailyToolStripMenuItem";
-            this.reportDailyToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.reportDailyToolStripMenuItem.Text = "Daily Input";
-            this.reportDailyToolStripMenuItem.Click += new System.EventHandler(this.reportDailyToolStripMenuItem_Click);
-            // 
-            // mnsReportChart
-            // 
-            this.mnsReportChart.Name = "mnsReportChart";
-            this.mnsReportChart.Size = new System.Drawing.Size(189, 22);
-            this.mnsReportChart.Text = "Daily Chart Report";
-            this.mnsReportChart.Click += new System.EventHandler(this.mnsReportChart_Click);
-            // 
-            // mnsMothlyChartReport
-            // 
-            this.mnsMothlyChartReport.Name = "mnsMothlyChartReport";
-            this.mnsMothlyChartReport.Size = new System.Drawing.Size(189, 22);
-            this.mnsMothlyChartReport.Text = "Monthly Chart Report";
-            this.mnsMothlyChartReport.Click += new System.EventHandler(this.mnsMothlyChartReport_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Green;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox1.Image = global::UMC.WApp.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 24);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(837, 52);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Green;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Lavender;
-            this.label1.Location = new System.Drawing.Point(108, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(240, 29);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "HLDS Report System";
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.Info;
-            this.label2.Location = new System.Drawing.Point(0, 716);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(837, 33);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "© 2017 UMCVN PD-IT. All rights reserved | Design by Haobh ";
+            this.mnsTimeSetting.Size = new System.Drawing.Size(32, 19);
             // 
             // mnsTimeT
             // 
             this.mnsTimeT.Name = "mnsTimeT";
-            this.mnsTimeT.Size = new System.Drawing.Size(152, 22);
-            this.mnsTimeT.Text = "Time T";
-            this.mnsTimeT.Click += new System.EventHandler(this.mnsTimeT_Click);
+            this.mnsTimeT.Size = new System.Drawing.Size(32, 19);
             // 
             // mnsTimeLine
             // 
             this.mnsTimeLine.Name = "mnsTimeLine";
-            this.mnsTimeLine.Size = new System.Drawing.Size(152, 22);
-            this.mnsTimeLine.Text = "Time Line";
-            this.mnsTimeLine.Click += new System.EventHandler(this.mnsTimeLine_Click);
+            this.mnsTimeLine.Size = new System.Drawing.Size(32, 19);
+            // 
+            // reportDailyToolStripMenuItem
+            // 
+            this.reportDailyToolStripMenuItem.Name = "reportDailyToolStripMenuItem";
+            this.reportDailyToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // mnsReportChart
+            // 
+            this.mnsReportChart.Name = "mnsReportChart";
+            this.mnsReportChart.Size = new System.Drawing.Size(32, 19);
+            // 
+            // mnsMothlyChartReport
+            // 
+            this.mnsMothlyChartReport.Name = "mnsMothlyChartReport";
+            this.mnsMothlyChartReport.Size = new System.Drawing.Size(32, 19);
+            // 
+            // ribbonControl1
+            // 
+            this.ribbonControl1.ExpandCollapseItem.Id = 0;
+            this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.ribbonControl1.ExpandCollapseItem,
+            this.bbtnShift,
+            this.bbtnLine,
+            this.barHeaderItem1,
+            this.bbtnTimeT,
+            this.bbtnTimeLine,
+            this.bbtnDailyReport,
+            this.bbtnMonthlyReport,
+            this.bbtnStation,
+            this.bbtnDailyInput});
+            this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
+            this.ribbonControl1.MaxItemId = 10;
+            this.ribbonControl1.Name = "ribbonControl1";
+            this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.ribbonPage1,
+            this.ribbonPage3});
+            this.ribbonControl1.Size = new System.Drawing.Size(837, 143);
+            this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
+            // 
+            // bbtnShift
+            // 
+            this.bbtnShift.Caption = "Shift";
+            this.bbtnShift.Id = 1;
+            this.bbtnShift.ImageOptions.Image = global::UMC.WApp.Properties.Resources.Company;
+            this.bbtnShift.Name = "bbtnShift";
+            this.bbtnShift.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbtnShift_ItemClick);
+            // 
+            // bbtnLine
+            // 
+            this.bbtnLine.Caption = "Line";
+            this.bbtnLine.Id = 2;
+            this.bbtnLine.ImageOptions.Image = global::UMC.WApp.Properties.Resources.Text;
+            this.bbtnLine.Name = "bbtnLine";
+            this.bbtnLine.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbtnLine_ItemClick);
+            // 
+            // barHeaderItem1
+            // 
+            this.barHeaderItem1.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.barHeaderItem1.Appearance.Options.UseFont = true;
+            this.barHeaderItem1.Caption = "© 2017 UMCVN PD-IT Design by Haobh Support email: haobh@umcvn.com - ext: 2998";
+            this.barHeaderItem1.Id = 3;
+            this.barHeaderItem1.ImageOptions.Image = global::UMC.WApp.Properties.Resources.logo1;
+            this.barHeaderItem1.Name = "barHeaderItem1";
+            this.barHeaderItem1.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
+            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
+            // 
+            // bbtnTimeT
+            // 
+            this.bbtnTimeT.Caption = "Time T";
+            this.bbtnTimeT.Id = 4;
+            this.bbtnTimeT.ImageOptions.Image = global::UMC.WApp.Properties.Resources.Clock;
+            this.bbtnTimeT.Name = "bbtnTimeT";
+            this.bbtnTimeT.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbtnTimeT_ItemClick);
+            // 
+            // bbtnTimeLine
+            // 
+            this.bbtnTimeLine.Caption = "Time Line";
+            this.bbtnTimeLine.Id = 5;
+            this.bbtnTimeLine.ImageOptions.Image = global::UMC.WApp.Properties.Resources.Compass;
+            this.bbtnTimeLine.Name = "bbtnTimeLine";
+            this.bbtnTimeLine.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbtnTimeLine_ItemClick);
+            // 
+            // bbtnDailyReport
+            // 
+            this.bbtnDailyReport.Caption = "Daily Report";
+            this.bbtnDailyReport.Id = 6;
+            this.bbtnDailyReport.ImageOptions.Image = global::UMC.WApp.Properties.Resources._3d_bar_chart;
+            this.bbtnDailyReport.Name = "bbtnDailyReport";
+            this.bbtnDailyReport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbtnDailyReport_ItemClick);
+            // 
+            // bbtnMonthlyReport
+            // 
+            this.bbtnMonthlyReport.Caption = "Monthly Report";
+            this.bbtnMonthlyReport.Id = 7;
+            this.bbtnMonthlyReport.ImageOptions.Image = global::UMC.WApp.Properties.Resources.List;
+            this.bbtnMonthlyReport.Name = "bbtnMonthlyReport";
+            this.bbtnMonthlyReport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbtnMonthlyReport_ItemClick);
+            // 
+            // bbtnStation
+            // 
+            this.bbtnStation.Caption = "Station";
+            this.bbtnStation.Id = 8;
+            this.bbtnStation.ImageOptions.Image = global::UMC.WApp.Properties.Resources.Comment;
+            this.bbtnStation.Name = "bbtnStation";
+            this.bbtnStation.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbtnStation_ItemClick);
+            // 
+            // bbtnDailyInput
+            // 
+            this.bbtnDailyInput.Caption = "Daily Input";
+            this.bbtnDailyInput.Id = 9;
+            this.bbtnDailyInput.ImageOptions.Image = global::UMC.WApp.Properties.Resources.Table;
+            this.bbtnDailyInput.Name = "bbtnDailyInput";
+            this.bbtnDailyInput.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbtnDailyInput_ItemClick);
+            // 
+            // ribbonPage1
+            // 
+            this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup1,
+            this.ribbonPageGroup2,
+            this.ribbonPageGroup5});
+            this.ribbonPage1.Name = "ribbonPage1";
+            this.ribbonPage1.Text = "File";
+            // 
+            // ribbonPageGroup1
+            // 
+            this.ribbonPageGroup1.ItemLinks.Add(this.bbtnShift);
+            this.ribbonPageGroup1.ItemLinks.Add(this.bbtnLine);
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            this.ribbonPageGroup1.Text = "PageGroupLine";
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.ItemLinks.Add(this.bbtnTimeT);
+            this.ribbonPageGroup2.ItemLinks.Add(this.bbtnTimeLine);
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "PageGroupTime";
+            // 
+            // ribbonPageGroup5
+            // 
+            this.ribbonPageGroup5.ItemLinks.Add(this.bbtnStation);
+            this.ribbonPageGroup5.ItemLinks.Add(this.bbtnDailyInput);
+            this.ribbonPageGroup5.Name = "ribbonPageGroup5";
+            this.ribbonPageGroup5.Text = "PageGroupInput";
+            // 
+            // ribbonPage3
+            // 
+            this.ribbonPage3.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup3,
+            this.ribbonPageGroup4});
+            this.ribbonPage3.Name = "ribbonPage3";
+            this.ribbonPage3.Text = "Report";
+            // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.bbtnDailyReport);
+            this.ribbonPageGroup3.ItemLinks.Add(this.bbtnMonthlyReport);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            this.ribbonPageGroup3.Text = "PageGroupReport";
+            // 
+            // ribbonPageGroup4
+            // 
+            this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+            this.ribbonPageGroup4.Text = "ribbonPageGroup4";
+            // 
+            // ribbonStatusBar1
+            // 
+            this.ribbonStatusBar1.ItemLinks.Add(this.barHeaderItem1);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 718);
+            this.ribbonStatusBar1.Name = "ribbonStatusBar1";
+            this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(837, 31);
+            // 
+            // ribbonPage2
+            // 
+            this.ribbonPage2.Name = "ribbonPage2";
+            this.ribbonPage2.Text = "ribbonPage2";
             // 
             // frmMain
             // 
+            this.Appearance.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.Appearance.Options.UseForeColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Green;
             this.ClientSize = new System.Drawing.Size(837, 749);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.menuStrip1);
-            this.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.Controls.Add(this.ribbonStatusBar1);
+            this.Controls.Add(this.ribbonControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
+            this.Ribbon = this.ribbonControl1;
+            this.StatusBar = this.ribbonStatusBar1;
             this.Text = "Home";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem mnsReportDaily;
         private System.Windows.Forms.ToolStripMenuItem mnsShift;
         private System.Windows.Forms.ToolStripMenuItem mnsLine;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem mnsStation;
         private System.Windows.Forms.ToolStripMenuItem mnsTimeSetting;
+        private System.Windows.Forms.ToolStripMenuItem mnsTimeT;
+        private System.Windows.Forms.ToolStripMenuItem mnsTimeLine;
         private System.Windows.Forms.ToolStripMenuItem reportDailyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnsReportChart;
         private System.Windows.Forms.ToolStripMenuItem mnsMothlyChartReport;
-        private System.Windows.Forms.ToolStripMenuItem mnsTimeT;
-        private System.Windows.Forms.ToolStripMenuItem mnsTimeLine;
+        private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl1;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
+        private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage2;
+        private DevExpress.XtraBars.BarButtonItem bbtnShift;
+        private DevExpress.XtraBars.BarButtonItem bbtnLine;
+        private DevExpress.XtraBars.BarHeaderItem barHeaderItem1;
+        private DevExpress.XtraBars.BarButtonItem bbtnTimeT;
+        private DevExpress.XtraBars.BarButtonItem bbtnTimeLine;
+        private DevExpress.XtraBars.BarButtonItem bbtnDailyReport;
+        private DevExpress.XtraBars.BarButtonItem bbtnMonthlyReport;
+        private DevExpress.XtraBars.BarButtonItem bbtnStation;
+        private DevExpress.XtraBars.BarButtonItem bbtnDailyInput;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup5;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage3;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
     }
 }
 

@@ -7,13 +7,13 @@ namespace UMC.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddTimeSetting : IMigrationMetadata
+    public sealed partial class pushserver : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTimeSetting));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(pushserver));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710300220304_AddTimeSetting"; }
+            get { return "201711150755008_pushserver"; }
         }
         
         string IMigrationMetadata.Source

@@ -49,41 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201710200657556_AddColumn.cs" />
-    <Compile Include="Migrations\201710200657556_AddColumn.Designer.cs">
-      <DependentUpon>201710200657556_AddColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710260802275_EditColumn.cs" />
-    <Compile Include="Migrations\201710260802275_EditColumn.Designer.cs">
-      <DependentUpon>201710260802275_EditColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710271040241_EditTableQuantities.cs" />
-    <Compile Include="Migrations\201710271040241_EditTableQuantities.Designer.cs">
-      <DependentUpon>201710271040241_EditTableQuantities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710300220304_AddTimeSetting.cs" />
-    <Compile Include="Migrations\201710300220304_AddTimeSetting.Designer.cs">
-      <DependentUpon>201710300220304_AddTimeSetting.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711010914102_addColumnShift.cs" />
-    <Compile Include="Migrations\201711010914102_addColumnShift.Designer.cs">
-      <DependentUpon>201711010914102_addColumnShift.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711090826286_addTimeDaily.cs" />
-    <Compile Include="Migrations\201711090826286_addTimeDaily.Designer.cs">
-      <DependentUpon>201711090826286_addTimeDaily.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711100932470_addColumnNumberConfig.cs" />
-    <Compile Include="Migrations\201711100932470_addColumnNumberConfig.Designer.cs">
-      <DependentUpon>201711100932470_addColumnNumberConfig.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711101038087_removeColumnNumber.cs" />
-    <Compile Include="Migrations\201711101038087_removeColumnNumber.Designer.cs">
-      <DependentUpon>201711101038087_removeColumnNumber.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711110547048_removeIdentites.cs" />
-    <Compile Include="Migrations\201711110547048_removeIdentites.Designer.cs">
-      <DependentUpon>201711110547048_removeIdentites.cs</DependentUpon>
+    <Compile Include="Migrations\201711150755008_pushserver.cs" />
+    <Compile Include="Migrations\201711150755008_pushserver.Designer.cs">
+      <DependentUpon>201711150755008_pushserver.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,32 +68,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710200657556_AddColumn.resx">
-      <DependentUpon>201710200657556_AddColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710260802275_EditColumn.resx">
-      <DependentUpon>201710260802275_EditColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710271040241_EditTableQuantities.resx">
-      <DependentUpon>201710271040241_EditTableQuantities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710300220304_AddTimeSetting.resx">
-      <DependentUpon>201710300220304_AddTimeSetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711010914102_addColumnShift.resx">
-      <DependentUpon>201711010914102_addColumnShift.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711090826286_addTimeDaily.resx">
-      <DependentUpon>201711090826286_addTimeDaily.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711100932470_addColumnNumberConfig.resx">
-      <DependentUpon>201711100932470_addColumnNumberConfig.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711101038087_removeColumnNumber.resx">
-      <DependentUpon>201711101038087_removeColumnNumber.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711110547048_removeIdentites.resx">
-      <DependentUpon>201711110547048_removeIdentites.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711150755008_pushserver.resx">
+      <DependentUpon>201711150755008_pushserver.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

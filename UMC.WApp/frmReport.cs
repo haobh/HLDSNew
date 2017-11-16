@@ -36,7 +36,7 @@ namespace UMC.WApp
             var idLine = Convert.ToInt32(dgvReportDaily.Rows[dgvReportDaily.CurrentRow.Index].Cells[0].Value);
             var nameLine = dgvReportDaily.Rows[dgvReportDaily.CurrentRow.Index].Cells[1].Value;
             frmInputQuantities inputQuantity = new frmInputQuantities(nameLine.ToString(),idLine);
-            inputQuantity.MdiParent = this.MdiParent;
+            inputQuantity.MdiParent = frmMain.ActiveForm;
             inputQuantity.Show();
         }
     }

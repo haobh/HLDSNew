@@ -522,5 +522,10 @@ namespace UMC.WApp
             frm.Show();
             this.Hide();
         }
+
+        private void frmReportChart2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            tm.Stop();
+        }
     }
 }
