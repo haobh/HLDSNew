@@ -74,5 +74,22 @@ namespace UMC.WApp
             frmM.MdiParent = this;
             frmM.Show();
         }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            MdiClient ctlMDI;
+            foreach (Control ctl in this.Controls)
+            {
+                try
+                {
+                    ctlMDI = (MdiClient)ctl;
+                    ctlMDI.BackColor = Color.Snow;
+                }
+                catch (InvalidCastException exc)
+                {
+                    
+                }
+            }
+        }
     }
 }

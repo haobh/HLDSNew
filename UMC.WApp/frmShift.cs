@@ -110,6 +110,7 @@ namespace UMC.WApp
             cbbStartMinute.Text = dgvShift.Rows[e.RowIndex].Cells[4].Value.ToString();
             cbbEndHour.Text = dgvShift.Rows[e.RowIndex].Cells[3].Value.ToString();
             cbbEndMinute.Text = dgvShift.Rows[e.RowIndex].Cells[5].Value.ToString();
+            btnAddNew.Enabled = false;
         }
 
         public Shift GetShiftByID(int id)

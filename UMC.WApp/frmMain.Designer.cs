@@ -57,6 +57,7 @@
             this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbonPage2 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.lblText = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,14 +147,14 @@
             // 
             // barHeaderItem1
             // 
-            this.barHeaderItem1.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold);
+            this.barHeaderItem1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.barHeaderItem1.Appearance.FontStyleDelta = System.Drawing.FontStyle.Bold;
             this.barHeaderItem1.Appearance.Options.UseFont = true;
             this.barHeaderItem1.Caption = "© 2017 UMCVN PD-IT Design by Haobh Support email: haobh@umcvn.com - ext: 2998";
             this.barHeaderItem1.Id = 3;
             this.barHeaderItem1.ImageOptions.Image = global::UMC.WApp.Properties.Resources.logo1;
+            this.barHeaderItem1.MultiColumn = DevExpress.Utils.DefaultBoolean.True;
             this.barHeaderItem1.Name = "barHeaderItem1";
-            this.barHeaderItem1.RibbonStyle = ((DevExpress.XtraBars.Ribbon.RibbonItemStyles)(((DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithText) 
-            | DevExpress.XtraBars.Ribbon.RibbonItemStyles.SmallWithoutText)));
             // 
             // bbtnTimeT
             // 
@@ -266,13 +267,36 @@
             this.ribbonPage2.Name = "ribbonPage2";
             this.ribbonPage2.Text = "ribbonPage2";
             // 
+            // lblText
+            // 
+            this.lblText.Appearance.Font = new System.Drawing.Font("Tahoma", 18F);
+            this.lblText.Appearance.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblText.Appearance.Image = global::UMC.WApp.Properties.Resources.logo1;
+            this.lblText.Appearance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblText.Appearance.Options.UseFont = true;
+            this.lblText.Appearance.Options.UseForeColor = true;
+            this.lblText.Appearance.Options.UseImage = true;
+            this.lblText.Appearance.Options.UseImageAlign = true;
+            this.lblText.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblText.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblText.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.lblText.LineVisible = true;
+            this.lblText.Location = new System.Drawing.Point(0, 143);
+            this.lblText.Name = "lblText";
+            this.lblText.Size = new System.Drawing.Size(837, 57);
+            this.lblText.TabIndex = 3;
+            this.lblText.Text = "UMC Electronic VietNam - HLDS Report System";
+            // 
             // frmMain
             // 
+            this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.True;
             this.Appearance.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.Appearance.Options.UseBackColor = true;
             this.Appearance.Options.UseForeColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(837, 749);
+            this.Controls.Add(this.lblText);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -282,6 +306,7 @@
             this.StatusBar = this.ribbonStatusBar1;
             this.Text = "Home";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -317,6 +342,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage3;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
+        private DevExpress.XtraEditors.LabelControl lblText;
     }
 }
 

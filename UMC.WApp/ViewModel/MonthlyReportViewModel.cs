@@ -9,12 +9,18 @@ namespace UMC.WApp.ViewModel
     public class MonthlyReportViewModel
     {
         public int LineId { set; get; }
+
         public int QuanitiesId { set; get; }
+
         public int StationId { set; get; }
+
         public string NameLine { set; get; }
+
         public string NameStation { set; get; }
 
         public DateTime CreateDate { set; get; }
+
+        public string ShiftCode { set; get; }
 
         public float? SumT1 { set; get; }
 

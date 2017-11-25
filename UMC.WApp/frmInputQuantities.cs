@@ -33,6 +33,7 @@ namespace UMC.WApp
 
         private void frmInputQuantities_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
             var id = _idLine;
             var query = (from line in db.Lines
                          join lineStation in db.LineStations

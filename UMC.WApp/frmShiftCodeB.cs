@@ -1,33 +1,36 @@
 ﻿using DevExpress.XtraCharts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using UMC.Data;
 using UMC.WApp.ViewModel;
 
 namespace UMC.WApp
 {
-    public partial class frmMonthlyReportLine : Form
+    public partial class frmShiftCodeB : Form
     {
         private HLDSDbContext db = null;
         public int _idStation;
         public string _nameStation;
 
-        public frmMonthlyReportLine(int idStation, string nameStation)
+        public frmShiftCodeB(int idStation, string nameStation)
         {
             InitializeComponent();
             db = new HLDSDbContext();
             this._idStation = idStation;
             this._nameStation = nameStation;
         }
-
         public void LoadData()
         {
             try
             {
-                string shiftCode = "Shift A";
+                string shiftCode = "Shift B";
                 var dateNow = DateTime.Now;
                 var query = from station in db.Stations
                             join quantities in db.Quantities
@@ -151,30 +154,30 @@ namespace UMC.WApp
             {
                 MessageBox.Show("Error:" + ex);
             }
-        }
 
-        private void frmMonthlyReportLine_Load(object sender, EventArgs e)
+        }
+        private void frmShiftCodeB_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
             LoadData();
             cbbMonth.Text = DateTime.Now.Month.ToString();
-            var shiftCode = db.Shifts.Where(x => x.Name == "Shift B").ToList();
+            var shiftCode = db.Shifts.ToList();
             cbbShiftCode.DataSource = shiftCode;
             cbbShiftCode.DisplayMember = "Name";
             cbbShiftCode.ValueMember = "ID";
 
             lblStation.Text = "Station: " + _nameStation;
-            lblShiftCode.Text = "Shift A";
+            lblShiftCode.Text = "Shift B";
             lblMonth.Text = "Month:" + cbbMonth.Text;
+
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void btnSearch1_Click(object sender, EventArgs e)
         {
             this.Close();
-            frmShiftCodeB frm = new frmShiftCodeB(_idStation, _nameStation);
+            frmMonthlyReportLine frm = new frmMonthlyReportLine(_idStation, _nameStation);
             frm.MdiParent = frmMain.ActiveForm;
             frm.Show();
-
         }
 
         private void btnPrint_Click(object sender, EventArgs e)

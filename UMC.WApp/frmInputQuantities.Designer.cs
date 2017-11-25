@@ -104,6 +104,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.gbShift);
             this.groupBox1.Controls.Add(this.gbAddNew);
             this.groupBox1.Controls.Add(this.lblLine);
@@ -473,6 +477,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.AutoSize = true;
             this.groupBox3.Controls.Add(this.dgvQuantity);
             this.groupBox3.Location = new System.Drawing.Point(6, 334);
             this.groupBox3.Name = "groupBox3";
@@ -507,9 +515,10 @@
             this.LineID1,
             this.StationID1,
             this.NumberConfig});
-            this.dgvQuantity.Location = new System.Drawing.Point(14, 33);
+            this.dgvQuantity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvQuantity.Location = new System.Drawing.Point(3, 16);
             this.dgvQuantity.Name = "dgvQuantity";
-            this.dgvQuantity.Size = new System.Drawing.Size(1050, 255);
+            this.dgvQuantity.Size = new System.Drawing.Size(1074, 348);
             this.dgvQuantity.TabIndex = 0;
             this.dgvQuantity.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvQuantity_CellDoubleClick);
             // 
@@ -713,6 +722,7 @@
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStation)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

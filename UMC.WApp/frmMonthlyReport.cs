@@ -15,40 +15,28 @@ namespace UMC.WApp
     {
         HLDSDbContext db = null;
         public frmMonthlyReport()
-        {           
+        {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Normal;
             db = new HLDSDbContext();
         }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            var month = cbbMonth.SelectedItem.ToString();
-            var shiftCode = cbbShiftCode.Text;
-        }
-
-        private void frmMonthlyReport_Load(object sender, EventArgs e)
-        {
-            LoadData();
-            cbbMonth.Text = "1";
-            var shiftCode = db.Shifts.ToList();
-            cbbShiftCode.DataSource = shiftCode;
-            cbbShiftCode.DisplayMember = "Name";
-            cbbShiftCode.ValueMember = "ID";       
-        }
-       
         public void LoadData()
         {
+            var dateNow = DateTime.Now;
             var query = from f in db.Quantities
-                        join lineStation in db.Lines
-                        on f.LineID equals lineStation.ID
+                        join line in db.Lines
+                        on f.LineID equals line.ID
 
-                        group f by new { f.CreatedDate, f.LineID, lineStation.Name } into fGroup
+                        where f.CreatedDate.Month == dateNow.Month &&
+                                  f.CreatedDate.Year == dateNow.Year
+
+                        group f by new { f.CreatedDate, f.LineID, line.Name, f.ShiftCode } into fGroup
                         select new MonthlyReportViewModel
                         {
                             LineId = fGroup.Key.LineID,
                             NameLine = fGroup.Key.Name,
                             CreateDate = fGroup.Key.CreatedDate,
+                            ShiftCode = fGroup.Key.ShiftCode,
                             SumT1 = fGroup.Sum(g => g.T1),
                             SumT2 = fGroup.Sum(g => g.T2),
                             SumT3 = fGroup.Sum(g => g.T3),
@@ -64,9 +52,10 @@ namespace UMC.WApp
                         };
 
             DataTable dt = new DataTable();
-            dt.Columns.AddRange(new DataColumn[15] { new DataColumn("Id", typeof(int)),
+            dt.Columns.AddRange(new DataColumn[16] { new DataColumn("Id", typeof(int)),
                                 new DataColumn("Date", typeof(string)),
                                 new DataColumn("Name Line", typeof(string)),
+                                new DataColumn("Shift Code", typeof(string)),
                                 new DataColumn("Total T1",typeof(int)),
                                 new DataColumn("Total T2",typeof(int)),
                                 new DataColumn("Total T3",typeof(int)),
@@ -79,15 +68,42 @@ namespace UMC.WApp
                                 new DataColumn("Total T10",typeof(int)),
                                 new DataColumn("Total T11",typeof(int)),
                                 new DataColumn("Total T12",typeof(int))});
-            foreach (var item in query.OrderBy(x=>x.CreateDate).ThenBy(x=>x.NameLine))
+            foreach (var item in query.OrderBy(x => x.CreateDate).ThenBy(x => x.NameLine))
             {
-                dt.Rows.Add(item.LineId, item.CreateDate.ToString("dd/MM/yyyy"), item.NameLine,
+                dt.Rows.Add(item.LineId, item.CreateDate.ToString("dd/MM/yyyy"),
+                    item.NameLine, item.ShiftCode,
                     item.SumT1, item.SumT2, item.SumT3,
                     item.SumT4, item.SumT5, item.SumT6,
                     item.SumT7, item.SumT8, item.SumT9,
                     item.SumT10, item.SumT11, item.SumT12);
             }
             dgvMonthlyReport.DataSource = dt;
+        }
+
+        public void LoadStation()
+        {
+            var model = db.Stations.OrderByDescending(x => x.StationName).ToList();
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Id", typeof(int)),
+                                new DataColumn("Station", typeof(string))});
+            foreach (var item in model.OrderBy(x => x.ID))
+            {
+                dt.Rows.Add(item.ID, item.StationName);
+            }
+            dgvMonthlyReport.DataSource = dt;
+        }
+        private void frmMonthlyReport_Load(object sender, EventArgs e)
+        {
+            LoadStation();
+        }
+
+        private void dgvMonthlyReport_Click(object sender, EventArgs e)
+        {
+            var idStation = Convert.ToInt32(dgvMonthlyReport.Rows[dgvMonthlyReport.CurrentRow.Index].Cells[0].Value);
+            var nameStation = dgvMonthlyReport.Rows[dgvMonthlyReport.CurrentRow.Index].Cells[1].Value;
+            frmMonthlyReportLine monthReportLine = new frmMonthlyReportLine(idStation, nameStation.ToString());
+            monthReportLine.MdiParent = frmMain.ActiveForm;
+            monthReportLine.Show();
         }
     }
 }

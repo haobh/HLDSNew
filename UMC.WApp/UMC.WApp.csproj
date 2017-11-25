@@ -40,6 +40,7 @@
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.BonusSkins.v17.1, Version=17.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v17.1, Version=17.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -120,11 +121,29 @@
     <Compile Include="frmReportChart.Designer.cs">
       <DependentUpon>frmReportChart.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmReportChart3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReportChart3.Designer.cs">
+      <DependentUpon>frmReportChart3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmReportChart4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReportChart4.Designer.cs">
+      <DependentUpon>frmReportChart4.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmShift.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmShift.Designer.cs">
       <DependentUpon>frmShift.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmShiftCodeB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShiftCodeB.Designer.cs">
+      <DependentUpon>frmShiftCodeB.cs</DependentUpon>
     </Compile>
     <Compile Include="frmStation.cs">
       <SubType>Form</SubType>
@@ -171,6 +190,7 @@
     <Compile Include="ViewModel\LineViewModel.cs" />
     <Compile Include="ViewModel\MonthlyReportViewModel.cs" />
     <Compile Include="ViewModel\QuantitiesViewModel.cs" />
+    <Compile Include="ViewModel\ReportChartStationViewModel.cs" />
     <Compile Include="ViewModel\ReportChartViewModel.cs" />
     <Compile Include="ViewModel\ShiftViewModel.cs" />
     <Compile Include="ViewModel\StationViewModel.cs" />
@@ -197,8 +217,17 @@
     <EmbeddedResource Include="frmReportChart.resx">
       <DependentUpon>frmReportChart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmReportChart3.resx">
+      <DependentUpon>frmReportChart3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReportChart4.resx">
+      <DependentUpon>frmReportChart4.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmShift.resx">
       <DependentUpon>frmShift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShiftCodeB.resx">
+      <DependentUpon>frmShiftCodeB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStation.resx">
       <DependentUpon>frmStation.cs</DependentUpon>
@@ -306,6 +335,7 @@
     <None Include="Resources\List.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Print.png" />
     <Content Include="umc logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
