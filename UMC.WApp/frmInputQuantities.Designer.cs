@@ -66,9 +66,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblLine = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbbShiftCodeDisplay = new System.Windows.Forms.ComboBox();
             this.dgvQuantity = new System.Windows.Forms.DataGridView();
             this.QuantitiesId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShiftCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.T1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.T2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.T3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,7 +110,6 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.gbShift);
             this.groupBox1.Controls.Add(this.gbAddNew);
             this.groupBox1.Controls.Add(this.lblLine);
@@ -115,17 +117,20 @@
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1099, 726);
+            this.groupBox1.Size = new System.Drawing.Size(1097, 720);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Infor Quantity";
             // 
             // gbShift
             // 
+            this.gbShift.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbShift.Controls.Add(this.lblShift);
-            this.gbShift.Location = new System.Drawing.Point(787, 33);
+            this.gbShift.Location = new System.Drawing.Point(800, 33);
             this.gbShift.Name = "gbShift";
-            this.gbShift.Size = new System.Drawing.Size(283, 295);
+            this.gbShift.Size = new System.Drawing.Size(291, 295);
             this.gbShift.TabIndex = 3;
             this.gbShift.TabStop = false;
             this.gbShift.Text = "Infor Shift";
@@ -177,7 +182,7 @@
             this.gbAddNew.Controls.Add(this.label3);
             this.gbAddNew.Location = new System.Drawing.Point(278, 33);
             this.gbAddNew.Name = "gbAddNew";
-            this.gbAddNew.Size = new System.Drawing.Size(490, 295);
+            this.gbAddNew.Size = new System.Drawing.Size(516, 295);
             this.gbAddNew.TabIndex = 2;
             this.gbAddNew.TabStop = false;
             this.gbAddNew.Text = "Add New";
@@ -481,21 +486,50 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.AutoSize = true;
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.cbbShiftCodeDisplay);
             this.groupBox3.Controls.Add(this.dgvQuantity);
-            this.groupBox3.Location = new System.Drawing.Point(6, 334);
+            this.groupBox3.Location = new System.Drawing.Point(6, 336);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1080, 367);
+            this.groupBox3.Size = new System.Drawing.Size(1086, 371);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Result Station";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label1.Location = new System.Drawing.Point(869, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(93, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Shift Code Display";
+            // 
+            // cbbShiftCodeDisplay
+            // 
+            this.cbbShiftCodeDisplay.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cbbShiftCodeDisplay.FormattingEnabled = true;
+            this.cbbShiftCodeDisplay.Items.AddRange(new object[] {
+            "Shift A",
+            "Shift B"});
+            this.cbbShiftCodeDisplay.Location = new System.Drawing.Point(962, 16);
+            this.cbbShiftCodeDisplay.Name = "cbbShiftCodeDisplay";
+            this.cbbShiftCodeDisplay.Size = new System.Drawing.Size(121, 21);
+            this.cbbShiftCodeDisplay.TabIndex = 1;
+            this.cbbShiftCodeDisplay.SelectedIndexChanged += new System.EventHandler(this.cbbShiftCodeDisplay_SelectedIndexChanged);
+            // 
             // dgvQuantity
             // 
+            this.dgvQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvQuantity.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvQuantity.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvQuantity.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.QuantitiesId,
             this.Time,
+            this.ShiftCode,
             this.T1,
             this.T2,
             this.T3,
@@ -515,10 +549,9 @@
             this.LineID1,
             this.StationID1,
             this.NumberConfig});
-            this.dgvQuantity.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvQuantity.Location = new System.Drawing.Point(3, 16);
+            this.dgvQuantity.Location = new System.Drawing.Point(6, 65);
             this.dgvQuantity.Name = "dgvQuantity";
-            this.dgvQuantity.Size = new System.Drawing.Size(1074, 348);
+            this.dgvQuantity.Size = new System.Drawing.Size(1074, 287);
             this.dgvQuantity.TabIndex = 0;
             this.dgvQuantity.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvQuantity_CellDoubleClick);
             // 
@@ -534,6 +567,12 @@
             this.Time.DataPropertyName = "Type";
             this.Time.HeaderText = "Time";
             this.Time.Name = "Time";
+            // 
+            // ShiftCode
+            // 
+            this.ShiftCode.DataPropertyName = "ShiftCode";
+            this.ShiftCode.HeaderText = "ShiftCode";
+            this.ShiftCode.Name = "ShiftCode";
             // 
             // T1
             // 
@@ -718,11 +757,11 @@
             this.gbAddNew.ResumeLayout(false);
             this.gbAddNew.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuantity)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStation)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -768,8 +807,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn StationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn LineId;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox cbbShiftCode;
+        private System.Windows.Forms.GroupBox gbShift;
+        private System.Windows.Forms.Label lblShift;
         private System.Windows.Forms.DataGridViewTextBoxColumn QuantitiesId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShiftCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn T1;
         private System.Windows.Forms.DataGridViewTextBoxColumn T2;
         private System.Windows.Forms.DataGridViewTextBoxColumn T3;
@@ -789,9 +833,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn LineID1;
         private System.Windows.Forms.DataGridViewTextBoxColumn StationID1;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberConfig;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox cbbShiftCode;
-        private System.Windows.Forms.GroupBox gbShift;
-        private System.Windows.Forms.Label lblShift;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbbShiftCodeDisplay;
     }
 }

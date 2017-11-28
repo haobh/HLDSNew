@@ -165,8 +165,10 @@ namespace UMC.WApp
             chartLD.Series[0].ChartType = SeriesChartType.Column;
             chartLD.Series[0].IsValueShownAsLabel = true;
             chartLD.Series[0].IsVisibleInLegend = true;
-            chartLD.Series[0]["PixelPointWidth"] = "30";
+            chartLD.Series[0]["PixelPointWidth"] = "20";
             chartLD.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+            chartLD.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartLD.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
 
             chartLD.Series.Add("Rate");
             chartLD.Series[1].XValueMember = "ShiftCode";
@@ -186,7 +188,7 @@ namespace UMC.WApp
             LoadChartLD();
 
             tm = new Timer();
-            tm.Interval = 5 * 1000; // 10 seconds
+            tm.Interval = 10 * 1000; // 10 seconds
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
         }
@@ -194,7 +196,6 @@ namespace UMC.WApp
         private void tm_Tick(object sender, EventArgs e)
         {
             tm.Stop();
-
             frmReportChart frm = new frmReportChart();
             frm.MdiParent = frmMain.ActiveForm;
             frm.Show();

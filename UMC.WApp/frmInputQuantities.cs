@@ -88,6 +88,8 @@ namespace UMC.WApp
             cbbShiftCode.DataSource = shiftCode;
             cbbShiftCode.DisplayMember = "Name";
             cbbShiftCode.ValueMember = "ID";
+
+            cbbShiftCodeDisplay.Enabled = false;
         }
 
         private void grvLine_Click(object sender, EventArgs e)
@@ -101,6 +103,10 @@ namespace UMC.WApp
                 var nameStation = db.Stations.Find(id);
                 lblStation.Text = "Add for: " + nameStation.StationName;
                 lblShift.Text = "Choose: " + cbbShiftCode.Text;
+                cbbShiftCodeDisplay.Enabled = true;
+                btnAddNew.Enabled = true;
+                btnUpdate.Enabled = false;
+                btnDelete.Enabled = false;
                 LoadDataQuantity();
             }
             catch (Exception)
@@ -112,6 +118,8 @@ namespace UMC.WApp
 
         public void ClearData()
         {
+            cbbShiftCode.Text = "Shift A";
+            cbbShiftCodeDisplay.Text = "Shift A";
             txtT1.Text = "";
             txtT2.Text = "";
             txtT3.Text = "";
@@ -127,36 +135,39 @@ namespace UMC.WApp
         }
         public void LoadDataQuantity()
         {
-            var dateNow = DateTime.Now;
-            var idLine = _idLine;
-            var idStation = Convert.ToInt32(dgvStation.Rows[dgvStation.CurrentRow.Index].Cells[0].Value);
-
-            var timeNow = Convert.ToDateTime(dateNow.ToShortTimeString());
-            string startTime = "08:00 AM";
-            var time1 = Convert.ToDateTime(startTime);
-            string endTime = "20:00 PM";
-            DateTime time2 = Convert.ToDateTime(endTime);
-
-            var model = db.Quantities.Where(x => x.StationID == idStation && x.LineID == idLine && x.ShiftCode == "Shift B").ToList();
-            if (timeNow >= time1 && timeNow <= time2)
+            try
             {
-                model = db.Quantities.Where(x => x.StationID == idStation && x.LineID == idLine && x.ShiftCode == "Shift A").ToList();
-            }
-            string rateT1 = "";
-            string rateT2 = "";
-            string rateT3 = "";
-            string rateT4 = "";
-            string rateT5 = "";
-            string rateT6 = "";
-            string rateT7 = "";
-            string rateT8 = "";
-            string rateT9 = "";
-            string rateT10 = "";
-            string rateT11 = "";
-            string rateT12 = "";
-            DataTable dt = new DataTable();
-            dt.Columns.AddRange(new DataColumn[14] { new DataColumn("Id", typeof(string)),
+                var dateNow = DateTime.Now;
+                var idLine = _idLine;
+                var idStation = Convert.ToInt32(dgvStation.Rows[dgvStation.CurrentRow.Index].Cells[0].Value);
+
+                var timeNow = Convert.ToDateTime(dateNow.ToShortTimeString());
+                string startTime = "08:00 AM";
+                var time1 = Convert.ToDateTime(startTime);
+                string endTime = "20:00 PM";
+                DateTime time2 = Convert.ToDateTime(endTime);
+
+                var model = db.Quantities.Where(x => x.StationID == idStation && x.LineID == idLine && x.ShiftCode == "Shift B").ToList();
+                if (timeNow >= time1 && timeNow <= time2)
+                {
+                    model = db.Quantities.Where(x => x.StationID == idStation && x.LineID == idLine && x.ShiftCode == "Shift A").ToList();
+                }
+                string rateT1 = "";
+                string rateT2 = "";
+                string rateT3 = "";
+                string rateT4 = "";
+                string rateT5 = "";
+                string rateT6 = "";
+                string rateT7 = "";
+                string rateT8 = "";
+                string rateT9 = "";
+                string rateT10 = "";
+                string rateT11 = "";
+                string rateT12 = "";
+                DataTable dt = new DataTable();
+                dt.Columns.AddRange(new DataColumn[15] { new DataColumn("Id", typeof(string)),
                                 new DataColumn("Type", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
                                 new DataColumn("T1", typeof(string)),
                                 new DataColumn("T2",typeof(string)),
                                 new DataColumn("T3",typeof(string)),
@@ -169,169 +180,175 @@ namespace UMC.WApp
                                 new DataColumn("T10", typeof(string)),
                                 new DataColumn("T11",typeof(string)),
                                 new DataColumn("T12",typeof(string))});
-            if (model.Count > 0)
-            {
-                var ct = db.TimeSettings.ToList();
+                if (model.Count > 0)
+                {
+                    var ct = db.TimeSettings.ToList();
 
-                var query = from p in model
-                            where p.CreatedDate.Day == dateNow.Day &&
-                                  p.CreatedDate.Month == dateNow.Month &&
-                                  p.CreatedDate.Year == dateNow.Year
-                            group p by (p.StationID == idStation) into q
-                            select new GetSumQuantitiesViewModel
-                            {
-                                SumT1 = q.Sum(x => x.T1),
-                                SumT2 = q.Sum(x => x.T2),
-                                SumT3 = q.Sum(x => x.T3),
-                                SumT4 = q.Sum(x => x.T4),
-                                SumT5 = q.Sum(x => x.T5),
-                                SumT6 = q.Sum(x => x.T6),
-                                SumT7 = q.Sum(x => x.T7),
-                                SumT8 = q.Sum(x => x.T8),
-                                SumT9 = q.Sum(x => x.T9),
-                                SumT10 = q.Sum(x => x.T10),
-                                SumT11 = q.Sum(x => x.T11),
-                                SumT12 = q.Sum(x => x.T12)
-                            };
-                //Hiển thị S = time / pcs
-                foreach (var select in query)
-                {
-                    foreach (var timeSetting in ct)
-                    {
-                        dt.Rows.Add("", "S", Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T1 / select.SumT1)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T2 / select.SumT2)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T3 / select.SumT3)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T4 / select.SumT4)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T5 / select.SumT5)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T6 / select.SumT6)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T7 / select.SumT7)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T8 / select.SumT8)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T9 / select.SumT9)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T10 / select.SumT10)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T11 / select.SumT11)),
-                            Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T12 / select.SumT12)));
-                    }
-                }
-                //Hiển thị PCS
-                foreach (var item in model.Where(x => x.CreatedDate.Date == dateNow.Date))
-                {
-                    dt.Rows.Add(item.ID, item.Type, item.T1, item.T2, item.T3,
-                        item.T4, item.T5, item.T6, item.T7, item.T8, item.T9,
-                        item.T10, item.T11, item.T12);
-                }
-
-                //Hiển thị Total
-                foreach (var item in query)
-                {
-                    dt.Rows.Add("", "TTL", item.SumT1, item.SumT2, item.SumT3,
-                        item.SumT4, item.SumT5, item.SumT6, item.SumT7, item.SumT8, item.SumT9,
-                        item.SumT10, item.SumT11, item.SumT12);
-                }
-
-                //Tính Phần trăm rate = NumberConfig /(s=timeSetting/Sản lượng PCS)
-                float? numberConfig = 0;
-                var getNumberConfigStation = db.Stations.ToList();
-                foreach (var item in getNumberConfigStation.Where(x => x.ID == idStation))
-                {
-                    numberConfig = item.NumberConfig;
-                }
-                if (dt.Rows.Count > 0)
-                {
+                    var query = from p in model
+                                where p.CreatedDate.Day == dateNow.Day &&
+                                      p.CreatedDate.Month == dateNow.Month &&
+                                      p.CreatedDate.Year == dateNow.Year
+                                group p by (p.StationID == idStation) into q
+                                select new GetSumQuantitiesViewModel
+                                {
+                                    SumT1 = q.Sum(x => x.T1),
+                                    SumT2 = q.Sum(x => x.T2),
+                                    SumT3 = q.Sum(x => x.T3),
+                                    SumT4 = q.Sum(x => x.T4),
+                                    SumT5 = q.Sum(x => x.T5),
+                                    SumT6 = q.Sum(x => x.T6),
+                                    SumT7 = q.Sum(x => x.T7),
+                                    SumT8 = q.Sum(x => x.T8),
+                                    SumT9 = q.Sum(x => x.T9),
+                                    SumT10 = q.Sum(x => x.T10),
+                                    SumT11 = q.Sum(x => x.T11),
+                                    SumT12 = q.Sum(x => x.T12)
+                                };
+                    //Hiển thị S = time / pcs
                     foreach (var select in query)
                     {
                         foreach (var timeSetting in ct)
                         {
-                            if (select.SumT1 != null)
-                            {
-                                var t1 = numberConfig / (timeSetting.T1 / select.SumT1) * 100;
-                                rateT1 = Convert.ToString(string.Format("{0:#,###.##}%", t1));
-                            }
+                            dt.Rows.Add("", "S", "",
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T1 / select.SumT1)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T2 / select.SumT2)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T3 / select.SumT3)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T4 / select.SumT4)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T5 / select.SumT5)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T6 / select.SumT6)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T7 / select.SumT7)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T8 / select.SumT8)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T9 / select.SumT9)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T10 / select.SumT10)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T11 / select.SumT11)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T12 / select.SumT12)));
+                        }
+                    }
+                    //Hiển thị PCS
+                    foreach (var item in model.Where(x => x.CreatedDate.Date == dateNow.Date))
+                    {
+                        dt.Rows.Add(item.ID, item.Type, item.ShiftCode, item.T1, item.T2, item.T3,
+                            item.T4, item.T5, item.T6, item.T7, item.T8, item.T9,
+                            item.T10, item.T11, item.T12);
+                    }
 
-                            if (select.SumT2 != null)
-                            {
-                                var t2 = numberConfig / (timeSetting.T2 / select.SumT2) * 100;
-                                rateT2 = Convert.ToString(string.Format("{0:#,###.##} %", t2));
-                            }
+                    //Hiển thị Total
+                    foreach (var item in query)
+                    {
+                        dt.Rows.Add("", "TTL", "", item.SumT1, item.SumT2, item.SumT3,
+                            item.SumT4, item.SumT5, item.SumT6, item.SumT7, item.SumT8, item.SumT9,
+                            item.SumT10, item.SumT11, item.SumT12);
+                    }
 
-                            if (select.SumT3 != null)
+                    //Tính Phần trăm rate = NumberConfig /(s=timeSetting/Sản lượng PCS)
+                    float? numberConfig = 0;
+                    var getNumberConfigStation = db.Stations.ToList();
+                    foreach (var item in getNumberConfigStation.Where(x => x.ID == idStation))
+                    {
+                        numberConfig = item.NumberConfig;
+                    }
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (var select in query)
+                        {
+                            foreach (var timeSetting in ct)
                             {
-                                var t3 = numberConfig / (timeSetting.T3 / select.SumT3) * 100;
-                                rateT3 = Convert.ToString(string.Format("{0:#,###.##} %", t3));
-                            }
+                                if (select.SumT1 != null)
+                                {
+                                    var t1 = numberConfig / (timeSetting.T1 / select.SumT1) * 100;
+                                    rateT1 = Convert.ToString(string.Format("{0:#,###.##}%", t1));
+                                }
 
-                            if (select.SumT4 != null)
-                            {
-                                var t4 = numberConfig / (timeSetting.T4 / select.SumT4) * 100;
-                                rateT4 = Convert.ToString(string.Format("{0:#,###.##} %", t4));
-                            }
+                                if (select.SumT2 != null)
+                                {
+                                    var t2 = numberConfig / (timeSetting.T2 / select.SumT2) * 100;
+                                    rateT2 = Convert.ToString(string.Format("{0:#,###.##} %", t2));
+                                }
 
-                            if (select.SumT5 != null)
-                            {
-                                var t5 = numberConfig / (timeSetting.T5 / select.SumT5) * 100;
-                                rateT5 = Convert.ToString(string.Format("{0:#,###.##} %", t5));
-                            }
+                                if (select.SumT3 != null)
+                                {
+                                    var t3 = numberConfig / (timeSetting.T3 / select.SumT3) * 100;
+                                    rateT3 = Convert.ToString(string.Format("{0:#,###.##} %", t3));
+                                }
 
-                            if (select.SumT6 != null)
-                            {
-                                var t6 = numberConfig / (timeSetting.T6 / select.SumT6) * 100;
-                                rateT6 = Convert.ToString(string.Format("{0:#,###.##} %", t6));
-                            }
+                                if (select.SumT4 != null)
+                                {
+                                    var t4 = numberConfig / (timeSetting.T4 / select.SumT4) * 100;
+                                    rateT4 = Convert.ToString(string.Format("{0:#,###.##} %", t4));
+                                }
 
-                            if (select.SumT7 != null)
-                            {
-                                var t7 = numberConfig / (timeSetting.T7 / select.SumT7) * 100;
-                                rateT7 = Convert.ToString(string.Format("{0:#,###.##} %", t7));
-                            }
+                                if (select.SumT5 != null)
+                                {
+                                    var t5 = numberConfig / (timeSetting.T5 / select.SumT5) * 100;
+                                    rateT5 = Convert.ToString(string.Format("{0:#,###.##} %", t5));
+                                }
 
-                            if (select.SumT8 != null)
-                            {
-                                var t8 = numberConfig / (timeSetting.T8 / select.SumT8) * 100;
-                                rateT8 = Convert.ToString(string.Format("{0:#,###.##} %", t8));
-                            }
+                                if (select.SumT6 != null)
+                                {
+                                    var t6 = numberConfig / (timeSetting.T6 / select.SumT6) * 100;
+                                    rateT6 = Convert.ToString(string.Format("{0:#,###.##} %", t6));
+                                }
 
-                            if (select.SumT9 != null)
-                            {
-                                var t9 = numberConfig / (timeSetting.T9 / select.SumT9) * 100;
-                                rateT9 = Convert.ToString(string.Format("{0:#,###.##} %", t9));
-                            }
+                                if (select.SumT7 != null)
+                                {
+                                    var t7 = numberConfig / (timeSetting.T7 / select.SumT7) * 100;
+                                    rateT7 = Convert.ToString(string.Format("{0:#,###.##} %", t7));
+                                }
 
-                            if (select.SumT10 != null)
-                            {
-                                var t10 = numberConfig / (timeSetting.T10 / select.SumT10) * 100;
-                                rateT10 = Convert.ToString(string.Format("{0:#,###.##} %", t10));
-                            }
+                                if (select.SumT8 != null)
+                                {
+                                    var t8 = numberConfig / (timeSetting.T8 / select.SumT8) * 100;
+                                    rateT8 = Convert.ToString(string.Format("{0:#,###.##} %", t8));
+                                }
 
-                            if (select.SumT11 != null)
-                            {
-                                var t11 = numberConfig / (timeSetting.T11 / select.SumT11) * 100;
-                                rateT11 = Convert.ToString(string.Format("{0:#,###.##} %", t11));
-                            }
+                                if (select.SumT9 != null)
+                                {
+                                    var t9 = numberConfig / (timeSetting.T9 / select.SumT9) * 100;
+                                    rateT9 = Convert.ToString(string.Format("{0:#,###.##} %", t9));
+                                }
 
-                            if (select.SumT12 != null)
-                            {
-                                var t12 = numberConfig / (timeSetting.T12 / select.SumT12) * 100;
-                                rateT12 = Convert.ToString(string.Format("{0:#,###.##} %", t12));
-                            }
-                            dt.Rows.Add("", "Rate",
-                              rateT1.ToString(),
-                              rateT2.ToString(),
-                              rateT3.ToString(),
-                              rateT4.ToString(),
-                              rateT5.ToString(),
-                              rateT6.ToString(),
-                              rateT7.ToString(),
-                              rateT8.ToString(),
-                              rateT9.ToString(),
-                              rateT10.ToString(),
-                              rateT11.ToString(),
-                              rateT12.ToString()
-                          );
+                                if (select.SumT10 != null)
+                                {
+                                    var t10 = numberConfig / (timeSetting.T10 / select.SumT10) * 100;
+                                    rateT10 = Convert.ToString(string.Format("{0:#,###.##} %", t10));
+                                }
 
+                                if (select.SumT11 != null)
+                                {
+                                    var t11 = numberConfig / (timeSetting.T11 / select.SumT11) * 100;
+                                    rateT11 = Convert.ToString(string.Format("{0:#,###.##} %", t11));
+                                }
+
+                                if (select.SumT12 != null)
+                                {
+                                    var t12 = numberConfig / (timeSetting.T12 / select.SumT12) * 100;
+                                    rateT12 = Convert.ToString(string.Format("{0:#,###.##} %", t12));
+                                }
+                                dt.Rows.Add("", "Rate", "",
+                                  rateT1.ToString(),
+                                  rateT2.ToString(),
+                                  rateT3.ToString(),
+                                  rateT4.ToString(),
+                                  rateT5.ToString(),
+                                  rateT6.ToString(),
+                                  rateT7.ToString(),
+                                  rateT8.ToString(),
+                                  rateT9.ToString(),
+                                  rateT10.ToString(),
+                                  rateT11.ToString(),
+                                  rateT12.ToString()
+                              );
+
+                            }
                         }
                     }
                 }
+                dgvQuantity.DataSource = dt;
             }
-            dgvQuantity.DataSource = dt;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error:" + ex);
+            }
         }
         private void btnAddNew_Click(object sender, EventArgs e)
         {
@@ -490,9 +507,9 @@ namespace UMC.WApp
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Không thêm được dữ liệu", "Error",
+                MessageBox.Show("Không thêm được dữ liệu" + ex, "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -635,13 +652,13 @@ namespace UMC.WApp
 
         private void dgvQuantity_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int id = 0;
-            DataGridViewRow row = this.dgvQuantity.Rows[e.RowIndex];
-            id = Convert.ToInt32(row.Cells["QuantitiesId"].Value.ToString());
-
-            var checkId = db.Quantities.Where(x => x.ID == id).ToList();
-            if (checkId.Count > 0)
+            try
             {
+                int id = 0;
+                DataGridViewRow row = this.dgvQuantity.Rows[e.RowIndex];
+                id = Convert.ToInt32(row.Cells["QuantitiesId"].Value.ToString());
+
+                var checkId = db.Quantities.Where(x => x.ID == id).ToList();
                 var quantities = db.Quantities.Find(id);
                 txtT1.Text = quantities.T1.ToString();
                 txtT2.Text = quantities.T2.ToString();
@@ -657,12 +674,15 @@ namespace UMC.WApp
                 txtT12.Text = quantities.T12.ToString();
                 cbbType.Text = quantities.Type.ToString();
                 cbbShiftCode.Text = quantities.ShiftCode.ToString();
+
                 btnAddNew.Enabled = false;
+                btnUpdate.Enabled = true;
+                btnDelete.Enabled = true;
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("Bạn không được chọn dòng này", "Error",
-                             MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Bạn không được chọn vùng này", "Warning",
+                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -688,6 +708,215 @@ namespace UMC.WApp
         private void cbbShiftCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblShift.Text = "Choose: " + cbbShiftCode.Text;
+        }
+
+        private void cbbShiftCodeDisplay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var dateNow = DateTime.Now;
+                var idLine = _idLine;
+                var idStation = Convert.ToInt32(dgvStation.Rows[dgvStation.CurrentRow.Index].Cells[0].Value);
+                var shiftCode = cbbShiftCodeDisplay.Text;
+                var model = db.Quantities.Where(x => x.StationID == idStation && x.LineID == idLine && x.ShiftCode == shiftCode).ToList();
+
+                string rateT1 = "";
+                string rateT2 = "";
+                string rateT3 = "";
+                string rateT4 = "";
+                string rateT5 = "";
+                string rateT6 = "";
+                string rateT7 = "";
+                string rateT8 = "";
+                string rateT9 = "";
+                string rateT10 = "";
+                string rateT11 = "";
+                string rateT12 = "";
+                DataTable dt = new DataTable();
+                dt.Columns.AddRange(new DataColumn[15] { new DataColumn("Id", typeof(string)),
+                                new DataColumn("Type", typeof(string)),
+                                new DataColumn("ShiftCode", typeof(string)),
+                                new DataColumn("T1", typeof(string)),
+                                new DataColumn("T2",typeof(string)),
+                                new DataColumn("T3",typeof(string)),
+                                new DataColumn("T4", typeof(string)),
+                                new DataColumn("T5",typeof(string)),
+                                new DataColumn("T6",typeof(string)),
+                                new DataColumn("T7", typeof(string)),
+                                new DataColumn("T8",typeof(string)),
+                                new DataColumn("T9",typeof(string)),
+                                new DataColumn("T10", typeof(string)),
+                                new DataColumn("T11",typeof(string)),
+                                new DataColumn("T12",typeof(string))});
+                if (model.Count > 0)
+                {
+                    var ct = db.TimeSettings.ToList();
+
+                    var query = from p in model
+                                where p.CreatedDate.Day == dateNow.Day &&
+                                      p.CreatedDate.Month == dateNow.Month &&
+                                      p.CreatedDate.Year == dateNow.Year
+                                group p by (p.StationID == idStation) into q
+                                select new GetSumQuantitiesViewModel
+                                {
+                                    SumT1 = q.Sum(x => x.T1),
+                                    SumT2 = q.Sum(x => x.T2),
+                                    SumT3 = q.Sum(x => x.T3),
+                                    SumT4 = q.Sum(x => x.T4),
+                                    SumT5 = q.Sum(x => x.T5),
+                                    SumT6 = q.Sum(x => x.T6),
+                                    SumT7 = q.Sum(x => x.T7),
+                                    SumT8 = q.Sum(x => x.T8),
+                                    SumT9 = q.Sum(x => x.T9),
+                                    SumT10 = q.Sum(x => x.T10),
+                                    SumT11 = q.Sum(x => x.T11),
+                                    SumT12 = q.Sum(x => x.T12)
+                                };
+                    //Hiển thị S = time / pcs
+                    foreach (var select in query)
+                    {
+                        foreach (var timeSetting in ct)
+                        {
+                            dt.Rows.Add("", "S", "",
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T1 / select.SumT1)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T2 / select.SumT2)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T3 / select.SumT3)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T4 / select.SumT4)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T5 / select.SumT5)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T6 / select.SumT6)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T7 / select.SumT7)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T8 / select.SumT8)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T9 / select.SumT9)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T10 / select.SumT10)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T11 / select.SumT11)),
+                                Convert.ToString(string.Format("{0:#,###.##}", timeSetting.T12 / select.SumT12)));
+                        }
+                    }
+                    //Hiển thị PCS
+                    foreach (var item in model.Where(x => x.CreatedDate.Date == dateNow.Date))
+                    {
+                        dt.Rows.Add(item.ID, item.Type, item.ShiftCode, item.T1, item.T2, item.T3,
+                            item.T4, item.T5, item.T6, item.T7, item.T8, item.T9,
+                            item.T10, item.T11, item.T12);
+                    }
+
+                    //Hiển thị Total
+                    foreach (var item in query)
+                    {
+                        dt.Rows.Add("", "TTL", "", item.SumT1, item.SumT2, item.SumT3,
+                            item.SumT4, item.SumT5, item.SumT6, item.SumT7, item.SumT8, item.SumT9,
+                            item.SumT10, item.SumT11, item.SumT12);
+                    }
+
+                    //Tính Phần trăm rate = NumberConfig /(s=timeSetting/Sản lượng PCS)
+                    float? numberConfig = 0;
+                    var getNumberConfigStation = db.Stations.ToList();
+                    foreach (var item in getNumberConfigStation.Where(x => x.ID == idStation))
+                    {
+                        numberConfig = item.NumberConfig;
+                    }
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (var select in query)
+                        {
+                            foreach (var timeSetting in ct)
+                            {
+                                if (select.SumT1 != null)
+                                {
+                                    var t1 = numberConfig / (timeSetting.T1 / select.SumT1) * 100;
+                                    rateT1 = Convert.ToString(string.Format("{0:#,###.##}%", t1));
+                                }
+
+                                if (select.SumT2 != null)
+                                {
+                                    var t2 = numberConfig / (timeSetting.T2 / select.SumT2) * 100;
+                                    rateT2 = Convert.ToString(string.Format("{0:#,###.##} %", t2));
+                                }
+
+                                if (select.SumT3 != null)
+                                {
+                                    var t3 = numberConfig / (timeSetting.T3 / select.SumT3) * 100;
+                                    rateT3 = Convert.ToString(string.Format("{0:#,###.##} %", t3));
+                                }
+
+                                if (select.SumT4 != null)
+                                {
+                                    var t4 = numberConfig / (timeSetting.T4 / select.SumT4) * 100;
+                                    rateT4 = Convert.ToString(string.Format("{0:#,###.##} %", t4));
+                                }
+
+                                if (select.SumT5 != null)
+                                {
+                                    var t5 = numberConfig / (timeSetting.T5 / select.SumT5) * 100;
+                                    rateT5 = Convert.ToString(string.Format("{0:#,###.##} %", t5));
+                                }
+
+                                if (select.SumT6 != null)
+                                {
+                                    var t6 = numberConfig / (timeSetting.T6 / select.SumT6) * 100;
+                                    rateT6 = Convert.ToString(string.Format("{0:#,###.##} %", t6));
+                                }
+
+                                if (select.SumT7 != null)
+                                {
+                                    var t7 = numberConfig / (timeSetting.T7 / select.SumT7) * 100;
+                                    rateT7 = Convert.ToString(string.Format("{0:#,###.##} %", t7));
+                                }
+
+                                if (select.SumT8 != null)
+                                {
+                                    var t8 = numberConfig / (timeSetting.T8 / select.SumT8) * 100;
+                                    rateT8 = Convert.ToString(string.Format("{0:#,###.##} %", t8));
+                                }
+
+                                if (select.SumT9 != null)
+                                {
+                                    var t9 = numberConfig / (timeSetting.T9 / select.SumT9) * 100;
+                                    rateT9 = Convert.ToString(string.Format("{0:#,###.##} %", t9));
+                                }
+
+                                if (select.SumT10 != null)
+                                {
+                                    var t10 = numberConfig / (timeSetting.T10 / select.SumT10) * 100;
+                                    rateT10 = Convert.ToString(string.Format("{0:#,###.##} %", t10));
+                                }
+
+                                if (select.SumT11 != null)
+                                {
+                                    var t11 = numberConfig / (timeSetting.T11 / select.SumT11) * 100;
+                                    rateT11 = Convert.ToString(string.Format("{0:#,###.##} %", t11));
+                                }
+
+                                if (select.SumT12 != null)
+                                {
+                                    var t12 = numberConfig / (timeSetting.T12 / select.SumT12) * 100;
+                                    rateT12 = Convert.ToString(string.Format("{0:#,###.##} %", t12));
+                                }
+                                dt.Rows.Add("", "Rate", "",
+                                  rateT1.ToString(),
+                                  rateT2.ToString(),
+                                  rateT3.ToString(),
+                                  rateT4.ToString(),
+                                  rateT5.ToString(),
+                                  rateT6.ToString(),
+                                  rateT7.ToString(),
+                                  rateT8.ToString(),
+                                  rateT9.ToString(),
+                                  rateT10.ToString(),
+                                  rateT11.ToString(),
+                                  rateT12.ToString()
+                              );
+
+                            }
+                        }
+                    }
+                }
+                dgvQuantity.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error:" + ex);
+            }
         }
     }
 }

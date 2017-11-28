@@ -166,9 +166,10 @@ namespace UMC.WApp
             chartOPT1.Series[0].ChartType = SeriesChartType.Column;
             chartOPT1.Series[0].IsValueShownAsLabel = true;
             chartOPT1.Series[0].IsVisibleInLegend = true;
-            chartOPT1.Series[0]["PixelPointWidth"] = "30";
+            chartOPT1.Series[0]["PixelPointWidth"] = "20";
             chartOPT1.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
-
+            chartOPT1.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartOPT1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
 
             chartOPT1.Series.Add("Rate");
             chartOPT1.Series[1].XValueMember = "ShiftCode";
@@ -325,8 +326,10 @@ namespace UMC.WApp
             chartOPT2.Series[0].ChartType = SeriesChartType.Column;
             chartOPT2.Series[0].IsValueShownAsLabel = true;
             chartOPT2.Series[0].IsVisibleInLegend = true;
-            chartOPT2.Series[0]["PixelPointWidth"] = "30";
+            chartOPT2.Series[0]["PixelPointWidth"] = "20";
             chartOPT2.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+            chartOPT2.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartOPT2.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
 
             chartOPT2.Series.Add("Rate");
             chartOPT2.Series[1].XValueMember = "ShiftCode";
@@ -347,7 +350,7 @@ namespace UMC.WApp
             LoadChartOPT2();
 
             tm = new Timer();
-            tm.Interval = 5 * 1000; // 10 seconds
+            tm.Interval = 10 * 1000; // 10 seconds
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
         }

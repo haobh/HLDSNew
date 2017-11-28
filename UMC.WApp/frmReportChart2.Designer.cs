@@ -61,7 +61,7 @@
             this.chartPU2.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartPU2.Legends.Add(legend1);
-            this.chartPU2.Location = new System.Drawing.Point(563, 19);
+            this.chartPU2.Location = new System.Drawing.Point(581, 19);
             this.chartPU2.Name = "chartPU2";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
@@ -71,7 +71,7 @@
             series2.Name = "Rate";
             this.chartPU2.Series.Add(series1);
             this.chartPU2.Series.Add(series2);
-            this.chartPU2.Size = new System.Drawing.Size(581, 332);
+            this.chartPU2.Size = new System.Drawing.Size(560, 332);
             this.chartPU2.TabIndex = 12;
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title1.Name = "Title1";
@@ -84,7 +84,7 @@
             this.dgvPU2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPU2.Location = new System.Drawing.Point(0, 19);
             this.dgvPU2.Name = "dgvPU2";
-            this.dgvPU2.Size = new System.Drawing.Size(556, 332);
+            this.dgvPU2.Size = new System.Drawing.Size(575, 332);
             this.dgvPU2.TabIndex = 11;
             // 
             // dgvPU1
@@ -93,7 +93,7 @@
             this.dgvPU1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPU1.Location = new System.Drawing.Point(16, 24);
             this.dgvPU1.Name = "dgvPU1";
-            this.dgvPU1.Size = new System.Drawing.Size(555, 333);
+            this.dgvPU1.Size = new System.Drawing.Size(573, 333);
             this.dgvPU1.TabIndex = 10;
             // 
             // chartPU1
@@ -105,7 +105,7 @@
             this.chartPU1.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartPU1.Legends.Add(legend2);
-            this.chartPU1.Location = new System.Drawing.Point(563, 14);
+            this.chartPU1.Location = new System.Drawing.Point(581, 14);
             this.chartPU1.Name = "chartPU1";
             series3.ChartArea = "ChartArea1";
             series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -117,7 +117,7 @@
             series4.Name = "Rate";
             this.chartPU1.Series.Add(series3);
             this.chartPU1.Series.Add(series4);
-            this.chartPU1.Size = new System.Drawing.Size(581, 333);
+            this.chartPU1.Size = new System.Drawing.Size(560, 333);
             this.chartPU1.TabIndex = 9;
             title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title2.Name = "Title1";

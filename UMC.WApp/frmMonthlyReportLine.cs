@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using UMC.Data;
 using UMC.WApp.ViewModel;
@@ -72,6 +73,52 @@ namespace UMC.WApp
                     dt.Rows.Add(item.LineName, item.ShiftCode, item.CreateDate, item.TotalDay);
                 }
                 dgvMonthlyReportLine.DataSource = dt;
+
+                //List<GetSumLineViewModel> getSumLineVM = new List<GetSumLineViewModel>();
+                //getSumLineVM = (from DataRow dr in dt.Rows
+                //               select new GetSumLineViewModel()
+                //               {
+                //                   LineName = dr["LineName"].ToString(),
+                //                   ShiftCode = dr["ShiftCode"].ToString(),
+                //                   CreatedDate = Convert.ToDateTime(dr["CreatedDate"].ToString()),
+                //                   Total = Convert.ToInt32(dr["Total"])
+                //               }).ToList();
+                //dgvPivot.DataSource = getSumLineVM;
+
+                List<GetSumLineViewModel> getSumLineVM = new List<GetSumLineViewModel>();
+                getSumLineVM.AddRange((from DataRow dr in dt.Rows
+                                       select new GetSumLineViewModel
+                                       {
+                                           LineName = dr["LineName"].ToString(),
+                                           ShiftCode = dr["ShiftCode"].ToString(),                                          
+                                           CreatedDate = string.Format("{0:dd/MM/yyyy}", dr["CreatedDate"].ToString()),
+                                           Total = Convert.ToInt32(dr["Total"])
+                                       }).ToList());
+
+                DataTable dt2 = new DataTable();
+                DataColumn dc = new DataColumn("LineName", typeof(string));
+                dt2.Columns.Add(dc);
+                dc = new DataColumn("ShiftCode", typeof(string));
+                dt2.Columns.Add(dc);
+                List<DateTime> list = new List<DateTime> {};
+                foreach (var item in query)
+                {
+                    list.Add(item.CreateDate);
+                   
+                }
+                var duplicates = list.GroupBy(s => s).SelectMany(grp => grp.Skip(1));
+                foreach(var check in duplicates)
+                {
+                    dc = new DataColumn(check.ToString("dd/MM/yyyy"));
+                    dt2.Columns.Add(dc);
+                }
+                foreach(var select in query.GroupBy(x=>x.LineName))
+                {
+                    //dt2.Rows.Add(select.LineName,select.ShiftCode, select.TotalDay);
+                }
+
+                dgvPivot.DataSource = dt2;
+
 
                 Series line1 = new Series("line1", ViewType.StackedBar);
                 foreach (var item in query.Where(x => x.LineName == "Line 1" && x.ShiftCode == shiftCode))

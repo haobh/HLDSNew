@@ -61,7 +61,7 @@
             this.chartOPT1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartOPT1.Legends.Add(legend1);
-            this.chartOPT1.Location = new System.Drawing.Point(551, 19);
+            this.chartOPT1.Location = new System.Drawing.Point(556, 19);
             this.chartOPT1.Name = "chartOPT1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
@@ -71,7 +71,7 @@
             series2.Name = "Rate";
             this.chartOPT1.Series.Add(series1);
             this.chartOPT1.Series.Add(series2);
-            this.chartOPT1.Size = new System.Drawing.Size(580, 315);
+            this.chartOPT1.Size = new System.Drawing.Size(575, 315);
             this.chartOPT1.TabIndex = 9;
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title1.Name = "Title1";
@@ -84,7 +84,7 @@
             this.dgvOPT1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOPT1.Location = new System.Drawing.Point(6, 19);
             this.dgvOPT1.Name = "dgvOPT1";
-            this.dgvOPT1.Size = new System.Drawing.Size(527, 315);
+            this.dgvOPT1.Size = new System.Drawing.Size(544, 315);
             this.dgvOPT1.TabIndex = 8;
             // 
             // groupBox2
@@ -122,7 +122,7 @@
             this.dgvOPT2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOPT2.Location = new System.Drawing.Point(6, 23);
             this.dgvOPT2.Name = "dgvOPT2";
-            this.dgvOPT2.Size = new System.Drawing.Size(527, 350);
+            this.dgvOPT2.Size = new System.Drawing.Size(544, 350);
             this.dgvOPT2.TabIndex = 3;
             // 
             // chartOPT2
@@ -134,7 +134,7 @@
             this.chartOPT2.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartOPT2.Legends.Add(legend2);
-            this.chartOPT2.Location = new System.Drawing.Point(551, 23);
+            this.chartOPT2.Location = new System.Drawing.Point(556, 23);
             this.chartOPT2.Name = "chartOPT2";
             series3.ChartArea = "ChartArea1";
             series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -146,7 +146,7 @@
             series4.Name = "Rate";
             this.chartOPT2.Series.Add(series3);
             this.chartOPT2.Series.Add(series4);
-            this.chartOPT2.Size = new System.Drawing.Size(580, 350);
+            this.chartOPT2.Size = new System.Drawing.Size(575, 350);
             this.chartOPT2.TabIndex = 2;
             title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title2.Name = "Title1";

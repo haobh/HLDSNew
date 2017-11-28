@@ -163,9 +163,10 @@ namespace UMC.WApp
             chartWire.Series[0].ChartType = SeriesChartType.Column;
             chartWire.Series[0].IsValueShownAsLabel = true;
             chartWire.Series[0].IsVisibleInLegend = true;
-            chartWire.Series[0]["PixelPointWidth"] = "30";
+            chartWire.Series[0]["PixelPointWidth"] = "20";
             chartWire.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
-
+            chartWire.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartWire.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
 
             chartWire.Series.Add("Rate");
             chartWire.Series[1].XValueMember = "ShiftCode";
@@ -325,9 +326,10 @@ namespace UMC.WApp
             chartYOKE.Series[0].ChartType = SeriesChartType.Column;
             chartYOKE.Series[0].IsValueShownAsLabel = true;
             chartYOKE.Series[0].IsVisibleInLegend = true;
-            chartYOKE.Series[0]["PixelPointWidth"] = "30";
+            chartYOKE.Series[0]["PixelPointWidth"] = "20";
             chartYOKE.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
-
+            chartYOKE.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartYOKE.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
 
             chartYOKE.Series.Add("Rate");
             chartYOKE.Series[1].XValueMember = "ShiftCode";
@@ -355,7 +357,7 @@ namespace UMC.WApp
             LoadChartYOKE();
 
             tm = new Timer();
-            tm.Interval = 5 * 1000; // 10 seconds
+            tm.Interval = 10 * 1000; // 10 seconds
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
         }

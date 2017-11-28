@@ -164,8 +164,10 @@ namespace UMC.WApp
             chartPU1.Series[0].ChartType = SeriesChartType.Column;
             chartPU1.Series[0].IsValueShownAsLabel = true;
             chartPU1.Series[0].IsVisibleInLegend = true;
-            chartPU1.Series[0]["PixelPointWidth"] = "30";
+            chartPU1.Series[0]["PixelPointWidth"] = "20";
             chartPU1.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+            chartPU1.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartPU1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
 
 
             chartPU1.Series.Add("Rate");
@@ -323,8 +325,10 @@ namespace UMC.WApp
             chartPU2.Series[0].ChartType = SeriesChartType.Column;
             chartPU2.Series[0].IsValueShownAsLabel = true;
             chartPU2.Series[0].IsVisibleInLegend = true;
-            chartPU2.Series[0]["PixelPointWidth"] = "30";
+            chartPU2.Series[0]["PixelPointWidth"] = "20";
             chartPU2.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+            chartPU2.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartPU2.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
 
 
             chartPU2.Series.Add("Rate");
@@ -347,7 +351,7 @@ namespace UMC.WApp
             LoadChartPU2();           
 
             tm = new Timer();
-            tm.Interval = 5 * 1000; // 10 seconds
+            tm.Interval = 10 * 1000; // 10 seconds
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
 
