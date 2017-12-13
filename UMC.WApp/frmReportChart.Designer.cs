@@ -61,7 +61,7 @@
             this.chartWire.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartWire.Legends.Add(legend1);
-            this.chartWire.Location = new System.Drawing.Point(556, 14);
+            this.chartWire.Location = new System.Drawing.Point(380, 14);
             this.chartWire.Name = "chartWire";
             series1.ChartArea = "ChartArea1";
             series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -73,7 +73,7 @@
             series2.Name = "Rate";
             this.chartWire.Series.Add(series1);
             this.chartWire.Series.Add(series2);
-            this.chartWire.Size = new System.Drawing.Size(565, 323);
+            this.chartWire.Size = new System.Drawing.Size(741, 323);
             this.chartWire.TabIndex = 2;
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title1.Name = "Title1";
@@ -87,7 +87,7 @@
             this.dgvWire.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvWire.Location = new System.Drawing.Point(14, 19);
             this.dgvWire.Name = "dgvWire";
-            this.dgvWire.Size = new System.Drawing.Size(548, 323);
+            this.dgvWire.Size = new System.Drawing.Size(372, 323);
             this.dgvWire.TabIndex = 3;
             // 
             // groupBox1
@@ -114,9 +114,9 @@
             this.groupBox4.Controls.Add(this.dgvYOKE);
             this.groupBox4.Controls.Add(this.chartYOKE);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(12, 383);
+            this.groupBox4.Location = new System.Drawing.Point(12, 367);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1127, 353);
+            this.groupBox4.Size = new System.Drawing.Size(1127, 369);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Infor YOKE";
@@ -127,7 +127,7 @@
             this.dgvYOKE.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvYOKE.Location = new System.Drawing.Point(7, 14);
             this.dgvYOKE.Name = "dgvYOKE";
-            this.dgvYOKE.Size = new System.Drawing.Size(543, 320);
+            this.dgvYOKE.Size = new System.Drawing.Size(367, 336);
             this.dgvYOKE.TabIndex = 3;
             // 
             // chartYOKE
@@ -139,7 +139,7 @@
             this.chartYOKE.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartYOKE.Legends.Add(legend2);
-            this.chartYOKE.Location = new System.Drawing.Point(556, 14);
+            this.chartYOKE.Location = new System.Drawing.Point(380, 14);
             this.chartYOKE.Name = "chartYOKE";
             series3.ChartArea = "ChartArea1";
             series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -151,7 +151,7 @@
             series4.Name = "Rate";
             this.chartYOKE.Series.Add(series3);
             this.chartYOKE.Series.Add(series4);
-            this.chartYOKE.Size = new System.Drawing.Size(565, 320);
+            this.chartYOKE.Size = new System.Drawing.Size(741, 336);
             this.chartYOKE.TabIndex = 2;
             title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title2.Name = "Title1";

@@ -14,9 +14,9 @@ namespace UMC.WApp
         HLDSDbContext db = null;
         public frmReportChart()
         {
-            InitializeComponent();            
+            InitializeComponent();
             db = new HLDSDbContext();
-            
+
         }
 
         public void LoadChartWireSass()
@@ -41,7 +41,7 @@ namespace UMC.WApp
                         where quantities.CreatedDate.Day == dateNow.Day &&
                                   quantities.CreatedDate.Month == dateNow.Month &&
                                   quantities.CreatedDate.Year == dateNow.Year
-                        group quantities by new { quantities.LineID, line.Name, station.StationName,station.ID,quantities.ShiftCode } into fGroup
+                        group quantities by new { quantities.LineID, line.Name, station.StationName, station.ID, quantities.ShiftCode } into fGroup
                         select new ReportChartViewModel
                         {
                             LineId = fGroup.Key.LineID,
@@ -69,7 +69,7 @@ namespace UMC.WApp
                                 new DataColumn("TotalQuantities", typeof(float)),
                                 new DataColumn("Rate", typeof(string))});
 
-            foreach (var item in query.Where(x=>x.NameStation== "Ngoại Quan WIRE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan WIRE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
             {
                 foreach (var time in timeDaily)
                 {
@@ -104,7 +104,7 @@ namespace UMC.WApp
                         item.TotalRate = rate;
                     }
                 }
-                dt.Rows.Add(item.LineId,item.NameLine,item.ShiftCode,item.TotalQuantities,item.TotalRate );
+                dt.Rows.Add(item.LineId, item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRate);
             }
 
             DataTable dtShow = new DataTable();
@@ -149,25 +149,48 @@ namespace UMC.WApp
                     }
                 }
                 dtShow.Rows.Add(item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRateDisplay);
-            }
-
+            }          
             chartWire.Series.Clear();
-            chartWire.DataSource = dt;
-            //chartWire.Titles.Add("WIRE-SASS");
+            chartWire.DataSource = dt;   
             chartWire.ChartAreas[0].AxisX.Title = "Line";
             chartWire.ChartAreas[0].AxisY.Title = "Quantities";
-
             chartWire.Series.Add("Total");
-            chartWire.Series[0].XValueMember = "ShiftCode";
-            chartWire.Series[0].YValueMembers = "TotalQuantities";
-            chartWire.Series[0].ChartType = SeriesChartType.Column;
+            //chartWire.Series[0].XValueMember = "ShiftCode";
+            //chartWire.Series[0].YValueMembers = "TotalQuantities";
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+            //    var setColor = dt.Columns[2].ColumnName = "ShiftCode";
+            //    if (setColor == "Shift A")
+            //    {
+            //        chartWire.Series[0].Points[i].Color = Color.Yellow;
+            //    }
+            //    if (setColor == "Shift B")
+            //    {
+            //        chartWire.Series[0].Points[i].Color = Color.Red;
+            //    }
+            //}
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan WIRE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                int index = chartWire.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
+                //Gán giá trị X,Y vào biểu đồ, giống như AxisX, AxisY
+                if (item.ShiftCode == "Shift A")
+                {
+                    chartWire.Series[0].Points[index].Color = Color.Green;
+                }
+                if (item.ShiftCode == "Shift B")
+                {
+                    chartWire.Series[0].Points[index].Color = Color.Orange;
+                }
+            }
+            chartWire.Series[0].ChartType = SeriesChartType.Column;         
             chartWire.Series[0].IsValueShownAsLabel = true;
             chartWire.Series[0].IsVisibleInLegend = true;
-            chartWire.Series[0]["PixelPointWidth"] = "20";
+            chartWire.Series[0]["PixelPointWidth"] = "30";
             chartWire.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
-            chartWire.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartWire.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
             chartWire.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
-
+            chartWire.ChartAreas[0].AxisX.IsLabelAutoFit = true;
+          
             chartWire.Series.Add("Rate");
             chartWire.Series[1].XValueMember = "ShiftCode";
             chartWire.Series[1].YValueMembers = "TotalQuantities";
@@ -175,12 +198,12 @@ namespace UMC.WApp
             chartWire.Series[1].BorderWidth = 3;
             chartWire.Series[1].IsValueShownAsLabel = false;
             chartWire.Series[1].IsVisibleInLegend = true;
-            chartWire.DataBind();
-
+            chartWire.DataBind();          
+            //Hiển thị ra GridView
             dgvWire.DataSource = dtShow;
 
         }
-       
+
         public void LoadChartYOKE()
         {
             var timeDaily = db.TimeDailies.ToList();
@@ -191,7 +214,6 @@ namespace UMC.WApp
             {
                 numberConfigYOKE = item.NumberConfig;
             }
-
 
             var dateNow = DateTime.Now;
             var query = from station in db.Stations
@@ -321,12 +343,24 @@ namespace UMC.WApp
             chartYOKE.ChartAreas[0].AxisY.Title = "Quantities";
 
             chartYOKE.Series.Add("Total");
-            chartYOKE.Series[0].XValueMember = "ShiftCode";
-            chartYOKE.Series[0].YValueMembers = "TotalQuantities";
+            //chartYOKE.Series[0].XValueMember = "ShiftCode";
+            //chartYOKE.Series[0].YValueMembers = "TotalQuantities";
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan YOKE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                int index = chartYOKE.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
+                if (item.ShiftCode == "Shift A")
+                {
+                    chartYOKE.Series[0].Points[index].Color = Color.Green;
+                }
+                if (item.ShiftCode == "Shift B")
+                {
+                    chartYOKE.Series[0].Points[index].Color = Color.Orange;
+                }
+            }
             chartYOKE.Series[0].ChartType = SeriesChartType.Column;
             chartYOKE.Series[0].IsValueShownAsLabel = true;
             chartYOKE.Series[0].IsVisibleInLegend = true;
-            chartYOKE.Series[0]["PixelPointWidth"] = "20";
+            chartYOKE.Series[0]["PixelPointWidth"] = "30";
             chartYOKE.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
             chartYOKE.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
             chartYOKE.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
@@ -353,7 +387,7 @@ namespace UMC.WApp
             this.Location = new Point((screen.Width - w) / 2, (screen.Height - h) / 2);
             this.Size = new Size(w, h);
 
-            LoadChartWireSass();            
+            LoadChartWireSass();
             LoadChartYOKE();
 
             tm = new Timer();

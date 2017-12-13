@@ -52,7 +52,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(5, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1131, 342);
+            this.groupBox3.Size = new System.Drawing.Size(1140, 342);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Infor LD";
@@ -63,7 +63,7 @@
             this.dgvLD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLD.Location = new System.Drawing.Point(7, 19);
             this.dgvLD.Name = "dgvLD";
-            this.dgvLD.Size = new System.Drawing.Size(545, 304);
+            this.dgvLD.Size = new System.Drawing.Size(366, 304);
             this.dgvLD.TabIndex = 3;
             // 
             // chartLD
@@ -75,7 +75,7 @@
             this.chartLD.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartLD.Legends.Add(legend1);
-            this.chartLD.Location = new System.Drawing.Point(558, 19);
+            this.chartLD.Location = new System.Drawing.Point(379, 19);
             this.chartLD.Name = "chartLD";
             series1.ChartArea = "ChartArea1";
             series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -87,7 +87,7 @@
             series2.Name = "Rate";
             this.chartLD.Series.Add(series1);
             this.chartLD.Series.Add(series2);
-            this.chartLD.Size = new System.Drawing.Size(567, 304);
+            this.chartLD.Size = new System.Drawing.Size(740, 304);
             this.chartLD.TabIndex = 2;
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title1.Name = "Title1";

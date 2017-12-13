@@ -285,7 +285,7 @@
             this.lblText.Name = "lblText";
             this.lblText.Size = new System.Drawing.Size(837, 57);
             this.lblText.TabIndex = 3;
-            this.lblText.Text = "UMC Electronic VietNam - HLDS Report System";
+            this.lblText.Text = "UMC Electronic VietNam - Quantity Report - 産量 ポート";
             // 
             // frmMain
             // 

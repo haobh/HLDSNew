@@ -160,12 +160,24 @@ namespace UMC.WApp
             chartLD.ChartAreas[0].AxisY.Title = "Quantities";
 
             chartLD.Series.Add("Total");
-            chartLD.Series[0].XValueMember = "ShiftCode";
-            chartLD.Series[0].YValueMembers = "TotalQuantities";
+            //chartLD.Series[0].XValueMember = "ShiftCode";
+            //chartLD.Series[0].YValueMembers = "TotalQuantities";
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan LD").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                int index = chartLD.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
+                if (item.ShiftCode == "Shift A")
+                {
+                    chartLD.Series[0].Points[index].Color = Color.Green;
+                }
+                if (item.ShiftCode == "Shift B")
+                {
+                    chartLD.Series[0].Points[index].Color = Color.Orange;
+                }
+            }
             chartLD.Series[0].ChartType = SeriesChartType.Column;
             chartLD.Series[0].IsValueShownAsLabel = true;
             chartLD.Series[0].IsVisibleInLegend = true;
-            chartLD.Series[0]["PixelPointWidth"] = "20";
+            chartLD.Series[0]["PixelPointWidth"] = "30";
             chartLD.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
             chartLD.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
             chartLD.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);

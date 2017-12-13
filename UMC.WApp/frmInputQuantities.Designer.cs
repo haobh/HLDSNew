@@ -34,10 +34,7 @@
             this.gbAddNew = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
             this.cbbShiftCode = new System.Windows.Forms.ComboBox();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.lblStation = new System.Windows.Forms.Label();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnAddNew = new System.Windows.Forms.Button();
             this.cbbType = new System.Windows.Forms.ComboBox();
             this.txtT6 = new System.Windows.Forms.TextBox();
             this.txtT5 = new System.Windows.Forms.TextBox();
@@ -96,6 +93,9 @@
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LineId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnAddNew = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbShift.SuspendLayout();
             this.gbAddNew.SuspendLayout();
@@ -124,9 +124,7 @@
             // 
             // gbShift
             // 
-            this.gbShift.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbShift.AutoSize = true;
             this.gbShift.Controls.Add(this.lblShift);
             this.gbShift.Location = new System.Drawing.Point(800, 33);
             this.gbShift.Name = "gbShift";
@@ -205,18 +203,6 @@
             this.cbbShiftCode.TabIndex = 5;
             this.cbbShiftCode.SelectedIndexChanged += new System.EventHandler(this.cbbShiftCode_SelectedIndexChanged);
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Image = global::UMC.WApp.Properties.Resources.Delete;
-            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.Location = new System.Drawing.Point(311, 244);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(89, 30);
-            this.btnDelete.TabIndex = 3;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // lblStation
             // 
             this.lblStation.AutoSize = true;
@@ -227,30 +213,6 @@
             this.lblStation.Size = new System.Drawing.Size(54, 18);
             this.lblStation.TabIndex = 1;
             this.lblStation.Text = "Station";
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Image = global::UMC.WApp.Properties.Resources.Modify;
-            this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdate.Location = new System.Drawing.Point(213, 244);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(92, 30);
-            this.btnUpdate.TabIndex = 3;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // btnAddNew
-            // 
-            this.btnAddNew.Image = global::UMC.WApp.Properties.Resources.Create;
-            this.btnAddNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddNew.Location = new System.Drawing.Point(107, 244);
-            this.btnAddNew.Name = "btnAddNew";
-            this.btnAddNew.Size = new System.Drawing.Size(100, 30);
-            this.btnAddNew.TabIndex = 3;
-            this.btnAddNew.Text = "Add New";
-            this.btnAddNew.UseVisualStyleBackColor = true;
-            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
             // cbbType
             // 
@@ -740,6 +702,42 @@
             this.LineId.HeaderText = "LineId";
             this.LineId.Name = "LineId";
             this.LineId.Visible = false;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Image = global::UMC.WApp.Properties.Resources.Delete;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDelete.Location = new System.Drawing.Point(311, 244);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(89, 30);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Image = global::UMC.WApp.Properties.Resources.Modify;
+            this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpdate.Location = new System.Drawing.Point(213, 244);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(92, 30);
+            this.btnUpdate.TabIndex = 3;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // btnAddNew
+            // 
+            this.btnAddNew.Image = global::UMC.WApp.Properties.Resources.Create;
+            this.btnAddNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddNew.Location = new System.Drawing.Point(107, 244);
+            this.btnAddNew.Name = "btnAddNew";
+            this.btnAddNew.Size = new System.Drawing.Size(100, 30);
+            this.btnAddNew.TabIndex = 3;
+            this.btnAddNew.Text = "Add New";
+            this.btnAddNew.UseVisualStyleBackColor = true;
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
             // frmInputQuantities
             // 

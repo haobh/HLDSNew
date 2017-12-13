@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.StackedBarSeriesView stackedBarSeriesView2 = new DevExpress.XtraCharts.StackedBarSeriesView();
+            this.components = new System.ComponentModel.Container();
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.StackedBarSeriesView stackedBarSeriesView1 = new DevExpress.XtraCharts.StackedBarSeriesView();
             this.cbbShiftCode = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbbMonth = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnPrint = new System.Windows.Forms.Button();
-            this.dgvMonthlyReportLine = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblMonth = new System.Windows.Forms.Label();
@@ -45,16 +45,17 @@
             this.lblShiftCode = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.chartReportLine = new DevExpress.XtraCharts.ChartControl();
-            this.dgvPivot = new System.Windows.Forms.DataGridView();
+            this.dgvMonthlyReportLine = new System.Windows.Forms.DataGridView();
+            this.frmMonthlyReportLineBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMonthlyReportLine)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartReportLine)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(stackedBarSeriesView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPivot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(stackedBarSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMonthlyReportLine)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.frmMonthlyReportLineBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // cbbShiftCode
@@ -126,15 +127,6 @@
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // dgvMonthlyReportLine
-            // 
-            this.dgvMonthlyReportLine.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvMonthlyReportLine.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMonthlyReportLine.Location = new System.Drawing.Point(7, 17);
-            this.dgvMonthlyReportLine.Name = "dgvMonthlyReportLine";
-            this.dgvMonthlyReportLine.Size = new System.Drawing.Size(643, 184);
-            this.dgvMonthlyReportLine.TabIndex = 3;
-            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -144,7 +136,7 @@
             this.groupBox1.Controls.Add(this.dgvMonthlyReportLine);
             this.groupBox1.Location = new System.Drawing.Point(12, 82);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(656, 220);
+            this.groupBox1.Size = new System.Drawing.Size(656, 276);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Result Monthly Report";
@@ -160,7 +152,7 @@
             this.groupBox3.Controls.Add(this.lblShiftCode);
             this.groupBox3.Location = new System.Drawing.Point(674, 82);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(246, 220);
+            this.groupBox3.Size = new System.Drawing.Size(187, 276);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Infor ShiftCode";
@@ -170,7 +162,7 @@
             this.lblMonth.AutoSize = true;
             this.lblMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMonth.ForeColor = System.Drawing.Color.Fuchsia;
-            this.lblMonth.Location = new System.Drawing.Point(105, 170);
+            this.lblMonth.Location = new System.Drawing.Point(25, 170);
             this.lblMonth.Name = "lblMonth";
             this.lblMonth.Size = new System.Drawing.Size(59, 22);
             this.lblMonth.TabIndex = 0;
@@ -181,7 +173,7 @@
             this.lblStation.AutoSize = true;
             this.lblStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStation.ForeColor = System.Drawing.Color.Fuchsia;
-            this.lblStation.Location = new System.Drawing.Point(103, 52);
+            this.lblStation.Location = new System.Drawing.Point(23, 52);
             this.lblStation.Name = "lblStation";
             this.lblStation.Size = new System.Drawing.Size(66, 22);
             this.lblStation.TabIndex = 0;
@@ -192,7 +184,7 @@
             this.lblShiftCode.AutoSize = true;
             this.lblShiftCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblShiftCode.ForeColor = System.Drawing.Color.Fuchsia;
-            this.lblShiftCode.Location = new System.Drawing.Point(103, 107);
+            this.lblShiftCode.Location = new System.Drawing.Point(23, 107);
             this.lblShiftCode.Name = "lblShiftCode";
             this.lblShiftCode.Size = new System.Drawing.Size(46, 22);
             this.lblShiftCode.TabIndex = 0;
@@ -213,37 +205,41 @@
             // chartReportLine
             // 
             this.chartReportLine.DataBindings = null;
-            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
-            this.chartReportLine.Diagram = xyDiagram2;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            this.chartReportLine.Diagram = xyDiagram1;
             this.chartReportLine.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.chartReportLine.Legend.Name = "Default Legend";
             this.chartReportLine.Legend.TextVisible = false;
-            this.chartReportLine.Location = new System.Drawing.Point(0, 359);
+            this.chartReportLine.Location = new System.Drawing.Point(0, 364);
             this.chartReportLine.Name = "chartReportLine";
-            series2.LegendName = "Default Legend";
-            series2.Name = "Series 1";
-            series2.ShowInLegend = false;
-            series2.View = stackedBarSeriesView2;
+            series1.LegendName = "Default Legend";
+            series1.Name = "Series 1";
+            series1.ShowInLegend = false;
+            series1.View = stackedBarSeriesView1;
             this.chartReportLine.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series2};
-            this.chartReportLine.Size = new System.Drawing.Size(873, 382);
+        series1};
+            this.chartReportLine.Size = new System.Drawing.Size(873, 377);
             this.chartReportLine.TabIndex = 13;
             // 
-            // dgvPivot
+            // dgvMonthlyReportLine
             // 
-            this.dgvPivot.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPivot.Location = new System.Drawing.Point(18, 298);
-            this.dgvPivot.Name = "dgvPivot";
-            this.dgvPivot.Size = new System.Drawing.Size(650, 230);
-            this.dgvPivot.TabIndex = 1;
+            this.dgvMonthlyReportLine.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvMonthlyReportLine.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMonthlyReportLine.Location = new System.Drawing.Point(6, 19);
+            this.dgvMonthlyReportLine.Name = "dgvMonthlyReportLine";
+            this.dgvMonthlyReportLine.Size = new System.Drawing.Size(638, 232);
+            this.dgvMonthlyReportLine.TabIndex = 0;
+            // 
+            // frmMonthlyReportLineBindingSource
+            // 
+            this.frmMonthlyReportLineBindingSource.DataSource = typeof(UMC.WApp.frmMonthlyReportLine);
             // 
             // frmMonthlyReportLine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(873, 741);
-            this.Controls.Add(this.dgvPivot);
             this.Controls.Add(this.chartReportLine);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnSearch);
@@ -257,15 +253,15 @@
             this.Text = "Monthly Report Line";
             this.Load += new System.EventHandler(this.frmMonthlyReportLine_Load);
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMonthlyReportLine)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(stackedBarSeriesView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(stackedBarSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartReportLine)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPivot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMonthlyReportLine)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.frmMonthlyReportLineBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,7 +275,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbbMonth;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dgvMonthlyReportLine;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -287,6 +282,7 @@
         private System.Windows.Forms.Label lblShiftCode;
         private DevExpress.XtraCharts.ChartControl chartReportLine;
         private System.Windows.Forms.Label lblStation;
-        private System.Windows.Forms.DataGridView dgvPivot;
+        private System.Windows.Forms.BindingSource frmMonthlyReportLineBindingSource;
+        private System.Windows.Forms.DataGridView dgvMonthlyReportLine;
     }
 }

@@ -159,12 +159,24 @@ namespace UMC.WApp
             chartPU1.ChartAreas[0].AxisY.Title = "Quantities";
 
             chartPU1.Series.Add("Total");
-            chartPU1.Series[0].XValueMember = "ShiftCode";
-            chartPU1.Series[0].YValueMembers = "TotalQuantities";
+            //chartPU1.Series[0].XValueMember = "ShiftCode";
+            //chartPU1.Series[0].YValueMembers = "TotalQuantities";
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan PU1").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                int index = chartPU1.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
+                if (item.ShiftCode == "Shift A")
+                {
+                    chartPU1.Series[0].Points[index].Color = Color.Green;
+                }
+                if (item.ShiftCode == "Shift B")
+                {
+                    chartPU1.Series[0].Points[index].Color = Color.Orange;
+                }
+            }
             chartPU1.Series[0].ChartType = SeriesChartType.Column;
             chartPU1.Series[0].IsValueShownAsLabel = true;
             chartPU1.Series[0].IsVisibleInLegend = true;
-            chartPU1.Series[0]["PixelPointWidth"] = "20";
+            chartPU1.Series[0]["PixelPointWidth"] = "30";
             chartPU1.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
             chartPU1.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
             chartPU1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
@@ -320,12 +332,24 @@ namespace UMC.WApp
             chartPU2.ChartAreas[0].AxisY.Title = "Quantities";
 
             chartPU2.Series.Add("Total");
-            chartPU2.Series[0].XValueMember = "ShiftCode";
-            chartPU2.Series[0].YValueMembers = "TotalQuantities";
+            //chartPU2.Series[0].XValueMember = "ShiftCode";
+            //chartPU2.Series[0].YValueMembers = "TotalQuantities";
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan PU2").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            {
+                int index = chartPU2.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
+                if (item.ShiftCode == "Shift A")
+                {
+                    chartPU2.Series[0].Points[index].Color = Color.Green;
+                }
+                if (item.ShiftCode == "Shift B")
+                {
+                    chartPU2.Series[0].Points[index].Color = Color.Orange;
+                }
+            }
             chartPU2.Series[0].ChartType = SeriesChartType.Column;
             chartPU2.Series[0].IsValueShownAsLabel = true;
             chartPU2.Series[0].IsVisibleInLegend = true;
-            chartPU2.Series[0]["PixelPointWidth"] = "20";
+            chartPU2.Series[0]["PixelPointWidth"] = "30";
             chartPU2.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
             chartPU2.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
             chartPU2.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);

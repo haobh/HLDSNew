@@ -56,7 +56,7 @@ namespace UMC.WApp
                                 new DataColumn("NameStation", typeof(string)),
                                 new DataColumn("LineId",typeof(int)),
                                 new DataColumn("StationId",typeof(int))});
-            foreach (var item in query)
+            foreach (var item in query.OrderByDescending(x=>x.NameStation))
             {
                 dt.Rows.Add(item.Id, item.NameStation, item.LineId, item.StationId);
             }

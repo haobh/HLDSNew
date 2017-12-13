@@ -16,13 +16,15 @@ namespace UMC.WApp
     public partial class frmShiftCodeB : Form
     {
         private HLDSDbContext db = null;
+        public int _month;
         public int _idStation;
         public string _nameStation;
 
-        public frmShiftCodeB(int idStation, string nameStation)
+        public frmShiftCodeB(int month, int idStation, string nameStation)
         {
             InitializeComponent();
             db = new HLDSDbContext();
+            this._month = month;
             this._idStation = idStation;
             this._nameStation = nameStation;
         }
@@ -39,7 +41,7 @@ namespace UMC.WApp
                             join line in db.Lines
                             on quantities.LineID equals line.ID
 
-                            where quantities.CreatedDate.Month == dateNow.Month &&
+                            where quantities.CreatedDate.Month == _month &&
                                       quantities.CreatedDate.Year == dateNow.Year &&
                                       quantities.ShiftCode == shiftCode &&
                                       quantities.StationID == _idStation
@@ -160,7 +162,7 @@ namespace UMC.WApp
         {
             this.WindowState = FormWindowState.Maximized;
             LoadData();
-            cbbMonth.Text = DateTime.Now.Month.ToString();
+            cbbMonth.Text = _month.ToString() ?? DateTime.Now.Month.ToString();
             var shiftCode = db.Shifts.ToList();
             cbbShiftCode.DataSource = shiftCode;
             cbbShiftCode.DisplayMember = "Name";
@@ -175,7 +177,9 @@ namespace UMC.WApp
         private void btnSearch1_Click(object sender, EventArgs e)
         {
             this.Close();
-            frmMonthlyReportLine frm = new frmMonthlyReportLine(_idStation, _nameStation);
+            var month = Convert.ToInt32(cbbMonth.SelectedItem.ToString());
+            frmMonthlyReportLine frm = new frmMonthlyReportLine(month, _idStation, _nameStation);
+            frm.LoadDataSearch();
             frm.MdiParent = frmMain.ActiveForm;
             frm.Show();
         }
