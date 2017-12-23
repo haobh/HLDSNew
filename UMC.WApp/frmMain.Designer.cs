@@ -121,12 +121,12 @@
             this.bbtnStation,
             this.bbtnDailyInput});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 10;
+            this.ribbonControl1.MaxItemId = 11;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1,
             this.ribbonPage3});
-            this.ribbonControl1.Size = new System.Drawing.Size(837, 143);
+            this.ribbonControl1.Size = new System.Drawing.Size(1026, 143);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
             // 
             // bbtnShift
@@ -257,10 +257,10 @@
             // ribbonStatusBar1
             // 
             this.ribbonStatusBar1.ItemLinks.Add(this.barHeaderItem1);
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 718);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 748);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(837, 31);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1026, 31);
             // 
             // ribbonPage2
             // 
@@ -283,7 +283,7 @@
             this.lblText.LineVisible = true;
             this.lblText.Location = new System.Drawing.Point(0, 143);
             this.lblText.Name = "lblText";
-            this.lblText.Size = new System.Drawing.Size(837, 57);
+            this.lblText.Size = new System.Drawing.Size(1026, 57);
             this.lblText.TabIndex = 3;
             this.lblText.Text = "UMC Electronic VietNam - Quantity Report - 産量 ポート";
             // 
@@ -295,7 +295,7 @@
             this.Appearance.Options.UseForeColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 749);
+            this.ClientSize = new System.Drawing.Size(1026, 779);
             this.Controls.Add(this.lblText);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);

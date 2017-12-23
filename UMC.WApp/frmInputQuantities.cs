@@ -30,7 +30,27 @@ namespace UMC.WApp
             this._idLine = idLine;
             this._nameLine = nameLine;
         }
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400, UseSystemPasswordChar = true };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
 
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
         private void frmInputQuantities_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
@@ -65,6 +85,9 @@ namespace UMC.WApp
             gbAddNew.Hide();
             gbShift.Hide();
             cbbType.Text = "PCS";
+            //Không cho gõ trực tiếp vào combobox
+            this.cbbShiftCode.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cbbType.DropDownStyle = ComboBoxStyle.DropDownList;
             LoadDefaultShiftCode();
         }
 
@@ -88,8 +111,6 @@ namespace UMC.WApp
             cbbShiftCode.DataSource = shiftCode;
             cbbShiftCode.DisplayMember = "Name";
             cbbShiftCode.ValueMember = "ID";
-
-            cbbShiftCodeDisplay.Enabled = false;
         }
 
         private void grvLine_Click(object sender, EventArgs e)
@@ -103,7 +124,6 @@ namespace UMC.WApp
                 var nameStation = db.Stations.Find(id);
                 lblStation.Text = "Add for: " + nameStation.StationName;
                 lblShift.Text = "Choose: " + cbbShiftCode.Text;
-                cbbShiftCodeDisplay.Enabled = true;
                 btnAddNew.Enabled = true;
                 btnUpdate.Enabled = false;
                 btnDelete.Enabled = false;
@@ -119,7 +139,6 @@ namespace UMC.WApp
         public void ClearData()
         {
             cbbShiftCode.Text = "Shift A";
-            cbbShiftCodeDisplay.Text = "Shift A";
             txtT1.Text = "";
             txtT2.Text = "";
             txtT3.Text = "";
@@ -690,13 +709,22 @@ namespace UMC.WApp
         {
             try
             {
-                var id = Convert.ToInt32(dgvQuantity.Rows[dgvQuantity.CurrentRow.Index].Cells["QuantitiesId"].Value);
-                var quantities = db.Quantities.Find(id);
-                db.Quantities.Remove(quantities);
-                db.SaveChanges();
-                ClearData();
-                LoadDataQuantity();
-                MessageBox.Show("Đã xóa bản ghi !");
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if (promptValue == "umcvn@123321")
+                {
+                    var id = Convert.ToInt32(dgvQuantity.Rows[dgvQuantity.CurrentRow.Index].Cells["QuantitiesId"].Value);
+                    var quantities = db.Quantities.Find(id);
+                    db.Quantities.Remove(quantities);
+                    db.SaveChanges();
+                    ClearData();
+                    LoadDataQuantity();
+                    MessageBox.Show("Đã xóa bản ghi !");
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }   
             }
             catch (Exception)
             {
@@ -705,19 +733,15 @@ namespace UMC.WApp
             }
         }
 
-        private void cbbShiftCode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lblShift.Text = "Choose: " + cbbShiftCode.Text;
-        }
-
-        private void cbbShiftCodeDisplay_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbbShiftCode_SelectionChangeCommitted(object sender, EventArgs e)
         {
             try
             {
+                lblShift.Text = "Choose: " + cbbShiftCode.Text;
                 var dateNow = DateTime.Now;
                 var idLine = _idLine;
                 var idStation = Convert.ToInt32(dgvStation.Rows[dgvStation.CurrentRow.Index].Cells[0].Value);
-                var shiftCode = cbbShiftCodeDisplay.Text;
+                var shiftCode = cbbShiftCode.Text;
                 var model = db.Quantities.Where(x => x.StationID == idStation && x.LineID == idLine && x.ShiftCode == shiftCode).ToList();
 
                 string rateT1 = "";

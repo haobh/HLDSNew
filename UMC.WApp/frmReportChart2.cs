@@ -20,6 +20,7 @@ namespace UMC.WApp
         {
             InitializeComponent();          
             db = new HLDSDbContext();
+            this.WindowState = FormWindowState.Maximized;
         }
         public void LoadChartPU1()
         {
@@ -155,8 +156,8 @@ namespace UMC.WApp
 
             chartPU1.Series.Clear();
             chartPU1.DataSource = dt;
-            chartPU1.ChartAreas[0].AxisX.Title = "Line";
-            chartPU1.ChartAreas[0].AxisY.Title = "Quantities";
+            //chartPU1.ChartAreas[0].AxisX.Title = "Line";
+            //chartPU1.ChartAreas[0].AxisY.Title = "Quantities";
 
             chartPU1.Series.Add("Total");
             //chartPU1.Series[0].XValueMember = "ShiftCode";
@@ -166,7 +167,7 @@ namespace UMC.WApp
                 int index = chartPU1.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
                 if (item.ShiftCode == "Shift A")
                 {
-                    chartPU1.Series[0].Points[index].Color = Color.Green;
+                    chartPU1.Series[0].Points[index].Color = Color.DodgerBlue;
                 }
                 if (item.ShiftCode == "Shift B")
                 {
@@ -175,12 +176,18 @@ namespace UMC.WApp
             }
             chartPU1.Series[0].ChartType = SeriesChartType.Column;
             chartPU1.Series[0].IsValueShownAsLabel = true;
-            chartPU1.Series[0].IsVisibleInLegend = true;
-            chartPU1.Series[0]["PixelPointWidth"] = "30";
+            chartPU1.Series[0]["LabelStyle"] = "Center";
+            chartPU1.Series[0]["PointWidth"] = "0.7";
+            chartPU1.Series[0].IsValueShownAsLabel = true;
+            chartPU1.Series[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
+            chartPU1.Series[0]["LabelStyle"] = "Top";
+            chartPU1.Series[0].LabelBackColor = Color.LightCyan;
+            chartPU1.Series[0].IsVisibleInLegend = false;
+            chartPU1.Series[0]["PixelPointWidth"] = "60";
             chartPU1.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
-            chartPU1.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartPU1.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
             chartPU1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
-
+            chartPU1.ChartAreas[0].AxisX.IsLabelAutoFit = true;
 
             chartPU1.Series.Add("Rate");
             chartPU1.Series[1].XValueMember = "ShiftCode";
@@ -188,21 +195,22 @@ namespace UMC.WApp
             chartPU1.Series[1].ChartType = SeriesChartType.Line;
             chartPU1.Series[1].BorderWidth = 3;
             chartPU1.Series[1].IsValueShownAsLabel = false;
-            chartPU1.Series[1].IsVisibleInLegend = true;
+            chartPU1.Series[1].IsVisibleInLegend = false;
+            chartPU1.Series[1].Color = Color.Fuchsia;
             chartPU1.DataBind();
 
             dgvPU1.DataSource = dtShow;
 
         }
-        public void LoadChartPU2()
+        public void LoadChartLD()
         {
             var timeDaily = db.TimeDailies.ToList();
             var numberConfig = db.Stations.ToList();
-            float? numberConfigPU2 = 0;
+            float? numberConfigLD = 0;
 
-            foreach (var item in numberConfig.Where(x => x.StationName == "Ngoại Quan PU2"))
+            foreach (var item in numberConfig.Where(x => x.StationName == "Ngoại Quan LD"))
             {
-                numberConfigPU2 = item.NumberConfig;
+                numberConfigLD = item.NumberConfig;
             }
 
             var dateNow = DateTime.Now;
@@ -237,45 +245,45 @@ namespace UMC.WApp
                                           fGroup.Sum(g => g.T12)
                         };
 
-            DataTable dt = new DataTable("PU2");
+            DataTable dt = new DataTable("LD");
             dt.Columns.AddRange(new DataColumn[5] { new DataColumn("Id", typeof(int)),
                                 new DataColumn("NameLine", typeof(string)),
                                 new DataColumn("ShiftCode", typeof(string)),
                                 new DataColumn("TotalQuantities", typeof(float)),
                                 new DataColumn("Rate", typeof(string))});
 
-            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan PU2").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan LD").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
             {
                 foreach (var time in timeDaily)
                 {
                     if (item.NameLine == "Line 1")
                     {
-                        var rate = (numberConfigPU2 / (time.Time1 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time1 / item.TotalQuantities) * 100);
                         item.TotalRate = rate;
                     }
                     if (item.NameLine == "Line 2")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRate = rate;
                     }
                     if (item.NameLine == "Line 3")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRate = rate;
                     }
                     if (item.NameLine == "Line 4")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRate = rate;
                     }
                     if (item.NameLine == "Line 5")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRate = rate;
                     }
                     if (item.NameLine == "Line 6")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRate = rate;
                     }
                 }
@@ -288,83 +296,90 @@ namespace UMC.WApp
                                 new DataColumn("TotalQuantities", typeof(float)),
                                 new DataColumn("Rate", typeof(string))});
 
-            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan PU2").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan LD").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
             {
                 foreach (var time in timeDaily)
                 {
                     if (item.NameLine == "Line 1")
                     {
-                        var rate = (numberConfigPU2 / (time.Time1 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time1 / item.TotalQuantities) * 100);
                         item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
                     }
                     if (item.NameLine == "Line 2")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
                     }
                     if (item.NameLine == "Line 3")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
                     }
                     if (item.NameLine == "Line 4")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
                     }
                     if (item.NameLine == "Line 5")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
                     }
                     if (item.NameLine == "Line 6")
                     {
-                        var rate = (numberConfigPU2 / (time.Time2 / item.TotalQuantities) * 100);
+                        var rate = (numberConfigLD / (time.Time2 / item.TotalQuantities) * 100);
                         item.TotalRateDisplay = Convert.ToString(string.Format("{0:#,###.##} %", rate));
                     }
                 }
                 dtShow.Rows.Add(item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRateDisplay);
             }
 
-            chartPU2.Series.Clear();
-            chartPU2.DataSource = dt;
-            chartPU2.ChartAreas[0].AxisX.Title = "Line";
-            chartPU2.ChartAreas[0].AxisY.Title = "Quantities";
+            chartLD.Series.Clear();
+            chartLD.DataSource = dt;
+            //chartLD.ChartAreas[0].AxisX.Title = "Line";
+            //chartLD.ChartAreas[0].AxisY.Title = "Quantities";
 
-            chartPU2.Series.Add("Total");
-            //chartPU2.Series[0].XValueMember = "ShiftCode";
-            //chartPU2.Series[0].YValueMembers = "TotalQuantities";
-            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan PU2").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
+            chartLD.Series.Add("Total");
+            //chartLD.Series[0].XValueMember = "ShiftCode";
+            //chartLD.Series[0].YValueMembers = "TotalQuantities";
+            foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan LD").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
             {
-                int index = chartPU2.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
+                int index = chartLD.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
                 if (item.ShiftCode == "Shift A")
                 {
-                    chartPU2.Series[0].Points[index].Color = Color.Green;
+                    chartLD.Series[0].Points[index].Color = Color.DodgerBlue;
                 }
                 if (item.ShiftCode == "Shift B")
                 {
-                    chartPU2.Series[0].Points[index].Color = Color.Orange;
+                    chartLD.Series[0].Points[index].Color = Color.Orange;
                 }
             }
-            chartPU2.Series[0].ChartType = SeriesChartType.Column;
-            chartPU2.Series[0].IsValueShownAsLabel = true;
-            chartPU2.Series[0].IsVisibleInLegend = true;
-            chartPU2.Series[0]["PixelPointWidth"] = "30";
-            chartPU2.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
-            chartPU2.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
-            chartPU2.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
+            chartLD.Series[0].ChartType = SeriesChartType.Column;
+            chartLD.Series[0].IsValueShownAsLabel = true;
+            chartLD.Series[0]["LabelStyle"] = "Center";
+            chartLD.Series[0]["PointWidth"] = "0.7";
+            chartLD.Series[0].IsValueShownAsLabel = true;
+            chartLD.Series[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
+            chartLD.Series[0]["LabelStyle"] = "Top";
+            chartLD.Series[0].LabelBackColor = Color.LightCyan;
+            chartLD.Series[0].IsVisibleInLegend = false;
+            chartLD.Series[0]["PixelPointWidth"] = "60";
+            chartLD.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
+            chartLD.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
+            chartLD.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
+            chartLD.ChartAreas[0].AxisX.IsLabelAutoFit = true;
 
+            chartLD.Series.Add("Rate");
+            chartLD.Series[1].XValueMember = "ShiftCode";
+            chartLD.Series[1].YValueMembers = "TotalQuantities";
+            chartLD.Series[1].ChartType = SeriesChartType.Line;
+            chartLD.Series[1].BorderWidth = 3;
+            chartLD.Series[1].IsValueShownAsLabel = false;
+            chartLD.Series[1].IsVisibleInLegend = false;
+            chartLD.Series[1].Color = Color.Fuchsia;
+            chartLD.DataBind();
 
-            chartPU2.Series.Add("Rate");
-            chartPU2.Series[1].XValueMember = "ShiftCode";
-            chartPU2.Series[1].YValueMembers = "TotalQuantities";
-            chartPU2.Series[1].ChartType = SeriesChartType.Line;
-            chartPU2.Series[1].BorderWidth = 3;
-            chartPU2.Series[1].IsValueShownAsLabel = false;
-            chartPU2.Series[1].IsVisibleInLegend = true;
-            chartPU2.DataBind();
-
-            dgvPU2.DataSource = dtShow;
+            dgvLD.DataSource = dtShow;
         }
 
         private Timer tm;
@@ -372,10 +387,10 @@ namespace UMC.WApp
         {
             this.WindowState = FormWindowState.Maximized;
             LoadChartPU1();
-            LoadChartPU2();           
+            LoadChartLD();           
 
             tm = new Timer();
-            tm.Interval = 10 * 1000; // 10 seconds
+            tm.Interval = 10000; // 10 seconds
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
 
@@ -383,11 +398,11 @@ namespace UMC.WApp
         private void tm_Tick(object sender, EventArgs e)
         {
             tm.Stop();
-
             frmReportChart4 frm = new frmReportChart4();
-            frm.MdiParent = frmMain.ActiveForm;
+            //frm.MdiParent = frmMain.ActiveForm;
             frm.Show();
-            this.Hide();
+            tm.Tick -= new EventHandler(tm_Tick);
+            this.Close();
         }
 
         private void frmReportChart2_FormClosing(object sender, FormClosingEventArgs e)

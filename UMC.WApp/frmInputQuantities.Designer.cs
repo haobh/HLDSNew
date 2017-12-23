@@ -34,7 +34,10 @@
             this.gbAddNew = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
             this.cbbShiftCode = new System.Windows.Forms.ComboBox();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.lblStation = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnAddNew = new System.Windows.Forms.Button();
             this.cbbType = new System.Windows.Forms.ComboBox();
             this.txtT6 = new System.Windows.Forms.TextBox();
             this.txtT5 = new System.Windows.Forms.TextBox();
@@ -63,8 +66,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblLine = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbbShiftCodeDisplay = new System.Windows.Forms.ComboBox();
             this.dgvQuantity = new System.Windows.Forms.DataGridView();
             this.QuantitiesId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,9 +94,6 @@
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StationId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LineId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnAddNew = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbShift.SuspendLayout();
             this.gbAddNew.SuspendLayout();
@@ -201,7 +199,19 @@
             this.cbbShiftCode.Name = "cbbShiftCode";
             this.cbbShiftCode.Size = new System.Drawing.Size(102, 21);
             this.cbbShiftCode.TabIndex = 5;
-            this.cbbShiftCode.SelectedIndexChanged += new System.EventHandler(this.cbbShiftCode_SelectedIndexChanged);
+            this.cbbShiftCode.SelectionChangeCommitted += new System.EventHandler(this.cbbShiftCode_SelectionChangeCommitted);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Image = global::UMC.WApp.Properties.Resources.Delete;
+            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDelete.Location = new System.Drawing.Point(311, 244);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(89, 30);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // lblStation
             // 
@@ -213,6 +223,30 @@
             this.lblStation.Size = new System.Drawing.Size(54, 18);
             this.lblStation.TabIndex = 1;
             this.lblStation.Text = "Station";
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Image = global::UMC.WApp.Properties.Resources.Modify;
+            this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpdate.Location = new System.Drawing.Point(213, 244);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(92, 30);
+            this.btnUpdate.TabIndex = 3;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // btnAddNew
+            // 
+            this.btnAddNew.Image = global::UMC.WApp.Properties.Resources.Create;
+            this.btnAddNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddNew.Location = new System.Drawing.Point(107, 244);
+            this.btnAddNew.Name = "btnAddNew";
+            this.btnAddNew.Size = new System.Drawing.Size(100, 30);
+            this.btnAddNew.TabIndex = 3;
+            this.btnAddNew.Text = "Add New";
+            this.btnAddNew.UseVisualStyleBackColor = true;
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
             // cbbType
             // 
@@ -448,8 +482,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.AutoSize = true;
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.cbbShiftCodeDisplay);
             this.groupBox3.Controls.Add(this.dgvQuantity);
             this.groupBox3.Location = new System.Drawing.Point(6, 336);
             this.groupBox3.Name = "groupBox3";
@@ -457,29 +489,6 @@
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Result Station";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label1.Location = new System.Drawing.Point(869, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Shift Code Display";
-            // 
-            // cbbShiftCodeDisplay
-            // 
-            this.cbbShiftCodeDisplay.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cbbShiftCodeDisplay.FormattingEnabled = true;
-            this.cbbShiftCodeDisplay.Items.AddRange(new object[] {
-            "Shift A",
-            "Shift B"});
-            this.cbbShiftCodeDisplay.Location = new System.Drawing.Point(962, 16);
-            this.cbbShiftCodeDisplay.Name = "cbbShiftCodeDisplay";
-            this.cbbShiftCodeDisplay.Size = new System.Drawing.Size(121, 21);
-            this.cbbShiftCodeDisplay.TabIndex = 1;
-            this.cbbShiftCodeDisplay.SelectedIndexChanged += new System.EventHandler(this.cbbShiftCodeDisplay_SelectedIndexChanged);
             // 
             // dgvQuantity
             // 
@@ -511,9 +520,9 @@
             this.LineID1,
             this.StationID1,
             this.NumberConfig});
-            this.dgvQuantity.Location = new System.Drawing.Point(6, 65);
+            this.dgvQuantity.Location = new System.Drawing.Point(6, 16);
             this.dgvQuantity.Name = "dgvQuantity";
-            this.dgvQuantity.Size = new System.Drawing.Size(1074, 287);
+            this.dgvQuantity.Size = new System.Drawing.Size(1074, 348);
             this.dgvQuantity.TabIndex = 0;
             this.dgvQuantity.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvQuantity_CellDoubleClick);
             // 
@@ -703,42 +712,6 @@
             this.LineId.Name = "LineId";
             this.LineId.Visible = false;
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Image = global::UMC.WApp.Properties.Resources.Delete;
-            this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDelete.Location = new System.Drawing.Point(311, 244);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(89, 30);
-            this.btnDelete.TabIndex = 3;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Image = global::UMC.WApp.Properties.Resources.Modify;
-            this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdate.Location = new System.Drawing.Point(213, 244);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(92, 30);
-            this.btnUpdate.TabIndex = 3;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // btnAddNew
-            // 
-            this.btnAddNew.Image = global::UMC.WApp.Properties.Resources.Create;
-            this.btnAddNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddNew.Location = new System.Drawing.Point(107, 244);
-            this.btnAddNew.Name = "btnAddNew";
-            this.btnAddNew.Size = new System.Drawing.Size(100, 30);
-            this.btnAddNew.TabIndex = 3;
-            this.btnAddNew.Text = "Add New";
-            this.btnAddNew.UseVisualStyleBackColor = true;
-            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
-            // 
             // frmInputQuantities
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -755,7 +728,6 @@
             this.gbAddNew.ResumeLayout(false);
             this.gbAddNew.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuantity)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStation)).EndInit();
@@ -806,7 +778,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StationId;
         private System.Windows.Forms.DataGridViewTextBoxColumn LineId;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox cbbShiftCode;
         private System.Windows.Forms.GroupBox gbShift;
         private System.Windows.Forms.Label lblShift;
         private System.Windows.Forms.DataGridViewTextBoxColumn QuantitiesId;
@@ -831,7 +802,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn LineID1;
         private System.Windows.Forms.DataGridViewTextBoxColumn StationID1;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberConfig;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbbShiftCodeDisplay;
+        private System.Windows.Forms.ComboBox cbbShiftCode;
     }
 }

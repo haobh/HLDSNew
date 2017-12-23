@@ -16,7 +16,7 @@ namespace UMC.WApp
         {
             InitializeComponent();
             db = new HLDSDbContext();
-
+            this.WindowState = FormWindowState.Maximized;
         }
 
         public void LoadChartWireSass()
@@ -149,11 +149,11 @@ namespace UMC.WApp
                     }
                 }
                 dtShow.Rows.Add(item.NameLine, item.ShiftCode, item.TotalQuantities, item.TotalRateDisplay);
-            }          
+            }
             chartWire.Series.Clear();
-            chartWire.DataSource = dt;   
-            chartWire.ChartAreas[0].AxisX.Title = "Line";
-            chartWire.ChartAreas[0].AxisY.Title = "Quantities";
+            chartWire.DataSource = dt;
+            //chartWire.ChartAreas[0].AxisX.Title = "Line";
+            //chartWire.ChartAreas[0].AxisY.Title = "Quantities";
             chartWire.Series.Add("Total");
             //chartWire.Series[0].XValueMember = "ShiftCode";
             //chartWire.Series[0].YValueMembers = "TotalQuantities";
@@ -169,36 +169,45 @@ namespace UMC.WApp
             //        chartWire.Series[0].Points[i].Color = Color.Red;
             //    }
             //}
+
+            //Index: Gán giá trị X,Y vào biểu đồ, giống như AxisX, AxisY
             foreach (var item in query.Where(x => x.NameStation == "Ngoại Quan WIRE").OrderBy(x => x.NameLine).ThenBy(x => x.NameLine))
             {
                 int index = chartWire.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
                 //Gán giá trị X,Y vào biểu đồ, giống như AxisX, AxisY
                 if (item.ShiftCode == "Shift A")
                 {
-                    chartWire.Series[0].Points[index].Color = Color.Green;
+                    chartWire.Series[0].Points[index].Color = Color.DodgerBlue;
                 }
                 if (item.ShiftCode == "Shift B")
                 {
                     chartWire.Series[0].Points[index].Color = Color.Orange;
                 }
             }
-            chartWire.Series[0].ChartType = SeriesChartType.Column;         
+            chartWire.Series[0].ChartType = SeriesChartType.Column;
             chartWire.Series[0].IsValueShownAsLabel = true;
-            chartWire.Series[0].IsVisibleInLegend = true;
-            chartWire.Series[0]["PixelPointWidth"] = "30";
+            chartWire.Series[0]["LabelStyle"] = "Center";
+            chartWire.Series[0]["PointWidth"] = "0.7";
+            chartWire.Series[0].IsValueShownAsLabel = true;
+            chartWire.Series[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
+            chartWire.Series[0]["LabelStyle"] = "Top";
+            chartWire.Series[0].LabelBackColor = Color.LightCyan;
+            chartWire.Series[0].IsVisibleInLegend = false;
+            chartWire.Series[0]["PixelPointWidth"] = "60";
             chartWire.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
             chartWire.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
             chartWire.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
             chartWire.ChartAreas[0].AxisX.IsLabelAutoFit = true;
-          
+
             chartWire.Series.Add("Rate");
             chartWire.Series[1].XValueMember = "ShiftCode";
             chartWire.Series[1].YValueMembers = "TotalQuantities";
             chartWire.Series[1].ChartType = SeriesChartType.Line;
             chartWire.Series[1].BorderWidth = 3;
             chartWire.Series[1].IsValueShownAsLabel = false;
-            chartWire.Series[1].IsVisibleInLegend = true;
-            chartWire.DataBind();          
+            chartWire.Series[1].IsVisibleInLegend = false;
+            chartWire.DataBind();
+            chartWire.Series[1].Color = Color.Fuchsia;
             //Hiển thị ra GridView
             dgvWire.DataSource = dtShow;
 
@@ -338,9 +347,8 @@ namespace UMC.WApp
 
             chartYOKE.Series.Clear();
             chartYOKE.DataSource = dt;
-            //chartYOKE.Titles.Add("YOKE");
-            chartYOKE.ChartAreas[0].AxisX.Title = "Line";
-            chartYOKE.ChartAreas[0].AxisY.Title = "Quantities";
+            //chartYOKE.ChartAreas[0].AxisX.Title = "Line";
+            //chartYOKE.ChartAreas[0].AxisY.Title = "Quantities";
 
             chartYOKE.Series.Add("Total");
             //chartYOKE.Series[0].XValueMember = "ShiftCode";
@@ -350,7 +358,7 @@ namespace UMC.WApp
                 int index = chartYOKE.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
                 if (item.ShiftCode == "Shift A")
                 {
-                    chartYOKE.Series[0].Points[index].Color = Color.Green;
+                    chartYOKE.Series[0].Points[index].Color = Color.DodgerBlue;
                 }
                 if (item.ShiftCode == "Shift B")
                 {
@@ -359,19 +367,27 @@ namespace UMC.WApp
             }
             chartYOKE.Series[0].ChartType = SeriesChartType.Column;
             chartYOKE.Series[0].IsValueShownAsLabel = true;
-            chartYOKE.Series[0].IsVisibleInLegend = true;
-            chartYOKE.Series[0]["PixelPointWidth"] = "30";
+            chartYOKE.Series[0]["LabelStyle"] = "Center";
+            chartYOKE.Series[0]["PointWidth"] = "0.7";
+            chartYOKE.Series[0].IsValueShownAsLabel = true;
+            chartYOKE.Series[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
+            chartYOKE.Series[0]["LabelStyle"] = "Top";
+            chartYOKE.Series[0].LabelBackColor = Color.LightCyan;
+            chartYOKE.Series[0].IsVisibleInLegend = false;
+            chartYOKE.Series[0]["PixelPointWidth"] = "60";
             chartYOKE.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
-            chartYOKE.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartYOKE.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
             chartYOKE.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
+            chartYOKE.ChartAreas[0].AxisX.IsLabelAutoFit = true;
 
             chartYOKE.Series.Add("Rate");
             chartYOKE.Series[1].XValueMember = "ShiftCode";
             chartYOKE.Series[1].YValueMembers = "TotalQuantities";
             chartYOKE.Series[1].ChartType = SeriesChartType.Line;
+            chartYOKE.Series[1].Color = Color.Fuchsia;
             chartYOKE.Series[1].BorderWidth = 3;
             chartYOKE.Series[1].IsValueShownAsLabel = false;
-            chartYOKE.Series[1].IsVisibleInLegend = true;
+            chartYOKE.Series[1].IsVisibleInLegend = false;
             chartYOKE.DataBind();
 
             dgvYOKE.DataSource = dtShow;
@@ -381,17 +397,11 @@ namespace UMC.WApp
         private void frmReportChart_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
-            Rectangle screen = Screen.PrimaryScreen.WorkingArea;
-            int w = Width >= screen.Width ? screen.Width : (screen.Width + Width) / 2;
-            int h = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
-            this.Location = new Point((screen.Width - w) / 2, (screen.Height - h) / 2);
-            this.Size = new Size(w, h);
-
             LoadChartWireSass();
             LoadChartYOKE();
 
             tm = new Timer();
-            tm.Interval = 10 * 1000; // 10 seconds
+            tm.Interval = 10000; // 10 seconds
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
         }
@@ -400,9 +410,10 @@ namespace UMC.WApp
         {
             tm.Stop();
             frmReportChart3 frm = new frmReportChart3();
-            frm.MdiParent = frmMain.ActiveForm;
+            //frm.MdiParent = frmMain.ActiveForm;
             frm.Show();
-            this.Hide();
+            tm.Tick -= new EventHandler(tm_Tick);
+            this.Close();    
         }
 
         private void frmReportChart_FormClosing(object sender, FormClosingEventArgs e)

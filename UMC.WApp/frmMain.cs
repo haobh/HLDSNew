@@ -64,7 +64,6 @@ namespace UMC.WApp
         private void bbtnDailyReport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             frmReportChart frmR = new frmReportChart();
-            frmR.MdiParent = this;
             frmR.Show();
         }
 

@@ -25,38 +25,68 @@ namespace UMC.WApp
             btnRemoveStation.Enabled = false;
         }
 
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400, UseSystemPasswordChar = true };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
+
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtName.Text))
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if(promptValue =="umcvn@123321")
                 {
-                    LineViewModel lineVm = new LineViewModel();
-                    lineVm.Name = txtName.Text;
-                    Line newLine = new Line();
-                    newLine.UpdateLine(lineVm);
-                    var lineId = db.Lines.Add(newLine);
-                    db.SaveChanges();
-
-                    foreach (var itemChecked in clbStation.CheckedItems)
+                    if (!string.IsNullOrEmpty(txtName.Text))
                     {
-                        var station = (Station)itemChecked;
-                        LineStation lineStation = new LineStation();
-                        lineStation.LineId = lineId.ID;
-                        lineStation.StationId = station.ID;
-                        db.LineStations.Add(lineStation);
+                        LineViewModel lineVm = new LineViewModel();
+                        lineVm.Name = txtName.Text;
+                        Line newLine = new Line();
+                        newLine.UpdateLine(lineVm);
+                        var lineId = db.Lines.Add(newLine);
                         db.SaveChanges();
+                        foreach (var itemChecked in clbStation.CheckedItems)
+                        {
+                            var station = (Station)itemChecked;
+                            LineStation lineStation = new LineStation();
+                            lineStation.LineId = lineId.ID;
+                            lineStation.StationId = station.ID;
+                            db.LineStations.Add(lineStation);
+                            db.SaveChanges();
+                        }
+                        ClearData();
+                        LoadData();
+                        MessageBox.Show("Thêm mới thành công!");
                     }
-
-                    ClearData();
-                    LoadData();
-                    MessageBox.Show("Thêm mới thành công!");
+                    else
+                    {
+                        MessageBox.Show("Bạn không được để trống dữ liệu", "Error",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Bạn không được để trống dữ liệu", "Error",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error", "Error",
+                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+               
             }
             catch (Exception ex)
             {
@@ -93,28 +123,37 @@ namespace UMC.WApp
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtName.Text))
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if(promptValue =="umcvn@123321")
                 {
-                    var id = Convert.ToInt32(dgvLine.Rows[dgvLine.CurrentRow.Index].Cells[0].Value);
-                    var line = db.Lines.Find(id);
-                    LineViewModel lineVm = new LineViewModel();
-                    lineVm.ID = line.ID;
-                    lineVm.Name = txtName.Text;
+                    if (!string.IsNullOrEmpty(txtName.Text))
+                    {
+                        var id = Convert.ToInt32(dgvLine.Rows[dgvLine.CurrentRow.Index].Cells[0].Value);
+                        var line = db.Lines.Find(id);
+                        LineViewModel lineVm = new LineViewModel();
+                        lineVm.ID = line.ID;
+                        lineVm.Name = txtName.Text;
 
-                    Line newLine = new Line();
-                    newLine.UpdateLine(lineVm);
+                        Line newLine = new Line();
+                        newLine.UpdateLine(lineVm);
 
-                    db.Set<Line>().AddOrUpdate(newLine);
-                    db.SaveChanges();
-                    LoadData();
-                    MessageBox.Show("Đã cập nhật xong !");
-                    ClearData();
+                        db.Set<Line>().AddOrUpdate(newLine);
+                        db.SaveChanges();
+                        LoadData();
+                        MessageBox.Show("Đã cập nhật xong !");
+                        ClearData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bạn không được để trống dữ liệu", "Error",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Bạn không được để trống dữ liệu", "Error",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    MessageBox.Show("Error", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }                
             }
             catch (Exception ex)
             {
@@ -126,13 +165,22 @@ namespace UMC.WApp
         {
             try
             {
-                var id = Convert.ToInt32(dgvLine.Rows[dgvLine.CurrentRow.Index].Cells[0].Value);
-                var line = db.Lines.Find(id);
-                db.Lines.Remove(line);
-                db.SaveChanges();
-                MessageBox.Show("Đã xóa bản ghi !");
-                ClearData();
-                LoadData();
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if(promptValue == "umcvn@123321")
+                {
+                    var id = Convert.ToInt32(dgvLine.Rows[dgvLine.CurrentRow.Index].Cells[0].Value);
+                    var line = db.Lines.Find(id);
+                    db.Lines.Remove(line);
+                    db.SaveChanges();
+                    MessageBox.Show("Đã xóa bản ghi !");
+                    ClearData();
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Error",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -227,19 +275,28 @@ namespace UMC.WApp
 
         private void btnRemoveStation_Click(object sender, EventArgs e)
         {
-            string checkedStation = "";
-            for (int i = 0; i < clbStation.Items.Count; i++)
+            string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+            if(promptValue == "umcvn@123321")
             {
-                if (clbStation.GetItemChecked(i))
+                string checkedStation = "";
+                for (int i = 0; i < clbStation.Items.Count; i++)
                 {
-                    checkedStation = ((DataRowView)clbStation.Items[i])[0].ToString();
-                    var stationId = Convert.ToInt32(checkedStation);
-                    var line = db.LineStations.FirstOrDefault(x=>x.StationId == stationId);
-                    db.LineStations.Remove(line);
-                    db.SaveChanges();                    
+                    if (clbStation.GetItemChecked(i))
+                    {
+                        checkedStation = ((DataRowView)clbStation.Items[i])[0].ToString();
+                        var stationId = Convert.ToInt32(checkedStation);
+                        var line = db.LineStations.FirstOrDefault(x => x.StationId == stationId);
+                        db.LineStations.Remove(line);
+                        db.SaveChanges();
+                    }
                 }
+                MessageBox.Show("Đã Remove bản ghi !");
             }
-            MessageBox.Show("Đã Remove bản ghi !");
+            else
+            {
+                MessageBox.Show("Error", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

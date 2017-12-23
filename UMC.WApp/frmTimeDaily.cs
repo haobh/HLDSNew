@@ -36,32 +36,62 @@ namespace UMC.WApp
             txtLine5.Text = "";
             txtLine6.Text = "";
         }
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400, UseSystemPasswordChar = true };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
         private void btAddNew_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtLine1.Text))
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if (promptValue == "umcvn@123321")
                 {
-                    TimeDailyViewModel timeDailyVm = new TimeDailyViewModel();
-                    timeDailyVm.Time1 = int.Parse(txtLine1.Text);
-                    timeDailyVm.Time2 = int.Parse(txtLine2.Text);
-                    timeDailyVm.Time3 = int.Parse(txtLine3.Text);
-                    timeDailyVm.Time4 = int.Parse(txtLine4.Text);
-                    timeDailyVm.Time5 = int.Parse(txtLine5.Text);
-                    timeDailyVm.Time6 = int.Parse(txtLine6.Text);
+                    if (!string.IsNullOrEmpty(txtLine1.Text))
+                    {
+                        TimeDailyViewModel timeDailyVm = new TimeDailyViewModel();
+                        timeDailyVm.Time1 = int.Parse(txtLine1.Text);
+                        timeDailyVm.Time2 = int.Parse(txtLine2.Text);
+                        timeDailyVm.Time3 = int.Parse(txtLine3.Text);
+                        timeDailyVm.Time4 = int.Parse(txtLine4.Text);
+                        timeDailyVm.Time5 = int.Parse(txtLine5.Text);
+                        timeDailyVm.Time6 = int.Parse(txtLine6.Text);
 
-                    TimeDaily newTimeDaily = new TimeDaily();
-                    newTimeDaily.UpdateTimeDaily(timeDailyVm);
-                    db.TimeDailies.Add(newTimeDaily);
-                    db.SaveChanges();
-                    ClearData();
-                    LoadData();
-                    MessageBox.Show("Thêm mới thành công!");
+                        TimeDaily newTimeDaily = new TimeDaily();
+                        newTimeDaily.UpdateTimeDaily(timeDailyVm);
+                        db.TimeDailies.Add(newTimeDaily);
+                        db.SaveChanges();
+                        ClearData();
+                        LoadData();
+                        MessageBox.Show("Thêm mới thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bạn không được để trống dữ liệu", "Error",
+                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Bạn không được để trống dữ liệu", "Error",
-                             MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -79,33 +109,42 @@ namespace UMC.WApp
         {
             try
             {
-                if (txtLine1.Text != "")
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if (promptValue == "umcvn@123321")
                 {
-                    TimeDailyViewModel timeDailyVm = new TimeDailyViewModel();
-                    timeDailyVm.Time1 = int.Parse(txtLine1.Text);
-                    timeDailyVm.Time2 = int.Parse(txtLine2.Text);
-                    timeDailyVm.Time3 = int.Parse(txtLine3.Text);
-                    timeDailyVm.Time4 = int.Parse(txtLine4.Text);
-                    timeDailyVm.Time5 = int.Parse(txtLine5.Text);
-                    timeDailyVm.Time6 = int.Parse(txtLine6.Text);
+                    if (txtLine1.Text != "")
+                    {
+                        TimeDailyViewModel timeDailyVm = new TimeDailyViewModel();
+                        timeDailyVm.Time1 = int.Parse(txtLine1.Text);
+                        timeDailyVm.Time2 = int.Parse(txtLine2.Text);
+                        timeDailyVm.Time3 = int.Parse(txtLine3.Text);
+                        timeDailyVm.Time4 = int.Parse(txtLine4.Text);
+                        timeDailyVm.Time5 = int.Parse(txtLine5.Text);
+                        timeDailyVm.Time6 = int.Parse(txtLine6.Text);
 
-                    var id = Convert.ToInt32(dgvTimeDaily.Rows[dgvTimeDaily.CurrentRow.Index].Cells[0].Value);
-                    timeDailyVm.ID = id;
+                        var id = Convert.ToInt32(dgvTimeDaily.Rows[dgvTimeDaily.CurrentRow.Index].Cells[0].Value);
+                        timeDailyVm.ID = id;
 
-                    TimeDaily newTimeDaily = new TimeDaily();
-                    newTimeDaily.UpdateTimeDaily(timeDailyVm);
+                        TimeDaily newTimeDaily = new TimeDaily();
+                        newTimeDaily.UpdateTimeDaily(timeDailyVm);
 
-                    db.Set<TimeDaily>().AddOrUpdate(newTimeDaily);
-                    db.SaveChanges();
+                        db.Set<TimeDaily>().AddOrUpdate(newTimeDaily);
+                        db.SaveChanges();
 
-                    ClearData();
-                    LoadData();
-                    MessageBox.Show("Cập nhật thành công!");
+                        ClearData();
+                        LoadData();
+                        MessageBox.Show("Cập nhật thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please Select Record to Update", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Please Select Record to Update", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -129,13 +168,22 @@ namespace UMC.WApp
         {
             try
             {
-                var id = Convert.ToInt32(dgvTimeDaily.Rows[dgvTimeDaily.CurrentRow.Index].Cells[0].Value);
-                var time = db.TimeDailies.Find(id);
-                db.TimeDailies.Remove(time);
-                db.SaveChanges();
-                MessageBox.Show("Đã xóa bản ghi !");
-                ClearData();
-                LoadData();
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if(promptValue == "umcvn@123321")
+                {
+                    var id = Convert.ToInt32(dgvTimeDaily.Rows[dgvTimeDaily.CurrentRow.Index].Cells[0].Value);
+                    var time = db.TimeDailies.Find(id);
+                    db.TimeDailies.Remove(time);
+                    db.SaveChanges();
+                    MessageBox.Show("Đã xóa bản ghi !");
+                    ClearData();
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {

@@ -32,6 +32,11 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgvStation = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StationName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumberConfig = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantities = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LineStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -40,11 +45,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StationName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumberConfig = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantities = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LineStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStation)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -89,6 +89,39 @@
             this.dgvStation.TabIndex = 0;
             this.dgvStation.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvStation_RowHeaderMouseClick);
             // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // StationName
+            // 
+            this.StationName.DataPropertyName = "StationName";
+            this.StationName.HeaderText = "Station Name";
+            this.StationName.Name = "StationName";
+            // 
+            // NumberConfig
+            // 
+            this.NumberConfig.DataPropertyName = "NumberConfig";
+            this.NumberConfig.HeaderText = "Number Config";
+            this.NumberConfig.Name = "NumberConfig";
+            // 
+            // Quantities
+            // 
+            this.Quantities.DataPropertyName = "Quantities";
+            this.Quantities.HeaderText = "Quantities";
+            this.Quantities.Name = "Quantities";
+            this.Quantities.Visible = false;
+            // 
+            // LineStation
+            // 
+            this.LineStation.DataPropertyName = "LineStation";
+            this.LineStation.HeaderText = "LineStation";
+            this.LineStation.Name = "LineStation";
+            this.LineStation.Visible = false;
+            // 
             // btnAddNew
             // 
             this.btnAddNew.Image = ((System.Drawing.Image)(resources.GetObject("btnAddNew.Image")));
@@ -129,6 +162,7 @@
             this.btnRefresh.TabIndex = 6;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnDelete
             // 
@@ -140,6 +174,7 @@
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // txtNumberConfig
             // 
@@ -172,39 +207,6 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            // 
-            // StationName
-            // 
-            this.StationName.DataPropertyName = "StationName";
-            this.StationName.HeaderText = "Station Name";
-            this.StationName.Name = "StationName";
-            // 
-            // NumberConfig
-            // 
-            this.NumberConfig.DataPropertyName = "NumberConfig";
-            this.NumberConfig.HeaderText = "Number Config";
-            this.NumberConfig.Name = "NumberConfig";
-            // 
-            // Quantities
-            // 
-            this.Quantities.DataPropertyName = "Quantities";
-            this.Quantities.HeaderText = "Quantities";
-            this.Quantities.Name = "Quantities";
-            this.Quantities.Visible = false;
-            // 
-            // LineStation
-            // 
-            this.LineStation.DataPropertyName = "LineStation";
-            this.LineStation.HeaderText = "LineStation";
-            this.LineStation.Name = "LineStation";
-            this.LineStation.Visible = false;
             // 
             // frmStation
             // 

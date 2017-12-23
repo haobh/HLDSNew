@@ -20,6 +20,7 @@ namespace UMC.WApp
         {
             InitializeComponent();
             db = new HLDSDbContext();
+            this.WindowState = FormWindowState.Maximized;
         }
 
         public void LoadChartOPT1()
@@ -157,8 +158,8 @@ namespace UMC.WApp
 
             chartOPT1.Series.Clear();
             chartOPT1.DataSource = dt;
-            chartOPT1.ChartAreas[0].AxisX.Title = "Line";
-            chartOPT1.ChartAreas[0].AxisY.Title = "Quantities";
+            //chartOPT1.ChartAreas[0].AxisX.Title = "Line";
+            //chartOPT1.ChartAreas[0].AxisY.Title = "Quantities";
 
             chartOPT1.Series.Add("Total");
             //chartOPT1.Series[0].XValueMember = "ShiftCode";
@@ -168,7 +169,7 @@ namespace UMC.WApp
                 int index = chartOPT1.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
                 if (item.ShiftCode == "Shift A")
                 {
-                    chartOPT1.Series[0].Points[index].Color = Color.Green;
+                    chartOPT1.Series[0].Points[index].Color = Color.DodgerBlue;
                 }
                 if (item.ShiftCode == "Shift B")
                 {
@@ -177,8 +178,14 @@ namespace UMC.WApp
             }
             chartOPT1.Series[0].ChartType = SeriesChartType.Column;
             chartOPT1.Series[0].IsValueShownAsLabel = true;
-            chartOPT1.Series[0].IsVisibleInLegend = true;
-            chartOPT1.Series[0]["PixelPointWidth"] = "30";
+            chartOPT1.Series[0]["LabelStyle"] = "Center";
+            chartOPT1.Series[0]["PointWidth"] = "0.7";
+            chartOPT1.Series[0].IsValueShownAsLabel = true;
+            chartOPT1.Series[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
+            chartOPT1.Series[0]["LabelStyle"] = "Top";
+            chartOPT1.Series[0].LabelBackColor = Color.LightCyan;
+            chartOPT1.Series[0].IsVisibleInLegend = false;
+            chartOPT1.Series[0]["PixelPointWidth"] = "60";
             chartOPT1.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
             chartOPT1.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
             chartOPT1.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
@@ -189,7 +196,8 @@ namespace UMC.WApp
             chartOPT1.Series[1].ChartType = SeriesChartType.Line;
             chartOPT1.Series[1].BorderWidth = 3;
             chartOPT1.Series[1].IsValueShownAsLabel = false;
-            chartOPT1.Series[1].IsVisibleInLegend = true;
+            chartOPT1.Series[1].IsVisibleInLegend = false;
+            chartOPT1.Series[1].Color = Color.Fuchsia;
             chartOPT1.DataBind();
 
             dgvOPT1.DataSource = dtShow;
@@ -329,8 +337,8 @@ namespace UMC.WApp
 
             chartOPT2.Series.Clear();
             chartOPT2.DataSource = dt;
-            chartOPT2.ChartAreas[0].AxisX.Title = "Line";
-            chartOPT2.ChartAreas[0].AxisY.Title = "Quantities";
+            //chartOPT2.ChartAreas[0].AxisX.Title = "Line";
+            //chartOPT2.ChartAreas[0].AxisY.Title = "Quantities";
 
             chartOPT2.Series.Add("Total");
             //chartOPT2.Series[0].XValueMember = "ShiftCode";
@@ -340,7 +348,7 @@ namespace UMC.WApp
                 int index = chartOPT2.Series[0].Points.AddXY(item.ShiftCode, item.TotalQuantities);
                 if (item.ShiftCode == "Shift A")
                 {
-                    chartOPT2.Series[0].Points[index].Color = Color.Green;
+                    chartOPT2.Series[0].Points[index].Color = Color.DodgerBlue;
                 }
                 if (item.ShiftCode == "Shift B")
                 {
@@ -349,11 +357,18 @@ namespace UMC.WApp
             }
             chartOPT2.Series[0].ChartType = SeriesChartType.Column;
             chartOPT2.Series[0].IsValueShownAsLabel = true;
-            chartOPT2.Series[0].IsVisibleInLegend = true;
-            chartOPT2.Series[0]["PixelPointWidth"] = "30";
+            chartOPT2.Series[0]["LabelStyle"] = "Center";
+            chartOPT2.Series[0]["PointWidth"] = "0.7";
+            chartOPT2.Series[0].IsValueShownAsLabel = true;
+            chartOPT2.Series[0].Font = new System.Drawing.Font("Arial", 12, FontStyle.Bold);
+            chartOPT2.Series[0]["LabelStyle"] = "Top";
+            chartOPT2.Series[0].LabelBackColor = Color.LightCyan;
+            chartOPT2.Series[0].IsVisibleInLegend = false;
+            chartOPT2.Series[0]["PixelPointWidth"] = "60";
             chartOPT2.Series[0].ToolTip = "Đây là Tổng số lượng đã làm";
-            chartOPT2.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            chartOPT2.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
             chartOPT2.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Times New Roman", 9, FontStyle.Bold);
+            chartOPT2.ChartAreas[0].AxisX.IsLabelAutoFit = true;
 
             chartOPT2.Series.Add("Rate");
             chartOPT2.Series[1].XValueMember = "ShiftCode";
@@ -361,7 +376,8 @@ namespace UMC.WApp
             chartOPT2.Series[1].ChartType = SeriesChartType.Line;
             chartOPT2.Series[1].BorderWidth = 3;
             chartOPT2.Series[1].IsValueShownAsLabel = false;
-            chartOPT2.Series[1].IsVisibleInLegend = true;
+            chartOPT2.Series[1].IsVisibleInLegend = false;
+            chartOPT2.Series[1].Color = Color.Fuchsia;
             chartOPT2.DataBind();
 
             dgvOPT2.DataSource = dtShow;
@@ -374,7 +390,7 @@ namespace UMC.WApp
             LoadChartOPT2();
 
             tm = new Timer();
-            tm.Interval = 10 * 1000; // 10 seconds
+            tm.Interval = 10000; // 10 seconds
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
         }
@@ -382,9 +398,10 @@ namespace UMC.WApp
         {
             tm.Stop();
             frmReportChart2 frm = new frmReportChart2();
-            frm.MdiParent = frmMain.ActiveForm;
+            //frm.MdiParent = frmMain.ActiveForm;
             frm.Show();
-            this.Hide();
+            tm.Tick -= new EventHandler(tm_Tick);
+            this.Close();
         }
 
         private void frmReportChart3_FormClosing(object sender, FormClosingEventArgs e)

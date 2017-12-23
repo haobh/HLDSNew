@@ -43,39 +43,69 @@ namespace UMC.WApp
             txtT11.Text = "";
             txtT12.Text = "";
         }
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 50, Top = 20, Text = text };
+            TextBox textBox = new TextBox() { Left = 50, Top = 50, Width = 400, UseSystemPasswordChar = true };
+            Button confirmation = new Button() { Text = "Ok", Left = 350, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!string.IsNullOrEmpty(txtT1.Text))
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if (promptValue == "umcvn@123321")
                 {
-                    TimeSettingViewModel timeSettingVm = new TimeSettingViewModel();
-                    timeSettingVm.T1 = int.Parse(txtT1.Text);
-                    timeSettingVm.T2 = int.Parse(txtT2.Text);
-                    timeSettingVm.T3 = int.Parse(txtT3.Text);
-                    timeSettingVm.T4 = int.Parse(txtT4.Text);
-                    timeSettingVm.T5 = int.Parse(txtT5.Text);
-                    timeSettingVm.T6 = int.Parse(txtT6.Text);
-                    timeSettingVm.T7 = int.Parse(txtT7.Text);
-                    timeSettingVm.T8 = int.Parse(txtT8.Text);
-                    timeSettingVm.T9 = int.Parse(txtT9.Text);
-                    timeSettingVm.T10 = int.Parse(txtT10.Text);
-                    timeSettingVm.T11 = int.Parse(txtT11.Text);
-                    timeSettingVm.T12 = int.Parse(txtT12.Text);
+                    if (!string.IsNullOrEmpty(txtT1.Text))
+                    {
+                        TimeSettingViewModel timeSettingVm = new TimeSettingViewModel();
+                        timeSettingVm.T1 = int.Parse(txtT1.Text);
+                        timeSettingVm.T2 = int.Parse(txtT2.Text);
+                        timeSettingVm.T3 = int.Parse(txtT3.Text);
+                        timeSettingVm.T4 = int.Parse(txtT4.Text);
+                        timeSettingVm.T5 = int.Parse(txtT5.Text);
+                        timeSettingVm.T6 = int.Parse(txtT6.Text);
+                        timeSettingVm.T7 = int.Parse(txtT7.Text);
+                        timeSettingVm.T8 = int.Parse(txtT8.Text);
+                        timeSettingVm.T9 = int.Parse(txtT9.Text);
+                        timeSettingVm.T10 = int.Parse(txtT10.Text);
+                        timeSettingVm.T11 = int.Parse(txtT11.Text);
+                        timeSettingVm.T12 = int.Parse(txtT12.Text);
 
-                    TimeSetting newTimeSetting = new TimeSetting();
-                    newTimeSetting.UpdateTimeSetting(timeSettingVm);
-                    db.TimeSettings.Add(newTimeSetting);
-                    db.SaveChanges();
-                    ClearData();
-                    LoadData();
-                    MessageBox.Show("Thêm mới thành công!");
+                        TimeSetting newTimeSetting = new TimeSetting();
+                        newTimeSetting.UpdateTimeSetting(timeSettingVm);
+                        db.TimeSettings.Add(newTimeSetting);
+                        db.SaveChanges();
+                        ClearData();
+                        LoadData();
+                        MessageBox.Show("Thêm mới thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bạn không được để trống dữ liệu", "Error",
+                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Bạn không được để trống dữ liệu", "Error",
-                             MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    MessageBox.Show("Error", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }    
             }
             catch (Exception)
             {
@@ -88,40 +118,49 @@ namespace UMC.WApp
         {
             try
             {
-                if (txtT1.Text != "")
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if (promptValue == "umcvn@123321")
                 {
-                    TimeSettingViewModel timeSettingVm = new TimeSettingViewModel();
-                    timeSettingVm.T1 = int.Parse(txtT1.Text);
-                    timeSettingVm.T2 = int.Parse(txtT2.Text);
-                    timeSettingVm.T3 = int.Parse(txtT3.Text);
-                    timeSettingVm.T4 = int.Parse(txtT4.Text);
-                    timeSettingVm.T5 = int.Parse(txtT5.Text);
-                    timeSettingVm.T6 = int.Parse(txtT6.Text);
-                    timeSettingVm.T7 = int.Parse(txtT7.Text);
-                    timeSettingVm.T8 = int.Parse(txtT8.Text);
-                    timeSettingVm.T9 = int.Parse(txtT9.Text);
-                    timeSettingVm.T10 = int.Parse(txtT10.Text);
-                    timeSettingVm.T11 = int.Parse(txtT11.Text);
-                    timeSettingVm.T12 = int.Parse(txtT12.Text);
+                    if (txtT1.Text != "")
+                    {
+                        TimeSettingViewModel timeSettingVm = new TimeSettingViewModel();
+                        timeSettingVm.T1 = int.Parse(txtT1.Text);
+                        timeSettingVm.T2 = int.Parse(txtT2.Text);
+                        timeSettingVm.T3 = int.Parse(txtT3.Text);
+                        timeSettingVm.T4 = int.Parse(txtT4.Text);
+                        timeSettingVm.T5 = int.Parse(txtT5.Text);
+                        timeSettingVm.T6 = int.Parse(txtT6.Text);
+                        timeSettingVm.T7 = int.Parse(txtT7.Text);
+                        timeSettingVm.T8 = int.Parse(txtT8.Text);
+                        timeSettingVm.T9 = int.Parse(txtT9.Text);
+                        timeSettingVm.T10 = int.Parse(txtT10.Text);
+                        timeSettingVm.T11 = int.Parse(txtT11.Text);
+                        timeSettingVm.T12 = int.Parse(txtT12.Text);
 
-                    var id = Convert.ToInt32(dgvTimeSetting.Rows[dgvTimeSetting.CurrentRow.Index].Cells[0].Value);
-                    timeSettingVm.ID = id;
+                        var id = Convert.ToInt32(dgvTimeSetting.Rows[dgvTimeSetting.CurrentRow.Index].Cells[0].Value);
+                        timeSettingVm.ID = id;
 
-                    TimeSetting newTimeSetting = new TimeSetting();
-                    newTimeSetting.UpdateTimeSetting(timeSettingVm);
+                        TimeSetting newTimeSetting = new TimeSetting();
+                        newTimeSetting.UpdateTimeSetting(timeSettingVm);
 
-                    db.Set<TimeSetting>().AddOrUpdate(newTimeSetting);
-                    db.SaveChanges();
+                        db.Set<TimeSetting>().AddOrUpdate(newTimeSetting);
+                        db.SaveChanges();
 
-                    ClearData();
-                    LoadData();
-                    MessageBox.Show("Cập nhật thành công!");
+                        ClearData();
+                        LoadData();
+                        MessageBox.Show("Cập nhật thành công!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please Select Record to Update", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Please Select Record to Update", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    MessageBox.Show("Error", "Error",
+                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }    
             }
             catch (Exception ex)
             {
@@ -150,13 +189,22 @@ namespace UMC.WApp
         {
             try
             {
-                var id = Convert.ToInt32(dgvTimeSetting.Rows[dgvTimeSetting.CurrentRow.Index].Cells[0].Value);
-                var timeSetting = db.TimeSettings.Find(id);
-                db.TimeSettings.Remove(timeSetting);
-                db.SaveChanges();
-                MessageBox.Show("Đã xóa bản ghi !");
-                ClearData();
-                LoadData();
+                string promptValue = ShowDialog("Please Input Code", "Confirm Code");
+                if (promptValue == "umcvn@123321")
+                {
+                    var id = Convert.ToInt32(dgvTimeSetting.Rows[dgvTimeSetting.CurrentRow.Index].Cells[0].Value);
+                    var timeSetting = db.TimeSettings.Find(id);
+                    db.TimeSettings.Remove(timeSetting);
+                    db.SaveChanges();
+                    MessageBox.Show("Đã xóa bản ghi !");
+                    ClearData();
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("Error", "Error",
+                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }    
             }
             catch (Exception ex)
             {
